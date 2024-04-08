@@ -1,0 +1,16 @@
+{
+  "name": "blissify--wedding-management-system",
+  "private": true,
+  "workspaces": [
+    "main-app/frontend",
+    "vendorsection/frontend", 
+    "eventsection/frontend" 
+  ],
+  "devDependencies": {
+    "lerna": "^7.1.1"
+  },
+  "scripts": {
+    "start": "lerna run start --parallel",
+    "clean": "lerna clean"
+  }
+}
