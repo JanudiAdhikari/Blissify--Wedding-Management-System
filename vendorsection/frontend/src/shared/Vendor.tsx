@@ -1,6 +1,6 @@
 import store from "app/state/store";
 import { Provider } from "react-redux";
-import Vendor from "components/Vendor";
+import Vendor from "../components/Vendor";
 
 function VendorWrapper() {
   return (
