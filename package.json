@@ -1,10 +1,11 @@
 {
-  "name": "blissify--wedding-management-system",
+  "name": "microfrontend-monorepo",
   "private": true,
   "workspaces": [
-    "main-app/frontend",
-    "vendorsection/frontend", 
-    "eventsection/frontend" 
+    "mainapp/frontend",
+    "vendorapp/frontend",
+    "another-app/frontend",
+    "eventapp/frontend"
   ],
   "devDependencies": {
     "lerna": "^7.1.1"
