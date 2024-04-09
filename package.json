@@ -4,7 +4,7 @@
   "workspaces": [
     "mainapp/frontend",
     "vendorapp/frontend",
-    "another-app/frontend",
+    "guestapp/frontend",
     "eventapp/frontend"
   ],
   "devDependencies": {
