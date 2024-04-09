@@ -1,10 +1,10 @@
-import "./App.css";
+import "./VendorApp.css";
 import Todo from "components/Todo";
 
-function App() {
+function VendorApp() {
   return (
     <>
-      <div className="App">
+      <div className="VendorApp">
         <h3>Todo List</h3>
         <Todo />
       </div>
@@ -12,4 +12,4 @@ function App() {
   );
 }
 
-export default App;
+export default VendorApp;
