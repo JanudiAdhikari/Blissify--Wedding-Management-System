@@ -13,7 +13,7 @@ import axios from "axios";
 import AllBookings from "./pages/AllBookings";
 
 function App() {
-   axios.defaults.baseURL = "http://localhost:5000";
+  axios.defaults.baseURL = "http://localhost:5003";
   //Get user details from local storage
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -26,7 +26,10 @@ function App() {
             <Route path="/" element={<Navigate to="/admin" />} />
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/addoccasion" element={<AddOccasion />} />
-            <Route path="/editoccasion/:occasionid" element={<EditOccasion />} />
+            <Route
+              path="/editoccasion/:occasionid"
+              element={<EditOccasion />}
+            />
             <Route path="/allbookings" element={<AllBookings />} />
           </Routes>
         ) : // User Routes
@@ -34,7 +37,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/bookoccasion/:occasionid" element={<BookingOccasion />} />
+            <Route
+              path="/bookoccasion/:occasionid"
+              element={<BookingOccasion />}
+            />
             <Route path="/userbookings" element={<UserBookings />} />
           </Routes>
         ) : (

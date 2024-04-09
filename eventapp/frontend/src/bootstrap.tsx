@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import EventApp from './EventApp';
+// import EventApp from './EventApp';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -20,7 +20,7 @@ root.render(
     <App/> */}
     <Provider store={store}>
     <App />
-    <EventApp />
+    {/* <EventApp /> */}
     </Provider>
   </React.StrictMode>
 );
