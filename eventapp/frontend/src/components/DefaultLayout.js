@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, Button, Dropdown, Space, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { Footer } from "antd/es/layout/layout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function DefaultLayout(props) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -53,14 +54,13 @@ function DefaultLayout(props) {
     },
   ];
 
-
   return (
     <div
       style={{
         overflowX: "hidden",
       }}
     >
-      <div className="header bs1">
+      <div className="header bs2">
         <Row gutter={16} justify="center">
           <Col lg={20} sm={24} xs={24}>
             <div className="d-flex justify-content-between">
@@ -69,7 +69,7 @@ function DefaultLayout(props) {
                   <Link
                     to="/"
                     style={{
-                      color: "darkslategray",
+                      color: "white",
                       letterSpacing: "1.5px",
                       fontSize: "30px",
                       fontFamily: "serif",
@@ -104,11 +104,13 @@ function DefaultLayout(props) {
                   style={{
                     display: "flex",
                     alignItems: "center",
-
+                    color: "white",
+                    fontSize: 15,
                     cursor: "pointer",
                   }}
                 >
-                  <img
+                  <AccountCircleIcon />
+                  {/* <img
                     src="https://res.cloudinary.com/desnqqj6a/image/upload/v1683887268/User-Profile-PNG-High-Quality-Image_mwetdc.png"
                     style={{
                       width: "40px",
@@ -116,7 +118,7 @@ function DefaultLayout(props) {
                       borderRadius: "50%",
                       marginRight: "10px",
                     }}
-                  />
+                  /> */}
                   {user.username}
                 </div>
               </Dropdown>
@@ -125,17 +127,23 @@ function DefaultLayout(props) {
         </Row>
       </div>
       <div className="content">{props.children}</div>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer
+        style={{
+          textAlign: "center",
+          backgroundColor: "#4d1c9c",
+          color: "white",
+        }}
+      >
         Blissify ©2024 Created by {"Blissify Development Team"}
         <span
           style={{
-            color: "darkslategray",
+            color: "#4d1c9c",
             letterSpacing: "1.5px",
             fontSize: "14px",
             fontWeight: "bold",
           }}
         >
-        {/* MyProduct */}
+          {/* MyProduct */}
         </span>
       </Footer>
     </div>

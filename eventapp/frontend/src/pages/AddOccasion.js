@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOccasion } from "../redux/actions/occasionsAction";
 import Spinner from "../components/Spinner";
 
-
-
 function AddOccasion() {
   const [image, setImage] = useState();
   const [category, setCategory] = useState();
@@ -17,7 +15,6 @@ function AddOccasion() {
   const preset_key = "jkwkiav1";
   const cloud_name = "dljyf8xev";
   const uploadURL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
-
 
   // const preset_key = process.env.PRESET_KEY;
   // const cloud_name = process.env.CLOUD_NAME;
@@ -56,7 +53,7 @@ function AddOccasion() {
   return (
     <DefaultLayout>
       {loading && <Spinner />}
-      <Row justify="center" className="mt-5">
+      <Row justify="center" className="mt-5 mb-5">
         <Col lg={16} sm={24}>
           <Form
             className="bs1 p-2"
@@ -64,7 +61,7 @@ function AddOccasion() {
             onFinish={onFinish}
             style={{
               display: "flex",
-              borderRadius: "20px",
+              borderRadius: "5px",
             }}
           >
             <div
@@ -96,22 +93,24 @@ function AddOccasion() {
               </Form.Item>
 
               <Form.Item
-  name="rentPerHour"
-  label="Rent Per Hour (LKR)"
-  rules={[
-    {
-      required: true,
-      validator: (_, value) => {
-        if (value >= 1000) {
-          return Promise.resolve();
-        }
-        return Promise.reject('Rent per hour must be at least 1000.');
-      },
-    },
-  ]}
->
-  <Input type="number" />
-</Form.Item>
+                name="rentPerHour"
+                label="Estimated Budget (LKR)"
+                rules={[
+                  {
+                    required: true,
+                    validator: (_, value) => {
+                      if (value >= 1000) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        "Estimated Budget must be at least 1000."
+                      );
+                    },
+                  },
+                ]}
+              >
+                <Input type="number" />
+              </Form.Item>
               <div
                 style={{
                   display: "flex",
@@ -121,7 +120,7 @@ function AddOccasion() {
               >
                 <Form.Item
                   name="capacity"
-                  label="Capacity"
+                  label="Guests Count"
                   rules={[{ required: true }]}
                 >
                   <Input type="number" />
@@ -129,7 +128,7 @@ function AddOccasion() {
 
                 <Form.Item
                   name="location"
-                  label="location"
+                  label="Location"
                   rules={[{ required: true }]}
                 >
                   <Input />
@@ -144,9 +143,18 @@ function AddOccasion() {
                     onChange={handleChange}
                     options={[
                       { value: "Engagement", label: "Engagement" },
-                      { value: "Bachelor/Bachelorette Party", label: "Bachelor/Bachelorette Party" },
-                      { value: "Main Wedding Ceremony", label: "Main Wedding Ceremony" },
-                      { value: "Home Comming Ceremony", label: "Home Comming Ceremony" },
+                      {
+                        value: "Bachelor/Bachelorette Party",
+                        label: "Bachelor/Bachelorette Party",
+                      },
+                      {
+                        value: "Main Wedding Ceremony",
+                        label: "Main Wedding Ceremony",
+                      },
+                      {
+                        value: "Home Comming Ceremony",
+                        label: "Home Comming Ceremony",
+                      },
                       { value: "Other", label: "Other" },
                     ]}
                   />
@@ -154,10 +162,13 @@ function AddOccasion() {
               </Form.Item>
 
               <div>
+                <br></br>
+                <br></br>
+                <br></br>
                 <button
                   className="btn1"
                   style={{
-                    borderRadius: "10px",
+                    borderRadius: "5px",
                     width: "50%",
                     height: "40px",
                   }}
@@ -175,8 +186,8 @@ function AddOccasion() {
               }}
             >
               <img
-                src="https://lirp.cdn-website.com/28cd0bb4/dms3rep/multi/opt/traditional+american+wedding-1920w.jpeg"
-                style={{ width: "400px", height: "500px" }}
+                src="https://images.pexels.com/photos/1777843/pexels-photo-1777843.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                style={{ width: "100%", height: "100%" }}
               />
             </div>
           </Form>

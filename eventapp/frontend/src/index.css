@@ -17,6 +17,10 @@ code {
 .bs1 {
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
+.bs2 {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  background-color: #0a1e82;
+}
 
 h1 {
   font-size: 30px;
@@ -50,9 +54,9 @@ h1 {
 
 .btn1 {
   box-shadow: none !important;
-  background-color: white !important;
-  color: red !important;
-  border: 1px solid red !important;
+  background-color:#4d1c9c !important;
+  color: rgb(255, 255, 255) !important;
+  border: 1px solid #4d1c9c !important;
   padding: 5px 15px !important;
   outline: none !important;
 }
@@ -103,6 +107,7 @@ p {
   background-color: rgb(238, 238, 238);
   padding-top: 50px;
   min-height: 100vh;
+  background-image: url('https://images.pexels.com/photos/752842/pexels-photo-752842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
 }
 
 .login label,

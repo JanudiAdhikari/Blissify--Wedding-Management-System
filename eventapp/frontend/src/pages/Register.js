@@ -36,13 +36,12 @@ function Register() {
 
       <Row gutter={16} className="d-flex align-items-center">
         <Col lg={16} style={{ position: "relative" }}>
-          
-          <img
-            data-aos="slide-right"
-            data-aos-duration="1500"
-            src="https://c1.wallpaperflare.com/preview/722/258/368/various-marriage-married-wedding.jpg"
-            className="loginimg"
-          />
+          {/* <img
+            // data-aos="slide-right"
+            // data-aos-duration="1500"
+            // src="https://c1.wallpaperflare.com/preview/722/258/368/various-marriage-married-wedding.jpg"
+            // className="loginimg"
+          /> */}
         </Col>
 
         <Col lg={8} className="text-start p-5">
@@ -51,7 +50,7 @@ function Register() {
             className="login-form p-5"
             onFinish={onFinish}
             style={{
-              borderRadius: "20px",
+              borderRadius: "0px",
             }}
           >
             <h1>Register</h1>
@@ -81,10 +80,10 @@ function Register() {
 
             <button
               style={{
-                backgroundColor: "#FF0000",
+                backgroundColor: "#4d1c9c",
                 width: "100%",
                 color: "white",
-                borderRadius: "10px",
+                borderRadius: "5px",
                 padding: "10px",
                 border: "none",
                 marginBottom: "10px",

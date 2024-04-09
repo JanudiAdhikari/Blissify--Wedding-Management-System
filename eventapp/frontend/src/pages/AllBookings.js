@@ -57,7 +57,7 @@ const AllBookings = () => {
     },
 
     {
-      title: "Purchased User",
+      title: "Purchased Couple",
       dataIndex: "username",
       key: "username",
     },
@@ -303,11 +303,7 @@ const AllBookings = () => {
               width: "500px",
             }}
           >
-            <Search
-              placeholder="Search"
-              onChange={onSearch}
-              enterButton
-            />
+            <Search placeholder="Search" onChange={onSearch} enterButton />
           </Space>
         </div>
         <Table

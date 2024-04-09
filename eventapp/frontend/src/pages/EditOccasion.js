@@ -107,7 +107,7 @@ function EditOccasion({ match }) {
             onFinish={onUpdate}
             style={{
               display: "flex",
-              borderRadius: "20px",
+              borderRadius: "5px",
             }}
             initialValues={occasion}
             className="bs1 p-2"
@@ -134,7 +134,7 @@ function EditOccasion({ match }) {
               </Form.Item>
 
               <Form.Item
-                label="Rent Per Hour (LKR)"
+                label="Estimated Budget (LKR)"
                 type="number"
                 rules={[{ required: true }]}
               >
@@ -180,9 +180,18 @@ function EditOccasion({ match }) {
                     value={category}
                     options={[
                       { value: "Engagement", label: "Engagement" },
-                      { value: "Bachelor/Bachelorette Party", label: "Bachelor/Bachelorette Party" },
-                      { value: "Main Wedding Ceremony", label: "Main Wedding Ceremony" },
-                      { value: "Home Comming Ceremony", label: "Home Comming Ceremony" },
+                      {
+                        value: "Bachelor/Bachelorette Party",
+                        label: "Bachelor/Bachelorette Party",
+                      },
+                      {
+                        value: "Main Wedding Ceremony",
+                        label: "Main Wedding Ceremony",
+                      },
+                      {
+                        value: "Home Comming Ceremony",
+                        label: "Home Comming Ceremony",
+                      },
                       { value: "Other", label: "Other" },
                     ]}
                   />
@@ -211,7 +220,7 @@ function EditOccasion({ match }) {
               }}
             >
               <img
-                src="https://static.wixstatic.com/media/20c69c_16e02d3caa1240639e7ac40e92cfbd91~mv2_d_2099_3148_s_2.jpg/v1/fill/w_318,h_479,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/DSC02950-1.jpg"
+                src="https://images.pexels.com/photos/1560303/pexels-photo-1560303.jpeg?auto=compress&cs=tinysrgb&w=600"
                 style={{ width: "400px", height: "600px" }}
               />
             </div>

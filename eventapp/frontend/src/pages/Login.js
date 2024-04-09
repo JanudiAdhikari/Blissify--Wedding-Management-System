@@ -29,23 +29,23 @@ function Login() {
       <Row gutter={16} className="d-flex align-items-center">
         <Col lg={16} style={{ position: "relative" }}>
           <img
-            data-aos="slide-right"
-            data-aos-duration="1500"
-            src="https://images.unsplash.com/photo-1621621667797-e06afc217fb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            className="loginimg"
+          // data-aos="slide-right"
+          // data-aos-duration="1500"
+          // src="https://images.unsplash.com/photo-1621621667797-e06afc217fb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          // className="loginimg"
           />
         </Col>
-
         <Col lg={8} className="text-start p-5">
           <Form
             layout="vertical"
             className="login-form p-5"
             onFinish={onFinish}
             style={{
-              borderRadius: "20px",
+              borderRadius: "0px",
             }}
           >
             <h1>Login</h1>
+            <p>Enter your login credentials again</p>
             <hr />
             <Form.Item
               name="username"
@@ -64,10 +64,11 @@ function Login() {
 
             <button
               style={{
-                backgroundColor: "#FF0000",
+                backgroundColor: "#4d1c9c",
                 width: "100%",
+                // textTransform: "uppercase",
                 color: "white",
-                borderRadius: "10px",
+                borderRadius: "5px",
                 padding: "10px",
                 border: "none",
                 marginBottom: "10px",

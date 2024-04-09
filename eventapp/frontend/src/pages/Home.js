@@ -42,7 +42,9 @@ function Home() {
       if (occasion.bookedTimeSlots.length == 0) {
         //check if the occasion is already in the array
         if (!selectedOccasions.includes(occasion)) {
-          selectedOccasions = selectedOccasions.filter((item) => item !== occasion);
+          selectedOccasions = selectedOccasions.filter(
+            (item) => item !== occasion
+          );
         }
       } else {
         for (var booking of occasion.bookedTimeSlots) {
@@ -64,7 +66,9 @@ function Home() {
               moment(values[1].$d, "MMM DD YYYY HH:mm")
             )
           ) {
-            selectedOccasions = selectedOccasions.filter((item) => item !== occasion);
+            selectedOccasions = selectedOccasions.filter(
+              (item) => item !== occasion
+            );
           }
         }
       }
@@ -116,14 +120,12 @@ function Home() {
     var searchKey = value.target.value;
     setTotaloccasions(occasions);
     filterData(totalOccasions, searchKey.toLowerCase());
-    
   };
 
   //Occasion search function
   const filterData = (totalOccasions, searchKey) => {
     const result = occasions.filter((occasion) =>
       occasion.name.toLowerCase().includes(searchKey)
-      
     );
     setTotaloccasions(result);
   };
@@ -142,11 +144,7 @@ function Home() {
           }}
         >
           <Space direction="vertical">
-            <Search
-              placeholder="Search"
-              onChange={onSearch}
-              enterButton
-            />
+            <Search placeholder="Search" onChange={onSearch} enterButton />
           </Space>
           <Space>
             <Select
@@ -156,9 +154,18 @@ function Home() {
               options={[
                 { value: "All", label: "All" },
                 { value: "Engagement", label: "Engagement" },
-                { value: "Bachelor/Bachelorette Party", label: "Bachelor/Bachelorette Party" },
-                { value: "Main Wedding Ceremony", label: "Main Wedding Ceremony" },
-                { value: "Home Comming Ceremony", label: "Home Comming Ceremony" },
+                {
+                  value: "Bachelor/Bachelorette Party",
+                  label: "Bachelor/Bachelorette Party",
+                },
+                {
+                  value: "Main Wedding Ceremony",
+                  label: "Main Wedding Ceremony",
+                },
+                {
+                  value: "Home Comming Ceremony",
+                  label: "Home Comming Ceremony",
+                },
                 { value: "Other", label: "Other" },
               ]}
             />
@@ -207,7 +214,7 @@ function Home() {
                 actions={[
                   <button
                     style={{
-                      backgroundColor: "#FF0000",
+                      backgroundColor: "#4d1c9c",
                       width: "50%",
                       color: "white",
                       borderRadius: "10px",
@@ -231,7 +238,7 @@ function Home() {
                   title={occasion.name}
                   description={
                     <div>
-                      <p>Per Hour Rent: {occasion.rentPerHour} LKR </p>
+                      <p>Estimated Budget: {occasion.rentPerHour} LKR </p>
 
                       <p>Category: {occasion.category} </p>
                     </div>

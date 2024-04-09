@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteOccasion, getAllOccasions } from "../redux/actions/occasionsAction";
+import {
+  deleteOccasion,
+  getAllOccasions,
+} from "../redux/actions/occasionsAction";
 import Moment from "react-moment";
 import {
   Row,
@@ -13,7 +16,6 @@ import {
   Space,
   Popconfirm,
   Pagination,
-
 } from "antd";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
@@ -21,7 +23,7 @@ import {
   DeleteFilled,
   EditOutlined,
   FileExcelOutlined,
-  PlusCircleOutlined,
+  // PlusCircleOutlined,
 } from "@ant-design/icons";
 import * as FileSaver from "file-saver";
 import XLSX from "sheetjs-style";
@@ -146,15 +148,11 @@ function AdminHome() {
                 width: "500px",
               }}
             >
-              <Search
-                placeholder="Search"
-                onChange={onSearch}
-                enterButton
-              />
+              <Search placeholder="Search" onChange={onSearch} enterButton />
             </Space>
             <button
               style={{
-                backgroundColor: "#FF0000",
+                backgroundColor: "#4d1c9c",
                 color: "white",
                 borderRadius: "10px",
                 padding: "10px",
@@ -172,7 +170,7 @@ function AdminHome() {
                     gap: "10px",
                   }}
                 >
-                  <PlusCircleOutlined />
+                  {/* <PlusCircleOutlined /> */}
                   Add New Event
                 </div>
               </Link>
@@ -198,10 +196,10 @@ function AdminHome() {
           return (
             // <Title>h1. Ant Design</Title>
             <div>
-              
               <Card
                 style={{
                   width: 300,
+                  borderColor: "#4d1c9c",
                   boxShadow:
                     "box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;",
                 }}
@@ -250,7 +248,7 @@ function AdminHome() {
                   title={occasion.name}
                   description={
                     <div>
-                      <p>Per Hour Rent: {occasion.rentPerHour} LKR </p>
+                      <p>Estimated Budget: {occasion.rentPerHour} LKR </p>
 
                       <p>Category: {occasion.category} </p>
                     </div>
@@ -258,11 +256,10 @@ function AdminHome() {
                 />
               </Card>
             </div>
-          
-          );   
+          );
         })}
       </div>
-      
+
       <Pagination
         style={{
           marginTop: "50px",
@@ -273,9 +270,7 @@ function AdminHome() {
         onChange={handlePaginationChange}
       />
     </DefaultLayout>
-
   );
-
 }
 
 export default AdminHome;

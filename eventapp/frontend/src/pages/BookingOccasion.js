@@ -159,7 +159,7 @@ function BookingOccasion({ match }) {
                 {occasion.location}
               </p>
               <p>
-                <strong>Maximum Capacity: </strong>
+                <strong>Guest Count: </strong>
                 {occasion.capacity} Persons
               </p>
             </div>
@@ -186,7 +186,7 @@ function BookingOccasion({ match }) {
                 marginBottom: "10px",
               }}
             >
-              Explore More
+              Confirm
             </button>
             <Modal
               title="Time Slots"
@@ -225,7 +225,7 @@ function BookingOccasion({ match }) {
                   Total Hours : <b>{totalHours}</b>
                 </p>
                 <p>
-                  Rent Per Hour : <b>{occasion.rentPerHour} LKR</b>
+                  Estimated Budget : <b>{occasion.rentPerHour} LKR</b>
                 </p>
                 <Checkbox
                   style={{ marginBottom: "20px" }}
@@ -237,7 +237,7 @@ function BookingOccasion({ match }) {
                     }
                   }}
                 >
-                  Driver Required
+                  Additional Event Manager(s) Required
                 </Checkbox>
 
                 <p
@@ -255,7 +255,7 @@ function BookingOccasion({ match }) {
                 <button
                   onClick={bookNow}
                   style={{
-                    backgroundColor: "#FF0000",
+                    backgroundColor: "#4d1c9c",
                     color: "white",
                     borderRadius: "10px",
                     padding: "7px 40px",
@@ -263,7 +263,7 @@ function BookingOccasion({ match }) {
                     marginTop: "20px",
                   }}
                 >
-                  Book Now
+                  Confirm Now
                 </button>
               </div>
             )}
