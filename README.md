@@ -6,11 +6,11 @@ To run this application naviagte to root directory and run npm start command.
 
 Contributors
 
-- Sadeesha : Perera RLSB
-- Ashika : Ridimahaliyadda AK
-- Chamika : Wijenarayana CH
-- Janudi : Adhikari AAJT
-- Dilsha : De Silva KDL
-- Sunera : Weerakkody WSS
-- Amandi : Wickramarathna ACS
-- Nethum : Rathninda RGSNC
+1. Sadeesha : Perera RLSB
+1. Ashika : Ridimahaliyadda AK
+1. Chamika : Wijenarayana CH
+1. Janudi : Adhikari AAJT
+1. Dilsha : De Silva KDL
+1. Sunera : Weerakkody WSS
+1. Amandi : Wickramarathna ACS
+1. Nethum : Rathninda RGSNC
