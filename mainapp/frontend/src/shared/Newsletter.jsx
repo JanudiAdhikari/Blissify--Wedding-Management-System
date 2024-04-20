@@ -20,9 +20,8 @@ const Newsletter = () => {
                 <button className="btn newsletter_btn">Subcribe</button>
               </div>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Laboriosam maiores laudantium aspernatur. Perferendis, qui
-                maiores.
+                Stay in the loop with the latest wedding trends, expert tips,
+                and exclusive offers by subscribing to our newsletter
               </p>
             </div>
           </Col>
