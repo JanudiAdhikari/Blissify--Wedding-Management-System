@@ -13,7 +13,7 @@ const Banner = () => {
       autoPlay={true}
       autoPlaySpeed={4000}
       keyBoardControl={true}
-      showDots={true}
+      // showDots={true}
       slidesToSlide={1}
       customTransition="all .5"
       containerClass="carousel-container"

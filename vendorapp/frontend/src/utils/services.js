@@ -1,4 +1,4 @@
-import image1 from "../assets/bannerimages/Catering1.png";
+import image1 from "../assets/bannerimages/floral.png";
 import image2 from "../assets/bannerimages/photography2.png";
 import image3 from "../assets/bannerimages/catering2.png";
 import image4 from "../assets/bannerimages/carRenting.png";

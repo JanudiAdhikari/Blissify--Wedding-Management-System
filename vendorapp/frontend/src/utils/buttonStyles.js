@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Button } from '@mui/material';
+import styled from "styled-components";
+import { Button } from "@mui/material";
 
 export const RedButton = styled(Button)`
   && {
@@ -109,6 +109,16 @@ export const IndigoButton = styled(Button)`
       background-color: #534ea6;
       bbooking-color: #473d90;
       box-shadow: none;
+    }
+  }
+`;
+
+export const NormalButton = styled(Button)`
+  && {
+    background-color: #ffff;
+    color: #8970dc;
+    &:hover {
+      background-color: #f0f0f0;
     }
   }
 `;
