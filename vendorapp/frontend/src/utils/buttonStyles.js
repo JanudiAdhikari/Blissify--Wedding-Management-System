@@ -31,6 +31,7 @@ export const DarkRedButton = styled(Button)`
   && {
     background-color: #650909;
     color: white;
+    margin: 5px 10px;
     &:hover {
       background-color: #eb7979;
       bbooking-color: #f26767;
@@ -42,6 +43,7 @@ export const DarkRedButton = styled(Button)`
 export const BlueButton = styled(Button)`
   && {
     background-color: #080a43;
+    margin: 5px 10px;
     color: #fff;
     &:hover {
       background-color: #0a1e82;

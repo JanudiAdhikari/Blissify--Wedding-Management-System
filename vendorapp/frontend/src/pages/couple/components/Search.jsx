@@ -47,7 +47,7 @@ const SearchContainer = styled(Box)`
   width: 38%;
   background-color: #fff;
   display: flex;
-  border: 1px solid #4d1c9c;
+  border: 1px solid #8970dc;
 `;
 
 const SearchIconWrapper = styled(Box)`

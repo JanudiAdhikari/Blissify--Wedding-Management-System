@@ -98,7 +98,7 @@ const Invoice = ({ setIsInvoiceOpen }) => {
             setIsInvoiceOpen(false);
           }}
         >
-          <KeyboardDoubleArrowLeftIcon /> Continue Shopping
+          <KeyboardDoubleArrowLeftIcon /> Continue Browsing
         </LightPurpleButton>
         {invoiceDetails.length > 0 && (
           <IconButton
@@ -176,7 +176,9 @@ const Invoice = ({ setIsInvoiceOpen }) => {
             </Grid>
           ))}
           <StyledPaper ref={priceContainerRef}>
-            <Title>PRICE DETAILS</Title>
+            <Title>
+              <center>PRICE DETAILS</center>
+            </Title>
             <Divider sx={{ my: 1 }} />
             <DetailsContainer>
               Price ({totalQuantity} items) = LKR {totalOGPrice}
@@ -206,6 +208,7 @@ const Invoice = ({ setIsInvoiceOpen }) => {
             variant="contained"
             color="success"
             onClick={handleScrollToBottom}
+            size="small"
           >
             View Bill
           </Button>
@@ -213,6 +216,7 @@ const Invoice = ({ setIsInvoiceOpen }) => {
             variant="contained"
             color="error"
             onClick={handleRemoveAllFromInvoice}
+            size="small"
           >
             Remove All
           </Button>
@@ -247,6 +251,7 @@ const StyledPaper = styled(Paper)`
   padding: 26px;
   display: flex;
   margin-top: 2rem;
+  margin-bottom: 2rem;
   flex-direction: column;
   height: 30vh;
 `;

@@ -307,7 +307,7 @@ const Navbar = () => {
                 >
                   <Badge badgeContent={totalQuantity} color="error">
                     <ReceiptLongIcon
-                      sx={{ fontSize: "2rem", color: "#8970dc" }}
+                      sx={{ fontSize: "2rem", color: "#919191" }}
                     />
                   </Badge>
                 </IconButton>
@@ -322,7 +322,7 @@ const Navbar = () => {
                   aria-expanded={open ? "true" : undefined}
                 >
                   <Avatar
-                    sx={{ width: 32, height: 32, backgroundColor: "#8970dc" }}
+                    sx={{ width: 32, height: 32, backgroundColor: "#4d1c9c" }}
                   >
                     {String(currentUser.name).charAt(0)}
                   </Avatar>

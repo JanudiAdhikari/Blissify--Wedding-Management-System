@@ -123,12 +123,13 @@ const DealText = styled(Typography)`
 // `;
 const ViewAllNormalButton = styled(Button)`
   margin-left: auto;
-  color: #4d1c9c;
-  background-color: #ffff;
+  color: #000;
+  background-color: #f0f0f0;
   bbooking-radius: 2px;
   font-size: 13px;
+  font-weight: 600;
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #ffff;
   }
 `;
 

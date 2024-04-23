@@ -7,35 +7,49 @@ const VendorProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
-    <ProfileContainer>
-      <ProfileHeader elevation={3}>
-        <ProfileAvatar>
-          <h1>{currentUser ? currentUser.name[0].toUpperCase() : ""}</h1>
-        </ProfileAvatar>
-        <ProfileName variant="h4">
-          {currentUser ? currentUser.name : ""}
-        </ProfileName>
-        <ProfileText variant="h6">
-          Email : {currentUser ? currentUser.email : ""}
-        </ProfileText>
-        <ProfileText variant="h6">
-          Role : {currentUser ? currentUser.role : ""}
-        </ProfileText>
-        <ProfileText variant="h6">
-          Shop Name : {currentUser ? currentUser.shopName : ""}
-        </ProfileText>
-      </ProfileHeader>
-    </ProfileContainer>
+    <Container>
+      <h1>
+        <center>Your Profile</center>
+      </h1>
+      <ProfileContainer>
+        <ProfileHeader elevation={3}>
+          <ProfileAvatar>
+            <h1>{currentUser ? currentUser.name[0].toUpperCase() : ""}</h1>
+          </ProfileAvatar>
+          <ProfileName variant="h5">
+            {currentUser ? currentUser.name : ""}
+          </ProfileName>
+          <ProfileText variant="h6">
+            Email : {currentUser ? currentUser.email : ""}
+          </ProfileText>
+          <ProfileText variant="h6">
+            Role : {currentUser ? currentUser.role : ""}
+          </ProfileText>
+          <ProfileText variant="h6">
+            Shop Name : {currentUser ? currentUser.shopName : ""}
+          </ProfileText>
+        </ProfileHeader>
+      </ProfileContainer>
+    </Container>
   );
 };
 
 export default VendorProfile;
+
+const Container = styled.section`
+  margin-top: 50px;
+  // background: url(https://images.pexels.com/photos/1166644/pexels-photo-1166644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+`;
 
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  justify-content: center;
+  margin-top: 100px;
 `;
 
 const ProfileHeader = styled(Paper)`
