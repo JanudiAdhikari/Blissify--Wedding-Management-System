@@ -14,7 +14,7 @@
 .content h1 {
   font-size: 2.5rem;
   color: #fff;
-  margin-top: 4rem;
+  margin-top: 2.5rem;
   text-align: center;
   font-weight: 700;
 }
@@ -23,7 +23,7 @@
   font-size: 1.2rem;
   color: #fff;
   margin-top: 1rem;
-  text-align: center;
+  text-align: left;
 }
 
 .slider{
@@ -85,6 +85,7 @@ h6 {
     color: var(--text-color);
     margin-top: 1rem;
     margin-left: 2rem;
+    text-align: left;
 }
 
 .ContactUs_form{

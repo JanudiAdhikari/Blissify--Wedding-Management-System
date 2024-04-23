@@ -1,6 +1,7 @@
 .common_section {
-  background: linear-gradient(rgba(57, 114, 220, 0.45), rgba(0, 0, 0, 0.45)),
-    url("../assets/images/tour.jpg") no-repeat center center;
+  /* background: linear-gradient(rgba(57, 114, 220, 0.45), rgba(0, 0, 0, 0.45)), */
+  background:
+    url(https://www.treehousehotels.in/uploads/desktop/Treehouse+Wildlife+Wedding+Banner[1].jpg) no-repeat center center;
     height: 300px;
     display: flex;
     background-size: cover;

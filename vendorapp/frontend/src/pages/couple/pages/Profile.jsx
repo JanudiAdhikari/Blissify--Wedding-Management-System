@@ -1,37 +1,50 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { Paper, Typography, Avatar, Container } from '@mui/material';
-import ShippingPage from '../components/ShippingPage';
+import React from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { Paper, Typography, Avatar, Container } from "@mui/material";
+import ShippingPage from "../components/ShippingPage";
 
 const Profile = () => {
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <React.Fragment>
       <ProfileContainer>
+        <h2
+          style={{
+            marginBottom: "20px",
+            marginTop: "30px",
+            fontWeight: "300",
+          }}
+        >
+          Your Profile
+        </h2>
         <ProfileHeader elevation={3}>
           <ProfileAvatar>
-            <h1>
-              {currentUser ? currentUser.name[0].toUpperCase() : ''}
-            </h1>
+            <h1>{currentUser ? currentUser.name[0].toUpperCase() : ""}</h1>
           </ProfileAvatar>
-          <ProfileName variant="h4">
-            {currentUser ? currentUser.name : ''}
+          <ProfileName variant="h5">
+            {currentUser ? currentUser.name : ""}
           </ProfileName>
           <ProfileText variant="h6">
-            Email : {currentUser ? currentUser.email : ''}
+            Email : {currentUser ? currentUser.email : ""}
           </ProfileText>
           <ProfileText variant="h6">
-            Role : {currentUser ? currentUser.role : ''}
+            {currentUser ? currentUser.role : ""}
           </ProfileText>
         </ProfileHeader>
+        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+          <ProfileHeader
+            variant="outlined"
+            sx={{
+              my: { xs: 3, md: 6 },
+              p: { xs: 2, md: 3 },
+            }}
+          >
+            <ShippingPage profile="Profile" />
+          </ProfileHeader>
+        </Container>
       </ProfileContainer>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <ProfileHeader variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          <ShippingPage profile="Profile" />
-        </ProfileHeader>
-      </Container>
     </React.Fragment>
   );
 };
@@ -43,6 +56,9 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background: url(https://images.pexels.com/photos/3342697/pexels-photo-3342697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 const ProfileHeader = styled(Paper)`
