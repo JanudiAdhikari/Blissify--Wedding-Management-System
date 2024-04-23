@@ -82,7 +82,7 @@ const AddedToInvoiceSection = () => {
             align="center"
             sx={{ marginBottom: "25px" }}
           >
-            Services List
+            List of Services
           </Typography>
 
           <TableTemplate
