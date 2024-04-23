@@ -20,6 +20,7 @@ import VendorHomePage from "./pages/VendorHomePage";
 import AccountMenu from "./components/AccountMenu";
 import ShowServices from "./pages/ShowServices";
 import ShowBookings from "./pages/ShowBookings";
+import ViewCalendar from "./pages/ViewCalendar";
 import ViewServiceVendor from "./pages/ViewServiceVendor";
 import AddService from "./pages/AddService";
 import { useSelector } from "react-redux";
@@ -186,6 +187,8 @@ const VendorDashboard = () => {
               path="/Vendor/bookings/service/:id"
               element={<ViewServiceVendor />}
             />
+
+            <Route path="/Vendor/viewcalendar" element={<ViewCalendar />} />
 
             <Route path="/logout" element={<Logout />} />
           </Routes>
