@@ -23,7 +23,7 @@ export default function Toggler({ toast }) {
               <h1>Welcome back!</h1>
               <p>Enter your personal details to use all of site features</p>
               <button className="hidden bt" id="login" onClick={signIn}>
-                Sign In
+                Login
               </button>
             </div>
             <div className="toggle-panel right">
@@ -32,7 +32,7 @@ export default function Toggler({ toast }) {
                 Register with your personal details to use all of site features
               </p>
               <button className="hidden bt" id="egister" onClick={signUp}>
-                Sign Up
+                Sign In
               </button>
             </div>
           </div>

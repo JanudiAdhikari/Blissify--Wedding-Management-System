@@ -100,7 +100,7 @@ const Todo = ({ toast, todo, setTodo }) => {
           className="todo-ip"
           placeholder="New Remainder"
         />
-        <button id="add-todo">ADD </button>
+        <button id="add-todo">+ ADD</button>
       </form>
       <div className="item-list" data-aos="zoom-out">
         <ul>

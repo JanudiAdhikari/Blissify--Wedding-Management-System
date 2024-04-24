@@ -29,7 +29,7 @@
   text-transform: capitalize;
   border-radius: 30px;
   color: var(--text);
-  background-color: var(--nav);
+  background-color: #f4f4f4;
 }
 .but-div {
   display: flex;
@@ -76,6 +76,7 @@
 }
 #note-title {
   padding: 2px 5px;
+  text-align: center;
   background-color: var(--nav);
   border-top: 2px solid var(--bg);
   color: var(--text);
