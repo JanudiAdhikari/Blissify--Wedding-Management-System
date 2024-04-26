@@ -1,36 +1,47 @@
-import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { useEffect, useState } from "react";
+import {
+  IconButton,
+  Box,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Tooltip,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../../redux/userRelated/userHandle';
-import { getAllStablees } from '../../../redux/stableRelated/stableHandle';
-import { BlueButton, GreenButton } from '../../../components/buttonStyles';
-import TableTemplate from '../../../components/TableTemplate';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteUser } from "../../../redux/userRelated/userHandle";
+import { getAllStablees } from "../../../redux/stableRelated/stableHandle";
+import { BlueButton, GreenButton } from "../../../components/buttonStyles";
+import TableTemplate from "../../../components/TableTemplate";
 
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import AddCardIcon from '@mui/icons-material/AddCard';
-import styled from 'styled-components';
-import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
-import Popup from '../../../components/Popup';
+import { Dialog, DialogTitle } from "@mui/material";
+
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import AddCardIcon from "@mui/icons-material/AddCard";
+import styled from "styled-components";
+import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
+import Popup from "../../../components/Popup";
 
 const ShowTablees = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { stableesList, loading, error, getresponse } = useSelector((state) => state.stable);
-  const { currentUser } = useSelector(state => state.user)
+  const { stableesList, loading, error, getresponse } = useSelector(
+    (state) => state.stable
+  );
+  const { currentUser } = useSelector((state) => state.user);
 
-  const adminID = currentUser._id
+  const adminID = currentUser._id;
 
   useEffect(() => {
     dispatch(getAllStablees(adminID, "Stable"));
   }, [adminID, dispatch]);
 
   if (error) {
-    console.log(error)
+    console.log(error);
   }
 
   const [showPopup, setShowPopup] = useState(false);
@@ -40,37 +51,50 @@ const ShowTablees = () => {
     console.log(deleteID);
     console.log(address);
     // setMessage("Sorry the delete function has been disabled for now.")
-    setShowPopup(true)
-    dispatch(deleteUser(deleteID, address))
-      .then(() => {
-        dispatch(getAllStablees(adminID, "Stable"));
-        setMessage("Deleted Successfully");
-      })
-  }
+    setShowPopup(true);
+    dispatch(deleteUser(deleteID, address)).then(() => {
+      dispatch(getAllStablees(adminID, "Stable"));
+      setMessage("Deleted Successfully");
+    });
+  };
 
-  const stableColumns = [
-    { id: 'name', label: 'Table Name', minWidth: 170 },
-  ]
+  const stableColumns = [{ id: "name", label: "Table Name", minWidth: 170 }];
 
-  const stableRows = stableesList && stableesList.length > 0 && stableesList.map((stable) => {
-    return {
-      name: stable.stableName,
-      id: stable._id,
-    };
-  })
+  const stableRows =
+    stableesList &&
+    stableesList.length > 0 &&
+    stableesList.map((stable) => {
+      return {
+        name: stable.stableName,
+        id: stable._id,
+      };
+    });
 
   const StableButtonHaver = ({ row }) => {
     const actions = [
-      { icon: <PostAddIcon />, name: 'Add Notes', action: () => navigate("/Admin/addnote/" + row.id) },
-      { icon: <PersonAddAlt1Icon />, name: 'Add Guest', action: () => navigate("/Admin/table/addguests/" + row.id) },
+      {
+        icon: <PostAddIcon />,
+        name: "Add Notes",
+        action: () => navigate("/Admin/addnote/" + row.id),
+      },
+      {
+        icon: <PersonAddAlt1Icon />,
+        name: "Add Guest",
+        action: () => navigate("/Admin/table/addguests/" + row.id),
+      },
     ];
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Stable")} color="secondary">
+        <IconButton
+          onClick={() => deleteHandler(row.id, "Stable")}
+          color="secondary"
+        >
           <DeleteIcon color="error" />
         </IconButton>
-        <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/tablees/table/" + row.id)}>
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/tablees/table/" + row.id)}
+        >
           View
         </BlueButton>
         <ActionMenu actions={actions} />
@@ -91,15 +115,17 @@ const ShowTablees = () => {
     };
     return (
       <>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
+        >
           <Tooltip title="Add Guests & Notes">
             <IconButton
               onClick={handleClick}
               size="small"
               sx={{ ml: 2 }}
-              aria-controls={open ? 'account-menu' : undefined}
+              aria-controls={open ? "account-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={open ? "true" : undefined}
             >
               <h5>Add</h5>
               <SpeedDialIcon />
@@ -116,56 +142,78 @@ const ShowTablees = () => {
             elevation: 0,
             sx: styles.styledPaper,
           }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           {actions.map((action) => (
             <MenuItem onClick={action.action}>
-              <ListItemIcon fontSize="small">
-                {action.icon}
-              </ListItemIcon>
+              <ListItemIcon fontSize="small">{action.icon}</ListItemIcon>
               {action.name}
             </MenuItem>
           ))}
         </Menu>
       </>
     );
-  }
+  };
 
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Table',
-      action: () => navigate("/Admin/addtable")
+      icon: <AddCardIcon color="primary" />,
+      name: "Add New Table",
+      action: () => navigate("/Admin/addtable"),
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Tablees',
-      action: () => deleteHandler(adminID, "Stablees")
+      icon: <DeleteIcon color="error" />,
+      name: "Delete All Tablees",
+      action: () => deleteHandler(adminID, "Stablees"),
     },
   ];
 
   return (
     <>
-      {loading ?
-        <div>Loading...</div>
-        :
+      {loading ? (
+        <div>
+          {" "}
+          <Dialog open={true}>
+            <DialogTitle>Loading</DialogTitle>
+          </Dialog>
+        </div>
+      ) : (
         <>
-          {getresponse ?
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              <GreenButton variant="contained" onClick={() => navigate("/Admin/addtable")}>
+          {getresponse ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "16px",
+              }}
+            >
+              <GreenButton
+                variant="contained"
+                onClick={() => navigate("/Admin/addtable")}
+              >
                 Add Table
               </GreenButton>
             </Box>
-            :
+          ) : (
             <>
-              {Array.isArray(stableesList) && stableesList.length > 0 &&
-                <TableTemplate buttonHaver={StableButtonHaver} columns={stableColumns} rows={stableRows} />
-              }
+              {Array.isArray(stableesList) && stableesList.length > 0 && (
+                <TableTemplate
+                  buttonHaver={StableButtonHaver}
+                  columns={stableColumns}
+                  rows={stableRows}
+                />
+              )}
               <SpeedDialTemplate actions={actions} />
-            </>}
+            </>
+          )}
         </>
-      }
-      <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-
+      )}
+      <Popup
+        message={message}
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+      />
     </>
   );
 };
@@ -174,29 +222,29 @@ export default ShowTablees;
 
 const styles = {
   styledPaper: {
-    overflow: 'visible',
-    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+    overflow: "visible",
+    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
     mt: 1.5,
-    '& .MuiAvatar-root': {
+    "& .MuiAvatar-root": {
       width: 32,
       height: 32,
       ml: -0.5,
       mr: 1,
     },
-    '&:before': {
+    "&:before": {
       content: '""',
-      display: 'block',
-      position: 'absolute',
+      display: "block",
+      position: "absolute",
       top: 0,
       right: 14,
       width: 10,
       height: 10,
-      bgcolor: 'background.paper',
-      transform: 'translateY(-50%) rotate(45deg)',
+      bgcolor: "background.paper",
+      transform: "translateY(-50%) rotate(45deg)",
       zIndex: 0,
     },
-  }
-}
+  },
+};
 
 const ButtonContainer = styled.div`
   display: flex;

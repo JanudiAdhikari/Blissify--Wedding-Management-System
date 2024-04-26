@@ -1,106 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Grid, Paper, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux';
-import { calculateOverallAttendancePercentage } from '../../components/attendanceCalculator';
-import CustomPieChart from '../../components/CustomPieChart';
-import { getUserDetails } from '../../redux/userRelated/userHandle';
-import styled from 'styled-components';
-import SeeNotice from '../../components/SeeNotice';
-import CountUp from 'react-countup';
+import React, { useEffect, useState } from "react";
+import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Dialog, DialogTitle } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { calculateOverallAttendancePercentage } from "../../components/attendanceCalculator";
+import CustomPieChart from "../../components/CustomPieChart";
+import { getUserDetails } from "../../redux/userRelated/userHandle";
+import styled from "styled-components";
+import SeeNotice from "../../components/SeeNotice";
+import CountUp from "react-countup";
 import Note from "../../assets/subjects.svg";
 import Assignment from "../../assets/assignment.svg";
-import { getNoteList } from '../../redux/stableRelated/stableHandle';
+import { getNoteList } from "../../redux/stableRelated/stableHandle";
 
 const GuestHomePage = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const { userDetails, currentUser, loading, response } = useSelector((state) => state.user);
-    const { notesList } = useSelector((state) => state.stable);
+  const { userDetails, currentUser, loading, response } = useSelector(
+    (state) => state.user
+  );
+  const { notesList } = useSelector((state) => state.stable);
 
-    const [noteAttendance, setNoteAttendance] = useState([]);
+  const [noteAttendance, setNoteAttendance] = useState([]);
 
-    const tableID = currentUser.stableName._id
+  const tableID = currentUser.stableName._id;
 
-    useEffect(() => {
-        dispatch(getUserDetails(currentUser._id, "Guest"));
-        dispatch(getNoteList(tableID, "TableNotes"));
-    }, [dispatch, currentUser._id, tableID]);
+  useEffect(() => {
+    dispatch(getUserDetails(currentUser._id, "Guest"));
+    dispatch(getNoteList(tableID, "TableNotes"));
+  }, [dispatch, currentUser._id, tableID]);
 
-    const numberOfNotes = notesList && notesList.length;
+  const numberOfNotes = notesList && notesList.length;
 
-    useEffect(() => {
-        if (userDetails) {
-            setNoteAttendance(userDetails.attendance || []);
-        }
-    }, [userDetails])
+  useEffect(() => {
+    if (userDetails) {
+      setNoteAttendance(userDetails.attendance || []);
+    }
+  }, [userDetails]);
 
-    const overallAttendancePercentage = calculateOverallAttendancePercentage(noteAttendance);
-    const overallAbsentPercentage = 100 - overallAttendancePercentage;
+  const overallAttendancePercentage =
+    calculateOverallAttendancePercentage(noteAttendance);
+  const overallAbsentPercentage = 100 - overallAttendancePercentage;
 
-    const chartData = [
-        { name: 'Present', value: overallAttendancePercentage },
-        { name: 'Absent', value: overallAbsentPercentage }
-    ];
-    return (
-        <>
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
-                            <img src={Note} alt="Notes" />
-                            <Title>
-                                Total Notes
-                            </Title>
-                            <Data start={0} end={numberOfNotes} duration={2.5} />
-                        </StyledPaper>
-                    </Grid>
-                    <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
-                            <img src={Assignment} alt="Assignments" />
-                            <Title>
-                                Total Assignments
-                            </Title>
-                            <Data start={0} end={15} duration={4} />
-                        </StyledPaper>
-                    </Grid>
-                    <Grid item xs={12} md={4} lg={3}>
-                        <ChartContainer>
-                            {
-                                response ?
-                                    <Typography variant="h6">No Attendance Found</Typography>
-                                    :
-                                    <>
-                                        {loading
-                                            ? (
-                                                <Typography variant="h6">Loading...</Typography>
-                                            )
-                                            :
-                                            <>
-                                                {
-                                                    noteAttendance && Array.isArray(noteAttendance) && noteAttendance.length > 0 ? (
-                                                        <>
-                                                            <CustomPieChart data={chartData} />
-                                                        </>
-                                                    )
-                                                        :
-                                                        <Typography variant="h6">No Attendance Found</Typography>
-                                                }
-                                            </>
-                                        }
-                                    </>
-                            }
-                        </ChartContainer>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <SeeNotice />
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
-        </>
-    )
-}
+  const chartData = [
+    { name: "Present", value: overallAttendancePercentage },
+    { name: "Absent", value: overallAbsentPercentage },
+  ];
+  return (
+    <>
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={3} lg={3}>
+            <StyledPaper>
+              <img src={Note} alt="Notes" />
+              <Title>Total Notes</Title>
+              <Data start={0} end={numberOfNotes} duration={2.5} />
+            </StyledPaper>
+          </Grid>
+          <Grid item xs={12} md={3} lg={3}>
+            <StyledPaper>
+              <img src={Assignment} alt="Assignments" />
+              <Title>Total Assignments</Title>
+              <Data start={0} end={15} duration={4} />
+            </StyledPaper>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <ChartContainer>
+              {response ? (
+                <Typography variant="h6">No Attendance Found</Typography>
+              ) : (
+                <>
+                  {loading ? (
+                    // <Typography variant="h6">Loading...</Typography>
+                    <Dialog open={true}>
+                      <DialogTitle>Loading</DialogTitle>
+                    </Dialog>
+                  ) : (
+                    <>
+                      {noteAttendance &&
+                      Array.isArray(noteAttendance) &&
+                      noteAttendance.length > 0 ? (
+                        <>
+                          <CustomPieChart data={chartData} />
+                        </>
+                      ) : (
+                        <Typography variant="h6">
+                          No Attendance Found
+                        </Typography>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+            </ChartContainer>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <SeeNotice />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+};
 
 const ChartContainer = styled.div`
   padding: 2px;
@@ -127,10 +129,8 @@ const Title = styled.p`
 `;
 
 const Data = styled(CountUp)`
-  font-size: calc(1.3rem + .6vw);
+  font-size: calc(1.3rem + 0.6vw);
   color: green;
 `;
 
-
-
-export default GuestHomePage
+export default GuestHomePage;
