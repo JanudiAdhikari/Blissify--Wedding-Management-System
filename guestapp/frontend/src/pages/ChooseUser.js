@@ -66,6 +66,15 @@ const ChooseUser = ({ visitor }) => {
       } else {
         navigate("/Couplelogin");
       }
+    } else if (user === "FinanceManager") {
+      if (visitor === "guest") {
+        const email = "ash@12";
+        const fields = { email, password };
+        setLoader(true);
+        dispatch(loginUser(fields, user));
+      } else {
+        navigate("/FinanceManagerlogin");
+      }
     }
   };
 
@@ -79,6 +88,8 @@ const ChooseUser = ({ visitor }) => {
         navigate("/Vendor/dashboard");
       } else if (currentRole === "Couple") {
         navigate("/Couple/dashboard");
+      } else if (currentRole === "FinanceManager") {
+        navigate("/FinanceManager/dashboard");
       }
     } else if (status === "error") {
       setLoader(false);
@@ -89,79 +100,81 @@ const ChooseUser = ({ visitor }) => {
 
   return (
     <StyledContainer>
-      <Container>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler("Admin")}>
+      <StyledContainer1>
+        <Container>
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item xs={12} sm={6} md={4}>
+              <div onClick={() => navigateHandler("Admin")}>
+                <StyledPaper elevation={3}>
+                  <Box mb={2}>
+                    <AccountCircle fontSize="large" />
+                  </Box>
+                  <StyledTypography>Event Manager</StyledTypography>
+                  Login as an Event Manager to manage events and more.
+                </StyledPaper>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
               <StyledPaper elevation={3}>
-                <Box mb={2}>
-                  <AccountCircle fontSize="large" />
-                </Box>
-                <StyledTypography>Event Manager</StyledTypography>
-                Login as an Event Manager to manage events and more.
+                <div onClick={() => navigateHandler("Guest")}>
+                  <Box mb={2}>
+                    <Person fontSize="large" />
+                  </Box>
+                  <StyledTypography>Guest</StyledTypography>
+                  Login as a Guest to explore all event related details.
+                </div>
               </StyledPaper>
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Guest")}>
-                <Box mb={2}>
-                  <Person fontSize="large" />
-                </Box>
-                <StyledTypography>Guest</StyledTypography>
-                Login as a Guest to explore all event related details.
-              </div>
-            </StyledPaper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Vendor")}>
-                <Box mb={2}>
-                  <Group fontSize="large" />
-                </Box>
-                <StyledTypography>Vendor</StyledTypography>
-                Login as a Vendor to manage Services and track guests.
-              </div>
-            </StyledPaper>
-          </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <StyledPaper elevation={3}>
+                <div onClick={() => navigateHandler("Vendor")}>
+                  <Box mb={2}>
+                    <Group fontSize="large" />
+                  </Box>
+                  <StyledTypography>Vendor</StyledTypography>
+                  Login as a Vendor to manage Services and track guests.
+                </div>
+              </StyledPaper>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Couple")}>
-                <Box mb={2}>
-                  <Group fontSize="large" />
-                </Box>
-                <StyledTypography>Couple</StyledTypography>
-                Login as a Couple to manage your memorable day.
-              </div>
-            </StyledPaper>
-          </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <StyledPaper elevation={3}>
+                <div onClick={() => navigateHandler("Couple")}>
+                  <Box mb={2}>
+                    <Group fontSize="large" />
+                  </Box>
+                  <StyledTypography>Couple</StyledTypography>
+                  Login as a Couple to manage your memorable day.
+                </div>
+              </StyledPaper>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("FinanceManager")}>
-                <Box mb={2}>
-                  <AttachMoneyIcon fontSize="large" />
-                </Box>
-                <StyledTypography>Finance Manager</StyledTypography>
-                Login as a Finance Manager to manage expenses and incomes.
-              </div>
-            </StyledPaper>
+            <Grid item xs={12} sm={6} md={4}>
+              <StyledPaper elevation={3}>
+                <div onClick={() => navigateHandler("FinanceManager")}>
+                  <Box mb={2}>
+                    <AttachMoneyIcon fontSize="large" />
+                  </Box>
+                  <StyledTypography>Finance Manager</StyledTypography>
+                  Login as a Finance Manager to manage budget.
+                </div>
+              </StyledPaper>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loader}
-      >
-        <CircularProgress color="inherit" />
-        Please Wait
-      </Backdrop>
-      <Popup
-        message={message}
-        setShowPopup={setShowPopup}
-        showPopup={showPopup}
-      />
+        </Container>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+          Please Wait
+        </Backdrop>
+        <Popup
+          message={message}
+          setShowPopup={setShowPopup}
+          showPopup={showPopup}
+        />
+      </StyledContainer1>
     </StyledContainer>
   );
 };
@@ -175,6 +188,12 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 2rem;
+`;
+
+const StyledContainer1 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledPaper = styled(Paper)`

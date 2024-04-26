@@ -110,6 +110,11 @@ const LoginPage = ({ role }) => {
       const fields = { email, password };
       setGuestLoader(true);
       dispatch(loginUser(fields, role));
+    } else if (role === "FinanceManager") {
+      const email = "ash@12";
+      const fields = { email, password };
+      setGuestLoader(true);
+      dispatch(loginUser(fields, role));
     }
   };
 
@@ -123,6 +128,8 @@ const LoginPage = ({ role }) => {
         navigate("/Vendor/dashboard");
       } else if (currentRole === "Couple") {
         navigate("/Couple/dashboard");
+      } else if (currentRole === "FinanceManager") {
+        navigate("/FinanceManager/dashboard");
       }
     } else if (status === "failed") {
       setMessage(response);

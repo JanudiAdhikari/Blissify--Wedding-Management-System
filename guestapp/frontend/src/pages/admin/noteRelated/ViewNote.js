@@ -109,7 +109,7 @@ const ViewNote = () => {
             navigate(`/Admin/note/guest/marks/${row.id}/${noteID}`)
           }
         >
-          Provide Marks
+          Oblige
         </PurpleButton>
       </>
     );
@@ -232,7 +232,7 @@ const ViewNote = () => {
               navigate("/Admin/vendors/addvendor/" + noteDetails._id)
             }
           >
-            Add Note Vendor
+            Assign Vendor
           </GreenButton>
         )}
       </>

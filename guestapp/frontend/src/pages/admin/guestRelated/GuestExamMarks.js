@@ -160,7 +160,7 @@ const GuestExamMarks = ({ situation }) => {
                   <FormControl>
                     <TextField
                       type="number"
-                      label="Enter marks"
+                      label="Obligation from Couple"
                       value={marksObtained}
                       required
                       onChange={(e) => setMarksObtained(e.target.value)}

@@ -254,9 +254,19 @@ const ViewStdAttendance = () => {
             </>
           ) : (
             <>
-              <Typography variant="h6" gutterBottom component="div">
+              {/* <Typography variant="h6" gutterBottom component="div">
                 Currently You Have No Attendance Details
-              </Typography>
+              </Typography> */}
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+              >
+                <Typography variant="h6" gutterBottom component="div">
+                  Currently You Have No Attendance Details
+                </Typography>
+              </Box>
             </>
           )}
         </div>

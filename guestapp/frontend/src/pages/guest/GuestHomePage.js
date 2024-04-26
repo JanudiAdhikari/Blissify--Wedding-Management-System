@@ -8,8 +8,8 @@ import { getUserDetails } from "../../redux/userRelated/userHandle";
 import styled from "styled-components";
 import SeeNotice from "../../components/SeeNotice";
 import CountUp from "react-countup";
-import Note from "../../assets/subjects.svg";
-import Assignment from "../../assets/assignment.svg";
+import Note from "../../assets/feedback.png";
+import Assignment from "../../assets/complain.png";
 import { getNoteList } from "../../redux/stableRelated/stableHandle";
 
 const GuestHomePage = () => {
@@ -51,15 +51,15 @@ const GuestHomePage = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>
             <StyledPaper>
-              <img src={Note} alt="Notes" />
-              <Title>Total Notes</Title>
+              <img src={Note} alt="Notes" width="30%" />
+              <Title>Total Preferences</Title>
               <Data start={0} end={numberOfNotes} duration={2.5} />
             </StyledPaper>
           </Grid>
           <Grid item xs={12} md={3} lg={3}>
             <StyledPaper>
-              <img src={Assignment} alt="Assignments" />
-              <Title>Total Assignments</Title>
+              <img src={Assignment} alt="Assignments" width="30%" />
+              <Title>Total Complains</Title>
               <Data start={0} end={15} duration={4} />
             </StyledPaper>
           </Grid>
@@ -94,7 +94,13 @@ const GuestHomePage = () => {
             </ChartContainer>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <SeeNotice />
             </Paper>
           </Grid>

@@ -54,7 +54,7 @@ const VendorTableDetails = () => {
   });
 
   const GuestsButtonHaver = ({ row }) => {
-    const options = ["Take Attendance", "Provide Marks"];
+    const options = ["Take Attendance", "Oblige"];
 
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
