@@ -1,11 +1,17 @@
 {
-  "name": "blissify--wedding-management-system",
-  "version": "1.0.0",
-  "description": "SLIIT 2nd year second semester ITP module project using MERN stack technology for a wedding management system.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "microfrontend-monorepo",
+  "private": true,
+  "workspaces": [
+    "mainapp/frontend",
+    "vendorapp/frontend",
+    "guestapp/frontend",
+    "eventapp/frontend"
+  ],
+  "devDependencies": {
+    "lerna": "^7.1.1"
   },
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "start": "lerna run start --parallel",
+    "clean": "lerna clean"
+  }
 }
