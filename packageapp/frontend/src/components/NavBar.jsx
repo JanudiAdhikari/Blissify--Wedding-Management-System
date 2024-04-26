@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React , { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 
@@ -31,9 +31,9 @@ useEffect(() => {
 
 const navItems =[
     {link:"Home",path:"/"},
-    {link:"About",path:"/about"},
+    {link:"Admin",path:"/admin/dashboard"},
     {link:"Packages",path:"/package"},
-    {link:"Contact Us",path:"/contactus"},
+    
 
 ]
 
@@ -42,7 +42,7 @@ return (
     <nav className={`py-4 lg:px-24 px-4${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300":""}`}>
        <div className='flex justify-between items-center text-base gap-8'>
             {/*logo*/}
-            <Link to="/" className='text-2xl font-bold text-blue-700 flex items-center gap-2'>Blissfy</Link>
+            <Link to="/" className='text-5xl font-bold text-blue-700 flex items-center gap-2'>Blissfy</Link>
 
             {/*nav items for large devices*/}
             

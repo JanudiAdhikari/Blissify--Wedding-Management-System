@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SinglePackage = () => {
+const Dashboard = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const SinglePackage = () => {
   )
 }
 
-export default SinglePackage
+export default Dashboard
