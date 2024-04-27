@@ -8,9 +8,9 @@ import { getUserDetails } from "../../redux/userRelated/userHandle";
 import styled from "styled-components";
 import SeeNotice from "../../components/SeeNotice";
 import CountUp from "react-countup";
-import Note from "../../assets/feedback.png";
+import Preference from "../../assets/feedback.png";
 import Assignment from "../../assets/complain.png";
-import { getNoteList } from "../../redux/stableRelated/stableHandle";
+import { getPreferenceList } from "../../redux/stableRelated/stableHandle";
 
 const GuestHomePage = () => {
   const dispatch = useDispatch();
@@ -18,27 +18,27 @@ const GuestHomePage = () => {
   const { userDetails, currentUser, loading, response } = useSelector(
     (state) => state.user
   );
-  const { notesList } = useSelector((state) => state.stable);
+  const { preferencesList } = useSelector((state) => state.stable);
 
-  const [noteAttendance, setNoteAttendance] = useState([]);
+  const [preferenceAttendance, setPreferenceAttendance] = useState([]);
 
   const tableID = currentUser.stableName._id;
 
   useEffect(() => {
     dispatch(getUserDetails(currentUser._id, "Guest"));
-    dispatch(getNoteList(tableID, "TableNotes"));
+    dispatch(getPreferenceList(tableID, "TablePreferences"));
   }, [dispatch, currentUser._id, tableID]);
 
-  const numberOfNotes = notesList && notesList.length;
+  const numberOfPreferences = preferencesList && preferencesList.length;
 
   useEffect(() => {
     if (userDetails) {
-      setNoteAttendance(userDetails.attendance || []);
+      setPreferenceAttendance(userDetails.attendance || []);
     }
   }, [userDetails]);
 
   const overallAttendancePercentage =
-    calculateOverallAttendancePercentage(noteAttendance);
+    calculateOverallAttendancePercentage(preferenceAttendance);
   const overallAbsentPercentage = 100 - overallAttendancePercentage;
 
   const chartData = [
@@ -51,9 +51,9 @@ const GuestHomePage = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>
             <StyledPaper>
-              <img src={Note} alt="Notes" width="30%" />
+              <img src={Preference} alt="Preferences" width="30%" />
               <Title>Total Preferences</Title>
-              <Data start={0} end={numberOfNotes} duration={2.5} />
+              <Data start={0} end={numberOfPreferences} duration={2.5} />
             </StyledPaper>
           </Grid>
           <Grid item xs={12} md={3} lg={3}>
@@ -76,9 +76,9 @@ const GuestHomePage = () => {
                     </Dialog>
                   ) : (
                     <>
-                      {noteAttendance &&
-                      Array.isArray(noteAttendance) &&
-                      noteAttendance.length > 0 ? (
+                      {preferenceAttendance &&
+                      Array.isArray(preferenceAttendance) &&
+                      preferenceAttendance.length > 0 ? (
                         <>
                           <CustomPieChart data={chartData} />
                         </>

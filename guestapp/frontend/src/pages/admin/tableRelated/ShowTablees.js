@@ -74,8 +74,8 @@ const ShowTablees = () => {
     const actions = [
       {
         icon: <PostAddIcon />,
-        name: "Add Notes",
-        action: () => navigate("/Admin/addnote/" + row.id),
+        name: "Add Preferences",
+        action: () => navigate("/Admin/addpreference/" + row.id),
       },
       {
         icon: <PersonAddAlt1Icon />,
@@ -118,7 +118,7 @@ const ShowTablees = () => {
         <Box
           sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
         >
-          <Tooltip title="Add Guests & Notes">
+          <Tooltip title="Add Guests & Preferences">
             <IconButton
               onClick={handleClick}
               size="small"
@@ -198,11 +198,13 @@ const ShowTablees = () => {
           ) : (
             <>
               {Array.isArray(stableesList) && stableesList.length > 0 && (
-                <TableTemplate
-                  buttonHaver={StableButtonHaver}
-                  columns={stableColumns}
-                  rows={stableRows}
-                />
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={StableButtonHaver}
+                    columns={stableColumns}
+                    rows={stableRows}
+                  />
+                </div>
               )}
               <SpeedDialTemplate actions={actions} />
             </>

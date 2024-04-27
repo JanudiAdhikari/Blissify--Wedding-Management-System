@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const Guest = require("../models/guestSchema.js");
-const Note = require("../models/noteSchema.js");
+const Preference = require("../models/preferenceSchema.js");
 
 const guestRegister = async (req, res) => {
   try {
@@ -150,7 +150,7 @@ const updateGuest = async (req, res) => {
 };
 
 const updateExamResult = async (req, res) => {
-  const { subName, marksObtained } = req.body;
+  const { subName, obligesObtained } = req.body;
 
   try {
     const guest = await Guest.findById(req.params.id);
@@ -164,9 +164,9 @@ const updateExamResult = async (req, res) => {
     );
 
     if (existingResult) {
-      existingResult.marksObtained = marksObtained;
+      existingResult.obligesObtained = obligesObtained;
     } else {
-      guest.examResult.push({ subName, marksObtained });
+      guest.examResult.push({ subName, obligesObtained });
     }
 
     const result = await guest.save();
@@ -186,7 +186,7 @@ const guestAttendance = async (req, res) => {
       return res.send({ message: "Guest not found" });
     }
 
-    const note = await Note.findById(subName);
+    const preference = await Preference.findById(subName);
 
     const existingAttendance = guest.attendance.find(
       (a) =>
@@ -202,7 +202,7 @@ const guestAttendance = async (req, res) => {
         (a) => a.subName.toString() === subName
       ).length;
 
-      if (attendedSessions >= note.sessions) {
+      if (attendedSessions >= preference.sessions) {
         return res.send({ message: "Maximum attendance limit reached" });
       }
 
@@ -216,7 +216,7 @@ const guestAttendance = async (req, res) => {
   }
 };
 
-const clearAllGuestsAttendanceByNote = async (req, res) => {
+const clearAllGuestsAttendanceByPreference = async (req, res) => {
   const subName = req.params.id;
 
   try {
@@ -245,7 +245,7 @@ const clearAllGuestsAttendance = async (req, res) => {
   }
 };
 
-const removeGuestAttendanceByNote = async (req, res) => {
+const removeGuestAttendanceByPreference = async (req, res) => {
   const guestId = req.params.id;
   const subName = req.body.subId;
 
@@ -288,8 +288,8 @@ module.exports = {
   deleteGuestsByTable,
   updateExamResult,
 
-  clearAllGuestsAttendanceByNote,
+  clearAllGuestsAttendanceByPreference,
   clearAllGuestsAttendance,
-  removeGuestAttendanceByNote,
+  removeGuestAttendanceByPreference,
   removeGuestAttendance,
 };

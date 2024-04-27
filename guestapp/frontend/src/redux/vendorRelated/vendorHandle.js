@@ -37,19 +37,20 @@ export const getVendorDetails = (id) => async (dispatch) => {
   }
 };
 
-export const updateTeachNote = (vendorId, teachNote) => async (dispatch) => {
-  dispatch(getRequest());
+export const updateTeachPreference =
+  (vendorId, teachPreference) => async (dispatch) => {
+    dispatch(getRequest());
 
-  try {
-    await axios.put(
-      `${REACT_APP_BASE_URL}/VendorNote`,
-      { vendorId, teachNote },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    dispatch(postDone());
-  } catch (error) {
-    dispatch(getError(error));
-  }
-};
+    try {
+      await axios.put(
+        `${REACT_APP_BASE_URL}/VendorPreference`,
+        { vendorId, teachPreference },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dispatch(postDone());
+    } catch (error) {
+      dispatch(getError(error));
+    }
+  };

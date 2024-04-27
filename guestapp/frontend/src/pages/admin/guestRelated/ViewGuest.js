@@ -6,7 +6,7 @@ import {
   updateUser,
 } from "../../../redux/userRelated/userHandle";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNoteList } from "../../../redux/stableRelated/stableHandle";
+import { getPreferenceList } from "../../../redux/stableRelated/stableHandle";
 import {
   Box,
   Button,
@@ -39,8 +39,8 @@ import {
 } from "../../../redux/guestRelated/guestHandle";
 import {
   calculateOverallAttendancePercentage,
-  calculateNoteAttendancePercentage,
-  groupAttendanceByNote,
+  calculatePreferenceAttendancePercentage,
+  groupAttendanceByPreference,
 } from "../../../components/attendanceCalculator";
 import CustomBarChart from "../../../components/CustomBarChart";
 import CustomPieChart from "../../../components/CustomPieChart";
@@ -75,7 +75,9 @@ const ViewGuest = () => {
       userDetails.stableName &&
       userDetails.stableName._id !== undefined
     ) {
-      dispatch(getNoteList(userDetails.stableName._id, "TableNotes"));
+      dispatch(
+        getPreferenceList(userDetails.stableName._id, "TablePreferences")
+      );
     }
   }, [dispatch, userDetails]);
 
@@ -90,8 +92,8 @@ const ViewGuest = () => {
   const [password, setPassword] = useState("");
   const [stableName, setStableName] = useState("");
   const [guestEvent, setGuestEvent] = useState("");
-  const [noteMarks, setNoteMarks] = useState("");
-  const [noteAttendance, setNoteAttendance] = useState([]);
+  const [preferenceObliges, setPreferenceObliges] = useState("");
+  const [preferenceAttendance, setPreferenceAttendance] = useState([]);
 
   const [openStates, setOpenStates] = useState({});
 
@@ -125,8 +127,8 @@ const ViewGuest = () => {
       setRollNum(userDetails.rollNum || "");
       setStableName(userDetails.stableName || "");
       setGuestEvent(userDetails.event || "");
-      setNoteMarks(userDetails.examResult || "");
-      setNoteAttendance(userDetails.attendance || []);
+      setPreferenceObliges(userDetails.examResult || "");
+      setPreferenceAttendance(userDetails.attendance || []);
     }
   }, [userDetails]);
 
@@ -166,7 +168,7 @@ const ViewGuest = () => {
   };
 
   const overallAttendancePercentage =
-    calculateOverallAttendancePercentage(noteAttendance);
+    calculateOverallAttendancePercentage(preferenceAttendance);
   const overallAbsentPercentage = 100 - overallAttendancePercentage;
 
   const chartData = [
@@ -174,20 +176,18 @@ const ViewGuest = () => {
     { name: "Absent", value: overallAbsentPercentage },
   ];
 
-  const noteData = Object.entries(groupAttendanceByNote(noteAttendance)).map(
-    ([subName, { subCode, present, sessions }]) => {
-      const noteAttendancePercentage = calculateNoteAttendancePercentage(
-        present,
-        sessions
-      );
-      return {
-        note: subName,
-        attendancePercentage: noteAttendancePercentage,
-        totalTablees: sessions,
-        attendedTablees: present,
-      };
-    }
-  );
+  const preferenceData = Object.entries(
+    groupAttendanceByPreference(preferenceAttendance)
+  ).map(([subName, { subCode, present, sessions }]) => {
+    const preferenceAttendancePercentage =
+      calculatePreferenceAttendancePercentage(present, sessions);
+    return {
+      preference: subName,
+      attendancePercentage: preferenceAttendancePercentage,
+      totalTablees: sessions,
+      attendedTablees: present,
+    };
+  });
 
   const GuestAttendanceSection = () => {
     const renderTableSection = () => {
@@ -197,112 +197,105 @@ const ViewGuest = () => {
           <Table>
             <TableHead>
               <StyledTableRow>
-                <StyledTableCell>Note</StyledTableCell>
+                <StyledTableCell>Preference</StyledTableCell>
                 <StyledTableCell>Present</StyledTableCell>
-                <StyledTableCell>Total Sessions</StyledTableCell>
+                <StyledTableCell>Total Event Sessions</StyledTableCell>
                 <StyledTableCell>Attendance Percentage</StyledTableCell>
                 <StyledTableCell align="center">Actions</StyledTableCell>
               </StyledTableRow>
             </TableHead>
-            {Object.entries(groupAttendanceByNote(noteAttendance)).map(
-              ([subName, { present, allData, subId, sessions }], index) => {
-                const noteAttendancePercentage =
-                  calculateNoteAttendancePercentage(present, sessions);
-                return (
-                  <TableBody key={index}>
-                    <StyledTableRow>
-                      <StyledTableCell>{subName}</StyledTableCell>
-                      <StyledTableCell>{present}</StyledTableCell>
-                      <StyledTableCell>{sessions}</StyledTableCell>
-                      <StyledTableCell>
-                        {noteAttendancePercentage}%
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        <Button
-                          variant="contained"
-                          onClick={() => handleOpen(subId)}
-                        >
-                          {openStates[subId] ? (
-                            <KeyboardArrowUp />
-                          ) : (
-                            <KeyboardArrowDown />
-                          )}
-                          Details
-                        </Button>
-                        <IconButton onClick={() => removeSubAttendance(subId)}>
-                          <DeleteIcon color="error" />
-                        </IconButton>
-                        <Button
-                          variant="contained"
-                          sx={styles.attendanceButton}
-                          onClick={() =>
-                            navigate(
-                              `/Admin/note/guest/attendance/${guestID}/${subId}`
-                            )
-                          }
-                        >
-                          Change
-                        </Button>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                    <StyledTableRow>
-                      <StyledTableCell
-                        style={{ paddingBottom: 0, paddingTop: 0 }}
-                        colSpan={6}
+            {Object.entries(
+              groupAttendanceByPreference(preferenceAttendance)
+            ).map(([subName, { present, allData, subId, sessions }], index) => {
+              const preferenceAttendancePercentage =
+                calculatePreferenceAttendancePercentage(present, sessions);
+              return (
+                <TableBody key={index}>
+                  <StyledTableRow>
+                    <StyledTableCell>{subName}</StyledTableCell>
+                    <StyledTableCell>{present}</StyledTableCell>
+                    <StyledTableCell>{sessions}</StyledTableCell>
+                    <StyledTableCell>
+                      {preferenceAttendancePercentage}%
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button
+                        variant="contained"
+                        onClick={() => handleOpen(subId)}
                       >
-                        <Collapse
-                          in={openStates[subId]}
-                          timeout="auto"
-                          unmountOnExit
-                        >
-                          <Box sx={{ margin: 1 }}>
-                            <Typography
-                              variant="h6"
-                              gutterBottom
-                              component="div"
-                            >
-                              Attendance Details
-                            </Typography>
-                            <Table size="small" aria-label="purchases">
-                              <TableHead>
-                                <StyledTableRow>
-                                  <StyledTableCell>Date</StyledTableCell>
-                                  <StyledTableCell align="right">
-                                    Status
-                                  </StyledTableCell>
-                                </StyledTableRow>
-                              </TableHead>
-                              <TableBody>
-                                {allData.map((data, index) => {
-                                  const date = new Date(data.date);
-                                  const dateString =
-                                    date.toString() !== "Invalid Date"
-                                      ? date.toISOString().substring(0, 10)
-                                      : "Invalid Date";
-                                  return (
-                                    <StyledTableRow key={index}>
-                                      <StyledTableCell
-                                        component="th"
-                                        scope="row"
-                                      >
-                                        {dateString}
-                                      </StyledTableCell>
-                                      <StyledTableCell align="right">
-                                        {data.status}
-                                      </StyledTableCell>
-                                    </StyledTableRow>
-                                  );
-                                })}
-                              </TableBody>
-                            </Table>
-                          </Box>
-                        </Collapse>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  </TableBody>
-                );
-              }
-            )}
+                        {openStates[subId] ? (
+                          <KeyboardArrowUp />
+                        ) : (
+                          <KeyboardArrowDown />
+                        )}
+                        Details
+                      </Button>
+                      <IconButton onClick={() => removeSubAttendance(subId)}>
+                        <DeleteIcon color="error" />
+                      </IconButton>
+                      <Button
+                        variant="contained"
+                        sx={styles.attendanceButton}
+                        onClick={() =>
+                          navigate(
+                            `/Admin/preference/guest/attendance/${guestID}/${subId}`
+                          )
+                        }
+                      >
+                        Change
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                  <StyledTableRow>
+                    <StyledTableCell
+                      style={{ paddingBottom: 0, paddingTop: 0 }}
+                      colSpan={6}
+                    >
+                      <Collapse
+                        in={openStates[subId]}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        <Box sx={{ margin: 1 }}>
+                          <Typography variant="h6" gutterBottom component="div">
+                            Attendance Details
+                          </Typography>
+                          <Table size="small" aria-label="purchases">
+                            <TableHead>
+                              <StyledTableRow>
+                                <StyledTableCell>Date</StyledTableCell>
+                                <StyledTableCell align="right">
+                                  Status
+                                </StyledTableCell>
+                              </StyledTableRow>
+                            </TableHead>
+                            <TableBody>
+                              {allData.map((data, index) => {
+                                const date = new Date(data.date);
+                                const dateString =
+                                  date.toString() !== "Invalid Date"
+                                    ? date.toISOString().substring(0, 10)
+                                    : "Invalid Date";
+                                return (
+                                  <StyledTableRow key={index}>
+                                    <StyledTableCell component="th" scope="row">
+                                      {dateString}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                      {data.status}
+                                    </StyledTableCell>
+                                  </StyledTableRow>
+                                );
+                              })}
+                            </TableBody>
+                          </Table>
+                        </Box>
+                      </Collapse>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                </TableBody>
+              );
+            })}
           </Table>
           <div>
             Overall Attendance Percentage:{" "}
@@ -331,15 +324,18 @@ const ViewGuest = () => {
     const renderChartSection = () => {
       return (
         <>
-          <CustomBarChart chartData={noteData} dataKey="attendancePercentage" />
+          <CustomBarChart
+            chartData={preferenceData}
+            dataKey="attendancePercentage"
+          />
         </>
       );
     };
     return (
       <>
-        {noteAttendance &&
-        Array.isArray(noteAttendance) &&
-        noteAttendance.length > 0 ? (
+        {preferenceAttendance &&
+        Array.isArray(preferenceAttendance) &&
+        preferenceAttendance.length > 0 ? (
           <>
             {selectedSection === "table" && renderTableSection()}
             {selectedSection === "chart" && renderChartSection()}
@@ -393,27 +389,27 @@ const ViewGuest = () => {
     );
   };
 
-  const GuestMarksSection = () => {
+  const GuestObligesSection = () => {
     const renderTableSection = () => {
       return (
         <>
-          <h3>Note Marks:</h3>
+          <h3>Obligations</h3>
           <Table>
             <TableHead>
               <StyledTableRow>
-                <StyledTableCell>Note</StyledTableCell>
-                <StyledTableCell>Marks</StyledTableCell>
+                <StyledTableCell>Preference</StyledTableCell>
+                <StyledTableCell>Obligation</StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {noteMarks.map((result, index) => {
-                if (!result.subName || !result.marksObtained) {
+              {preferenceObliges.map((result, index) => {
+                if (!result.subName || !result.obligesObtained) {
                   return null;
                 }
                 return (
                   <StyledTableRow key={index}>
                     <StyledTableCell>{result.subName.subName}</StyledTableCell>
-                    <StyledTableCell>{result.marksObtained}</StyledTableCell>
+                    <StyledTableCell>{result.obligesObtained}</StyledTableCell>
                   </StyledTableRow>
                 );
               })}
@@ -422,9 +418,9 @@ const ViewGuest = () => {
           <Button
             variant="contained"
             sx={styles.styledButton}
-            onClick={() => navigate("/Admin/guests/guest/marks/" + guestID)}
+            onClick={() => navigate("/Admin/guests/guest/obliges/" + guestID)}
           >
-            Add Marks
+            Add Obligation
           </Button>
         </>
       );
@@ -432,13 +428,18 @@ const ViewGuest = () => {
     const renderChartSection = () => {
       return (
         <>
-          <CustomBarChart chartData={noteMarks} dataKey="marksObtained" />
+          <CustomBarChart
+            chartData={preferenceObliges}
+            dataKey="obligesObtained"
+          />
         </>
       );
     };
     return (
       <>
-        {noteMarks && Array.isArray(noteMarks) && noteMarks.length > 0 ? (
+        {preferenceObliges &&
+        Array.isArray(preferenceObliges) &&
+        preferenceObliges.length > 0 ? (
           <>
             {selectedSection === "table" && renderTableSection()}
             {selectedSection === "chart" && renderChartSection()}
@@ -481,9 +482,9 @@ const ViewGuest = () => {
           <Button
             variant="contained"
             sx={styles.styledButton}
-            onClick={() => navigate("/Admin/guests/guest/marks/" + guestID)}
+            onClick={() => navigate("/Admin/guests/guest/obliges/" + guestID)}
           >
-            Add Marks
+            Add Obligation
           </Button>
         )}
       </>
@@ -500,9 +501,11 @@ const ViewGuest = () => {
         Table: {stableName.stableName}
         <br />
         Event: {guestEvent.eventName}
-        {noteAttendance &&
-          Array.isArray(noteAttendance) &&
-          noteAttendance.length > 0 && <CustomPieChart data={chartData} />}
+        {preferenceAttendance &&
+          Array.isArray(preferenceAttendance) &&
+          preferenceAttendance.length > 0 && (
+            <CustomPieChart data={chartData} />
+          )}
         <Button
           variant="contained"
           sx={styles.styledButton}
@@ -567,6 +570,7 @@ const ViewGuest = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   onChange={handleChange}
+                  centered
                   sx={{
                     position: "fixed",
                     width: "100%",
@@ -576,7 +580,7 @@ const ViewGuest = () => {
                 >
                   <Tab label="Details" value="1" />
                   <Tab label="Attendance" value="2" />
-                  <Tab label="Marks" value="3" />
+                  <Tab label="Obligation" value="3" />
                 </TabList>
               </Box>
               <Container sx={{ marginTop: "3rem", marginBottom: "4rem" }}>
@@ -587,7 +591,7 @@ const ViewGuest = () => {
                   <GuestAttendanceSection />
                 </TabPanel>
                 <TabPanel value="3">
-                  <GuestMarksSection />
+                  <GuestObligesSection />
                 </TabPanel>
               </Container>
             </TabContext>

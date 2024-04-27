@@ -56,7 +56,9 @@ const SeeNotice = () => {
           </Dialog>
         </div>
       ) : response ? (
-        <div style={{ fontSize: "20px" }}>No Notices to Show Right Now</div>
+        <div style={{ fontSize: "20px", textAlign: "center" }}>
+          No Notices to Show Right Now
+        </div>
       ) : (
         <>
           <h3

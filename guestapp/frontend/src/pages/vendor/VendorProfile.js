@@ -13,7 +13,7 @@ const VendorProfile = () => {
   }
 
   const teachStable = currentUser.teachStable;
-  const teachNote = currentUser.teachNote;
+  const teachPreference = currentUser.teachPreference;
   const teachEvent = currentUser.event;
 
   return (
@@ -28,7 +28,7 @@ const VendorProfile = () => {
               <br />
               <ProfileText>Email: {currentUser.email}</ProfileText>
               <ProfileText>Table: {teachStable.stableName}</ProfileText>
-              <ProfileText>Note: {teachNote.subName}</ProfileText>
+              <ProfileText>Preference: {teachPreference.subName}</ProfileText>
               <ProfileText>Event: {teachEvent.eventName}</ProfileText>
             </ProfileCardContent>
           </ProfileCard>

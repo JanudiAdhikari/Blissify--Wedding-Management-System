@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   getTableGuests,
-  getNoteDetails,
+  getPreferenceDetails,
 } from "../../../redux/stableRelated/stableHandle";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,19 +31,19 @@ import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 
-const ViewNote = () => {
+const ViewPreference = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const { subloading, noteDetails, stableGuests, getresponse, error } =
+  const { subloading, preferenceDetails, stableGuests, getresponse, error } =
     useSelector((state) => state.stable);
 
-  const { tableID, noteID } = params;
+  const { tableID, preferenceID } = params;
 
   useEffect(() => {
-    dispatch(getNoteDetails(noteID, "Note"));
+    dispatch(getPreferenceDetails(preferenceID, "Preference"));
     dispatch(getTableGuests(tableID));
-  }, [dispatch, noteID, tableID]);
+  }, [dispatch, preferenceID, tableID]);
 
   if (error) {
     console.log(error);
@@ -85,7 +85,9 @@ const ViewNote = () => {
         <PurpleButton
           variant="contained"
           onClick={() =>
-            navigate(`/Admin/note/guest/attendance/${row.id}/${noteID}`)
+            navigate(
+              `/Admin/preference/guest/attendance/${row.id}/${preferenceID}`
+            )
           }
         >
           Take Attendance
@@ -94,7 +96,7 @@ const ViewNote = () => {
     );
   };
 
-  const GuestsMarksButtonHaver = ({ row }) => {
+  const GuestsObligesButtonHaver = ({ row }) => {
     return (
       <>
         <BlueButton
@@ -106,7 +108,9 @@ const ViewNote = () => {
         <PurpleButton
           variant="contained"
           onClick={() =>
-            navigate(`/Admin/note/guest/marks/${row.id}/${noteID}`)
+            navigate(
+              `/Admin/preference/guest/obliges/${row.id}/${preferenceID}`
+            )
           }
         >
           Oblige
@@ -115,7 +119,7 @@ const ViewNote = () => {
     );
   };
 
-  const NoteGuestsSection = () => {
+  const PreferenceGuestsSection = () => {
     return (
       <>
         {getresponse ? (
@@ -142,18 +146,22 @@ const ViewNote = () => {
             </Typography>
 
             {selectedSection === "attendance" && (
-              <TableTemplate
-                buttonHaver={GuestsAttendanceButtonHaver}
-                columns={guestColumns}
-                rows={guestRows}
-              />
+              <div style={{ margin: "50px" }}>
+                <TableTemplate
+                  buttonHaver={GuestsAttendanceButtonHaver}
+                  columns={guestColumns}
+                  rows={guestRows}
+                />
+              </div>
             )}
-            {selectedSection === "marks" && (
-              <TableTemplate
-                buttonHaver={GuestsMarksButtonHaver}
-                columns={guestColumns}
-                rows={guestRows}
-              />
+            {selectedSection === "obliges" && (
+              <div style={{ margin: "50px" }}>
+                <TableTemplate
+                  buttonHaver={GuestsObligesButtonHaver}
+                  columns={guestColumns}
+                  rows={guestRows}
+                />
+              </div>
             )}
 
             <Paper
@@ -177,10 +185,10 @@ const ViewNote = () => {
                   }
                 />
                 <BottomNavigationAction
-                  label="Marks"
-                  value="marks"
+                  label="Obligation"
+                  value="obliges"
                   icon={
-                    selectedSection === "marks" ? (
+                    selectedSection === "obliges" ? (
                       <InsertChartIcon />
                     ) : (
                       <InsertChartOutlinedIcon />
@@ -195,41 +203,42 @@ const ViewNote = () => {
     );
   };
 
-  const NoteDetailsSection = () => {
+  const PreferenceDetailsSection = () => {
     const numberOfGuests = stableGuests.length;
 
     return (
       <>
         <Typography variant="h4" align="center" gutterBottom>
-          Note Details
+          Preference Details
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Note Name : {noteDetails && noteDetails.subName}
+          Preference Name : {preferenceDetails && preferenceDetails.subName}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Note Code : {noteDetails && noteDetails.subCode}
+          Preference Category : {preferenceDetails && preferenceDetails.subCode}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Note Sessions : {noteDetails && noteDetails.sessions}
+          Preference Sessions :{" "}
+          {preferenceDetails && preferenceDetails.sessions}
         </Typography>
         <Typography variant="h6" gutterBottom>
           Number of Guests: {numberOfGuests}
         </Typography>
         <Typography variant="h6" gutterBottom>
           Table Name :{" "}
-          {noteDetails &&
-            noteDetails.stableName &&
-            noteDetails.stableName.stableName}
+          {preferenceDetails &&
+            preferenceDetails.stableName &&
+            preferenceDetails.stableName.stableName}
         </Typography>
-        {noteDetails && noteDetails.vendor ? (
+        {preferenceDetails && preferenceDetails.vendor ? (
           <Typography variant="h6" gutterBottom>
-            Vendor Name : {noteDetails.vendor.name}
+            Vendor Name : {preferenceDetails.vendor.name}
           </Typography>
         ) : (
           <GreenButton
             variant="contained"
             onClick={() =>
-              navigate("/Admin/vendors/addvendor/" + noteDetails._id)
+              navigate("/Admin/vendors/addvendor/" + preferenceDetails._id)
             }
           >
             Assign Vendor
@@ -255,6 +264,7 @@ const ViewNote = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   onChange={handleChange}
+                  centered
                   sx={{
                     position: "fixed",
                     width: "100%",
@@ -268,10 +278,10 @@ const ViewNote = () => {
               </Box>
               <Container sx={{ marginTop: "3rem", marginBottom: "4rem" }}>
                 <TabPanel value="1">
-                  <NoteDetailsSection />
+                  <PreferenceDetailsSection />
                 </TabPanel>
                 <TabPanel value="2">
-                  <NoteGuestsSection />
+                  <PreferenceGuestsSection />
                 </TabPanel>
               </Container>
             </TabContext>
@@ -282,4 +292,4 @@ const ViewNote = () => {
   );
 };
 
-export default ViewNote;
+export default ViewPreference;

@@ -17,8 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails } from "../../redux/userRelated/userHandle";
 import {
   calculateOverallAttendancePercentage,
-  calculateNoteAttendancePercentage,
-  groupAttendanceByNote,
+  calculatePreferenceAttendancePercentage,
+  groupAttendanceByPreference,
 } from "../../components/attendanceCalculator";
 
 import CustomBarChart from "../../components/CustomBarChart";
@@ -55,29 +55,28 @@ const ViewStdAttendance = () => {
     console.log(error);
   }
 
-  const [noteAttendance, setNoteAttendance] = useState([]);
+  const [preferenceAttendance, setPreferenceAttendance] = useState([]);
   const [selectedSection, setSelectedSection] = useState("table");
 
   useEffect(() => {
     if (userDetails) {
-      setNoteAttendance(userDetails.attendance || []);
+      setPreferenceAttendance(userDetails.attendance || []);
     }
   }, [userDetails]);
 
-  const attendanceByNote = groupAttendanceByNote(noteAttendance);
+  const attendanceByPreference =
+    groupAttendanceByPreference(preferenceAttendance);
 
   const overallAttendancePercentage =
-    calculateOverallAttendancePercentage(noteAttendance);
+    calculateOverallAttendancePercentage(preferenceAttendance);
 
-  const noteData = Object.entries(attendanceByNote).map(
+  const preferenceData = Object.entries(attendanceByPreference).map(
     ([subName, { subCode, present, sessions }]) => {
-      const noteAttendancePercentage = calculateNoteAttendancePercentage(
-        present,
-        sessions
-      );
+      const preferenceAttendancePercentage =
+        calculatePreferenceAttendancePercentage(present, sessions);
       return {
-        note: subName,
-        attendancePercentage: noteAttendancePercentage,
+        preference: subName,
+        attendancePercentage: preferenceAttendancePercentage,
         totalTablees: sessions,
         attendedTablees: present,
       };
@@ -97,17 +96,17 @@ const ViewStdAttendance = () => {
         <Table>
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell>Note</StyledTableCell>
+              <StyledTableCell>Preferences</StyledTableCell>
               <StyledTableCell>Present</StyledTableCell>
               <StyledTableCell>Total Sessions</StyledTableCell>
               <StyledTableCell>Attendance Percentage</StyledTableCell>
               <StyledTableCell align="center">Actions</StyledTableCell>
             </StyledTableRow>
           </TableHead>
-          {Object.entries(attendanceByNote).map(
+          {Object.entries(attendanceByPreference).map(
             ([subName, { present, allData, subId, sessions }], index) => {
-              const noteAttendancePercentage =
-                calculateNoteAttendancePercentage(present, sessions);
+              const preferenceAttendancePercentage =
+                calculatePreferenceAttendancePercentage(present, sessions);
 
               return (
                 <TableBody key={index}>
@@ -116,7 +115,7 @@ const ViewStdAttendance = () => {
                     <StyledTableCell>{present}</StyledTableCell>
                     <StyledTableCell>{sessions}</StyledTableCell>
                     <StyledTableCell>
-                      {noteAttendancePercentage}%
+                      {preferenceAttendancePercentage}%
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Button
@@ -195,7 +194,10 @@ const ViewStdAttendance = () => {
   const renderChartSection = () => {
     return (
       <>
-        <CustomBarChart chartData={noteData} dataKey="attendancePercentage" />
+        <CustomBarChart
+          chartData={preferenceData}
+          dataKey="attendancePercentage"
+        />
       </>
     );
   };
@@ -211,9 +213,9 @@ const ViewStdAttendance = () => {
         </div>
       ) : (
         <div>
-          {noteAttendance &&
-          Array.isArray(noteAttendance) &&
-          noteAttendance.length > 0 ? (
+          {preferenceAttendance &&
+          Array.isArray(preferenceAttendance) &&
+          preferenceAttendance.length > 0 ? (
             <>
               {selectedSection === "table" && renderTableSection()}
               {selectedSection === "chart" && renderChartSection()}

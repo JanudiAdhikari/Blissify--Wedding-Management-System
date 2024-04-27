@@ -80,14 +80,14 @@ const ShowVendors = () => {
 
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
-    { id: "teachNote", label: "Note", minWidth: 100 },
+    { id: "teachPreference", label: "Preference", minWidth: 100 },
     { id: "teachStable", label: "Table", minWidth: 170 },
   ];
 
   const rows = vendorsList.map((vendor) => {
     return {
       name: vendor.name,
-      teachNote: vendor.teachNote?.subName || null,
+      teachPreference: vendor.teachPreference?.subName || null,
       teachStable: vendor.teachStable.stableName,
       teachStableID: vendor.teachStable._id,
       id: vendor._id,
@@ -138,7 +138,7 @@ const ShowVendors = () => {
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
-                      if (column.id === "teachNote") {
+                      if (column.id === "teachPreference") {
                         return (
                           <StyledTableCell key={column.id} align={column.align}>
                             {value ? (
@@ -152,7 +152,7 @@ const ShowVendors = () => {
                                   );
                                 }}
                               >
-                                Add Note
+                                Add Preference
                               </Button>
                             )}
                           </StyledTableCell>

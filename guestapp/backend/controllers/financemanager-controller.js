@@ -41,7 +41,7 @@ const financeManagerLogIn = async (req, res) => {
         financeManager.password
       );
       if (validated) {
-        // financeManager = await financeManager.populate("teachNote", "subName sessions")
+        // financeManager = await financeManager.populate("teachPreference", "subName sessions")
         // financeManager = await financeManager.populate("event", "eventName")
         // financeManager = await financeManager.populate("teachStable", "stableName")
         financeManager.password = undefined;

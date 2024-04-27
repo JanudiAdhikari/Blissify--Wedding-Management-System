@@ -82,14 +82,14 @@ const ShowCouples = () => {
 
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
-    { id: "teachNote", label: "Note", minWidth: 100 },
+    { id: "teachPreference", label: "Preference", minWidth: 100 },
     { id: "teachStable", label: "Table", minWidth: 170 },
   ];
 
   const rows = couplesList.map((couple) => {
     return {
       name: couple.name,
-      teachNote: couple.teachNote?.subName || null,
+      teachPreference: couple.teachPreference?.subName || null,
       teachStable: couple.teachStable.stableName,
       teachStableID: couple.teachStable._id,
       id: couple._id,
@@ -140,7 +140,7 @@ const ShowCouples = () => {
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
-                      if (column.id === "teachNote") {
+                      if (column.id === "teachPreference") {
                         return (
                           <StyledTableCell key={column.id} align={column.align}>
                             {value ? (
@@ -150,11 +150,11 @@ const ShowCouples = () => {
                                 variant="contained"
                                 onClick={() => {
                                   navigate(
-                                    `/Admin/couples/choosenote/${row.teachStableID}/${row.id}`
+                                    `/Admin/couples/choosepreference/${row.teachStableID}/${row.id}`
                                   );
                                 }}
                               >
-                                Add Note
+                                Add Preference
                               </Button>
                             )}
                           </StyledTableCell>

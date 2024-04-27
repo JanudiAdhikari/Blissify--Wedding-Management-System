@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserDetails } from "../../../redux/userRelated/userHandle";
-import { getNoteList } from "../../../redux/stableRelated/stableHandle";
+import { getPreferenceList } from "../../../redux/stableRelated/stableHandle";
 import { updateGuestFields } from "../../../redux/guestRelated/guestHandle";
 
 import {
@@ -27,12 +27,12 @@ const GuestAttendance = ({ situation }) => {
   const { currentUser, userDetails, loading } = useSelector(
     (state) => state.user
   );
-  const { notesList } = useSelector((state) => state.stable);
+  const { preferencesList } = useSelector((state) => state.stable);
   const { response, error, statestatus } = useSelector((state) => state.guest);
   const params = useParams();
 
   const [guestID, setGuestID] = useState("");
-  const [noteName, setNoteName] = useState("");
+  const [preferenceName, setPreferenceName] = useState("");
   const [chosenSubName, setChosenSubName] = useState("");
   const [status, setStatus] = useState("");
   const [date, setDate] = useState("");
@@ -46,26 +46,28 @@ const GuestAttendance = ({ situation }) => {
       setGuestID(params.id);
       const stdID = params.id;
       dispatch(getUserDetails(stdID, "Guest"));
-    } else if (situation === "Note") {
-      const { guestID, noteID } = params;
+    } else if (situation === "Preference") {
+      const { guestID, preferenceID } = params;
       setGuestID(guestID);
       dispatch(getUserDetails(guestID, "Guest"));
-      setChosenSubName(noteID);
+      setChosenSubName(preferenceID);
     }
   }, [situation]);
 
   useEffect(() => {
     if (userDetails && userDetails.stableName && situation === "Guest") {
-      dispatch(getNoteList(userDetails.stableName._id, "TableNotes"));
+      dispatch(
+        getPreferenceList(userDetails.stableName._id, "TablePreferences")
+      );
     }
   }, [dispatch, userDetails]);
 
   const changeHandler = (event) => {
-    const selectedNote = notesList.find(
-      (note) => note.subName === event.target.value
+    const selectedPreference = preferencesList.find(
+      (preference) => preference.subName === event.target.value
     );
-    setNoteName(selectedNote.subName);
-    setChosenSubName(selectedNote._id);
+    setPreferenceName(selectedPreference.subName);
+    setChosenSubName(selectedPreference._id);
   };
 
   const fields = { subName: chosenSubName, status, date };
@@ -125,9 +127,9 @@ const GuestAttendance = ({ situation }) => {
                 <Typography variant="h4">
                   Guest Name: {userDetails.name}
                 </Typography>
-                {currentUser.teachNote && (
+                {currentUser.teachPreference && (
                   <Typography variant="h4">
-                    Note Name: {currentUser.teachNote?.subName}
+                    Preference Name: {currentUser.teachPreference?.subName}
                   </Typography>
                 )}
               </Stack>
@@ -136,25 +138,25 @@ const GuestAttendance = ({ situation }) => {
                   {situation === "Guest" && (
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">
-                        Select Note
+                        Select Preference
                       </InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={noteName}
+                        value={preferenceName}
                         label="Choose an option"
                         onChange={changeHandler}
                         required
                       >
-                        {notesList ? (
-                          notesList.map((note, index) => (
-                            <MenuItem key={index} value={note.subName}>
-                              {note.subName}
+                        {preferencesList ? (
+                          preferencesList.map((preference, index) => (
+                            <MenuItem key={index} value={preference.subName}>
+                              {preference.subName}
                             </MenuItem>
                           ))
                         ) : (
-                          <MenuItem value="Select Note">
-                            Add Notes For Attendance
+                          <MenuItem value="Select Preference">
+                            Add Preferences For Attendance
                           </MenuItem>
                         )}
                       </Select>

@@ -8,7 +8,7 @@ import Tests from "../../assets/party.png";
 import Time from "../../assets/revenue.png";
 import {
   getTableGuests,
-  getNoteDetails,
+  getPreferenceDetails,
 } from "../../redux/stableRelated/stableHandle";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -17,18 +17,20 @@ const VendorHomePage = () => {
   const dispatch = useDispatch();
 
   const { currentUser } = useSelector((state) => state.user);
-  const { noteDetails, stableGuests } = useSelector((state) => state.stable);
+  const { preferenceDetails, stableGuests } = useSelector(
+    (state) => state.stable
+  );
 
   const tableID = currentUser.teachStable?._id;
-  const noteID = currentUser.teachNote?._id;
+  const preferenceID = currentUser.teachPreference?._id;
 
   useEffect(() => {
-    dispatch(getNoteDetails(noteID, "Note"));
+    dispatch(getPreferenceDetails(preferenceID, "Preference"));
     dispatch(getTableGuests(tableID));
-  }, [dispatch, noteID, tableID]);
+  }, [dispatch, preferenceID, tableID]);
 
   const numberOfGuests = stableGuests && stableGuests.length;
-  const numberOfSessions = noteDetails && noteDetails.sessions;
+  const numberOfSessions = preferenceDetails && preferenceDetails.sessions;
 
   return (
     <>

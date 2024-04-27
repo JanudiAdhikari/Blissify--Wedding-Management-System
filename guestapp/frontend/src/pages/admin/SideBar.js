@@ -14,8 +14,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AnnouncementOutlinedIcon from "@mui/icons-material/AnnouncementOutlined";
 import TableBarIcon from "@mui/icons-material/TableBar";
-// import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
-import SellIcon from "@mui/icons-material/Sell";
+import RoomServiceIcon from "@mui/icons-material/RoomService";
 import ReportIcon from "@mui/icons-material/Report";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
@@ -48,21 +47,21 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Tables" />
         </ListItemButton>
-        <ListItemButton component={Link} to="/Admin/notes">
+        <ListItemButton component={Link} to="/Admin/preferences">
           <ListItemIcon>
             <AssignmentIcon
               color={
-                location.pathname.startsWith("/Admin/notes")
+                location.pathname.startsWith("/Admin/preferences")
                   ? "primary"
                   : "inherit"
               }
             />
           </ListItemIcon>
-          <ListItemText primary="Notes" />
+          <ListItemText primary="Preferences" />
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/vendors">
           <ListItemIcon>
-            <SellIcon
+            <RoomServiceIcon
               color={
                 location.pathname.startsWith("/Admin/vendors")
                   ? "primary"

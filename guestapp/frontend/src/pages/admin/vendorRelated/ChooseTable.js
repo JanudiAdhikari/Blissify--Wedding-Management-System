@@ -26,9 +26,9 @@ const ChooseTable = ({ situation }) => {
 
   const navigateHandler = (tableID) => {
     if (situation === "Vendor") {
-      navigate("/Admin/vendors/choosenote/" + tableID);
-    } else if (situation === "Note") {
-      navigate("/Admin/addnote/" + tableID);
+      navigate("/Admin/vendors/choosepreference/" + tableID);
+    } else if (situation === "Preference") {
+      navigate("/Admin/addpreference/" + tableID);
     }
   };
 
@@ -85,15 +85,27 @@ const ChooseTable = ({ situation }) => {
             </Box>
           ) : (
             <>
-              <Typography variant="h6" gutterBottom component="div">
-                Choose a table
+              <Typography
+                variant="h6"
+                gutterBottom
+                component="div"
+                sx={{
+                  textAlign: "center",
+                  marginTop: "20px",
+                  fontSize: "30px",
+                  color: "black",
+                }}
+              >
+                Choose a Table
               </Typography>
               {Array.isArray(stableesList) && stableesList.length > 0 && (
-                <TableTemplate
-                  buttonHaver={StableButtonHaver}
-                  columns={stableColumns}
-                  rows={stableRows}
-                />
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={StableButtonHaver}
+                    columns={stableColumns}
+                    rows={stableRows}
+                  />
+                </div>
               )}
             </>
           )}

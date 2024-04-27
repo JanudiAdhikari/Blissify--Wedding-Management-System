@@ -30,7 +30,7 @@ const VendorTableDetails = () => {
 
   const { currentUser } = useSelector((state) => state.user);
   const tableID = currentUser.teachStable?._id;
-  const noteID = currentUser.teachNote?._id;
+  const preferenceID = currentUser.teachPreference?._id;
 
   useEffect(() => {
     dispatch(getTableGuests(tableID));
@@ -65,15 +65,15 @@ const VendorTableDetails = () => {
       if (selectedIndex === 0) {
         handleAttendance();
       } else if (selectedIndex === 1) {
-        handleMarks();
+        handleObliges();
       }
     };
 
     const handleAttendance = () => {
-      navigate(`/Vendor/table/guest/attendance/${row.id}/${noteID}`);
+      navigate(`/Vendor/table/guest/attendance/${row.id}/${preferenceID}`);
     };
-    const handleMarks = () => {
-      navigate(`/Vendor/table/guest/marks/${row.id}/${noteID}`);
+    const handleObliges = () => {
+      navigate(`/Vendor/table/guest/obliges/${row.id}/${preferenceID}`);
     };
 
     const handleMenuItemClick = (event, index) => {
@@ -195,11 +195,13 @@ const VendorTableDetails = () => {
               </Typography>
 
               {Array.isArray(stableGuests) && stableGuests.length > 0 && (
-                <TableTemplate
-                  buttonHaver={GuestsButtonHaver}
-                  columns={guestColumns}
-                  rows={guestRows}
-                />
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={GuestsButtonHaver}
+                    columns={guestColumns}
+                    rows={guestRows}
+                  />
+                </div>
               )}
             </Paper>
           )}

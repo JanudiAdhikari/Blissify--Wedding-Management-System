@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getNoteList } from "../../../redux/stableRelated/stableHandle";
+import { getPreferenceList } from "../../../redux/stableRelated/stableHandle";
 import { deleteUser } from "../../../redux/userRelated/userHandle";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { Paper, Box, IconButton } from "@mui/material";
@@ -14,16 +14,16 @@ import { BlueButton, GreenButton } from "../../../components/buttonStyles";
 import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
 
-const ShowNotes = () => {
+const ShowPreferences = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { notesList, loading, error, response } = useSelector(
+  const { preferencesList, loading, error, response } = useSelector(
     (state) => state.stable
   );
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getNoteList(currentUser._id, "AllNotes"));
+    dispatch(getPreferenceList(currentUser._id, "AllPreferences"));
   }, [currentUser._id, dispatch]);
 
   if (error) {
@@ -40,37 +40,37 @@ const ShowNotes = () => {
     setShowPopup(true);
 
     dispatch(deleteUser(deleteID, address)).then(() => {
-      dispatch(getNoteList(currentUser._id, "AllNotes"));
+      dispatch(getPreferenceList(currentUser._id, "AllPreferences"));
       setMessage("Deleted Successfully");
     });
   };
 
-  const noteColumns = [
+  const preferenceColumns = [
     { id: "subName", label: "Sub Name", minWidth: 170 },
-    { id: "sessions", label: "Sessions", minWidth: 170 },
+    { id: "sessions", label: "Event Session", minWidth: 170 },
     { id: "stableName", label: "Table", minWidth: 170 },
   ];
 
-  const noteRows = notesList.map((note) => {
+  const preferenceRows = preferencesList.map((preference) => {
     return {
-      subName: note.subName,
-      sessions: note.sessions,
-      stableName: note.stableName.stableName,
-      stableID: note.stableName._id,
-      id: note._id,
+      subName: preference.subName,
+      sessions: preference.sessions,
+      stableName: preference.stableName.stableName,
+      stableID: preference.stableName._id,
+      id: preference._id,
     };
   });
 
-  const NotesButtonHaver = ({ row }) => {
+  const PreferencesButtonHaver = ({ row }) => {
     return (
       <>
-        <IconButton onClick={() => deleteHandler(row.id, "Note")}>
+        <IconButton onClick={() => deleteHandler(row.id, "Preference")}>
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton
           variant="contained"
           onClick={() =>
-            navigate(`/Admin/notes/note/${row.stableID}/${row.id}`)
+            navigate(`/Admin/preferences/preference/${row.stableID}/${row.id}`)
           }
         >
           View
@@ -82,13 +82,13 @@ const ShowNotes = () => {
   const actions = [
     {
       icon: <PostAddIcon color="primary" />,
-      name: "Add New Note",
-      action: () => navigate("/Admin/notes/choosetable"),
+      name: "Add New Preference",
+      action: () => navigate("/Admin/preferences/choosetable"),
     },
     {
       icon: <DeleteIcon color="error" />,
-      name: "Delete All Notes",
-      action: () => deleteHandler(currentUser._id, "Notes"),
+      name: "Delete All Preferences",
+      action: () => deleteHandler(currentUser._id, "Preferences"),
     },
   ];
 
@@ -113,20 +113,23 @@ const ShowNotes = () => {
             >
               <GreenButton
                 variant="contained"
-                onClick={() => navigate("/Admin/notes/choosetable")}
+                onClick={() => navigate("/Admin/preferences/choosetable")}
               >
-                Add Notes
+                Add Preferences
               </GreenButton>
             </Box>
           ) : (
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              {Array.isArray(notesList) && notesList.length > 0 && (
-                <TableTemplate
-                  buttonHaver={NotesButtonHaver}
-                  columns={noteColumns}
-                  rows={noteRows}
-                />
+              {Array.isArray(preferencesList) && preferencesList.length > 0 && (
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={PreferencesButtonHaver}
+                    columns={preferenceColumns}
+                    rows={preferenceRows}
+                  />
+                </div>
               )}
+
               <SpeedDialTemplate actions={actions} />
             </Paper>
           )}
@@ -141,4 +144,4 @@ const ShowNotes = () => {
   );
 };
 
-export default ShowNotes;
+export default ShowPreferences;

@@ -38,19 +38,19 @@
 
 // const chartData = [
 //     {
-//         note: "Math",
+//         preference: "Math",
 //         attendancePercentage: 80,
 //         totalTablees: 50,
 //         attendedTablees: Math.round((80 / 100) * 50),
 //     },
 //     {
-//         note: "Science",
+//         preference: "Science",
 //         attendancePercentage: 90,
 //         totalTablees: 60,
 //         attendedTablees: Math.round((90 / 100) * 60),
 //     },
 //     {
-//         note: "History",
+//         preference: "History",
 //         attendancePercentage: 70,
 //         totalTablees: 45,
 //         attendedTablees: Math.round((70 / 100) * 45),
@@ -71,11 +71,11 @@
 
 // const CustomTooltipContent = ({ active, payload }) => {
 //     if (active && payload && payload.length) {
-//         const { note, attendancePercentage, totalTablees, attendedTablees } = payload[0].payload;
+//         const { preference, attendancePercentage, totalTablees, attendedTablees } = payload[0].payload;
 
 //         return (
 //             <CustomTooltip>
-//                 <TooltipText>{note}</TooltipText>
+//                 <TooltipText>{preference}</TooltipText>
 //                 <TooltipText>Attendance: {attendancePercentage}%</TooltipText>
 //                 <TooltipText>Attended Tablees: {attendedTablees}</TooltipText>
 //                 <TooltipText>Total Tablees: {totalTablees}</TooltipText>
@@ -91,7 +91,7 @@
 // const CustomBarChart = () => {
 //     return (
 //         <BarChart width={500} height={300} data={chartData}>
-//             <XAxis dataKey="note" />
+//             <XAxis dataKey="preference" />
 //             <YAxis />
 //             <Tooltip content={<CustomTooltipContent />} />
 //             <Bar dataKey="attendancePercentage">
@@ -119,96 +119,109 @@ const CustomTooltip = styled.div`
 const TooltipText = styled.p`
   margin: 0;
   font-weight: bold;
-  color:#1e1e1e;
+  color: #1e1e1e;
 `;
 
 const TooltipMain = styled.h2`
   margin: 0;
   font-weight: bold;
-  color:#000000;
+  color: #000000;
 `;
 
 const CustomTooltipContent = ({ active, payload, dataKey }) => {
-    if (active && payload && payload.length) {
-        const { note, attendancePercentage, totalTablees, attendedTablees, marksObtained, subName } = payload[0].payload;
+  if (active && payload && payload.length) {
+    const {
+      preference,
+      attendancePercentage,
+      totalTablees,
+      attendedTablees,
+      obligesObtained,
+      subName,
+    } = payload[0].payload;
 
-        return (
-            <CustomTooltip>
-                {dataKey === "attendancePercentage" ? (
-                    <>
-                        <TooltipMain>{note}</TooltipMain>
-                        <TooltipText>Attended: ({attendedTablees}/{totalTablees})</TooltipText>
-                        <TooltipText>{attendancePercentage}%</TooltipText>
-                    </>
-                ) : (
-                    <>
-                        <TooltipMain>{subName.subName}</TooltipMain>
-                        <TooltipText>Marks: {marksObtained}</TooltipText>
-                    </>
-                )}
-            </CustomTooltip>
-        );
-    }
+    return (
+      <CustomTooltip>
+        {dataKey === "attendancePercentage" ? (
+          <>
+            <TooltipMain>{preference}</TooltipMain>
+            <TooltipText>
+              Attended: ({attendedTablees}/{totalTablees})
+            </TooltipText>
+            <TooltipText>{attendancePercentage}%</TooltipText>
+          </>
+        ) : (
+          <>
+            <TooltipMain>{subName.subName}</TooltipMain>
+            <TooltipText>Oblige: {obligesObtained}</TooltipText>
+          </>
+        )}
+      </CustomTooltip>
+    );
+  }
 
-    return null;
+  return null;
 };
 
 const CustomBarChart = ({ chartData, dataKey }) => {
-    const notes = chartData.map((data) => data.note);
-    const distinctColors = generateDistinctColors(notes.length);
+  const preferences = chartData.map((data) => data.preference);
+  const distinctColors = generateDistinctColors(preferences.length);
 
-    return (
-        <BarChart width={500} height={500} data={chartData}>
-            <XAxis dataKey={dataKey === "marksObtained" ? "subName.subName" : "note"} />
-            <YAxis domain={[0, 100]} />
-            <Tooltip content={<CustomTooltipContent dataKey={dataKey} />} />
-            <Bar dataKey={dataKey}>
-                {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={distinctColors[index]} />
-                ))}
-            </Bar>
-        </BarChart>
-    );
+  return (
+    <BarChart width={500} height={500} data={chartData}>
+      <XAxis
+        dataKey={
+          dataKey === "obligesObtained" ? "subName.subName" : "preference"
+        }
+      />
+      <YAxis domain={[0, 100]} />
+      <Tooltip content={<CustomTooltipContent dataKey={dataKey} />} />
+      <Bar dataKey={dataKey}>
+        {chartData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={distinctColors[index]} />
+        ))}
+      </Bar>
+    </BarChart>
+  );
 };
 
 // Helper function to generate distinct colors
 const generateDistinctColors = (count) => {
-    const colors = [];
-    const goldenRatioConjugate = 0.618033988749895;
+  const colors = [];
+  const goldenRatioConjugate = 0.618033988749895;
 
-    for (let i = 0; i < count; i++) {
-        const hue = (i * goldenRatioConjugate) % 1;
-        const color = hslToRgb(hue, 0.6, 0.6);
-        colors.push(`rgb(${color[0]}, ${color[1]}, ${color[2]})`);
-    }
+  for (let i = 0; i < count; i++) {
+    const hue = (i * goldenRatioConjugate) % 1;
+    const color = hslToRgb(hue, 0.6, 0.6);
+    colors.push(`rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+  }
 
-    return colors;
+  return colors;
 };
 
 // Helper function to convert HSL to RGB
 const hslToRgb = (h, s, l) => {
-    let r, g, b;
+  let r, g, b;
 
-    if (s === 0) {
-        r = g = b = l; // Achromatic
-    } else {
-        const hue2rgb = (p, q, t) => {
-            if (t < 0) t += 1;
-            if (t > 1) t -= 1;
-            if (t < 1 / 6) return p + (q - p) * 6 * t;
-            if (t < 1 / 2) return q;
-            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-            return p;
-        };
+  if (s === 0) {
+    r = g = b = l; // Achromatic
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
 
-        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        const p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1 / 3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1 / 3);
-    }
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
 
-    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 };
 
 export default CustomBarChart;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Paper, Box, IconButton } from "@mui/material";
 import { Dialog, DialogTitle } from "@mui/material";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import PreferenceAddIcon from "@mui/icons-material/NoteAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getAllNotices } from "../../../redux/noticeRelated/noticeHandle";
 import { deleteUser } from "../../../redux/userRelated/userHandle";
@@ -68,7 +68,7 @@ const ShowNotices = () => {
 
   const actions = [
     {
-      icon: <NoteAddIcon color="primary" />,
+      icon: <PreferenceAddIcon color="primary" />,
       name: "Add New Notice",
       action: () => navigate("/Admin/addnotice"),
     },
@@ -108,11 +108,13 @@ const ShowNotices = () => {
           ) : (
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
               {Array.isArray(noticesList) && noticesList.length > 0 && (
-                <TableTemplate
-                  buttonHaver={NoticeButtonHaver}
-                  columns={noticeColumns}
-                  rows={noticeRows}
-                />
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={NoticeButtonHaver}
+                    columns={noticeColumns}
+                    rows={noticeRows}
+                  />
+                </div>
               )}
               <SpeedDialTemplate actions={actions} />
             </Paper>

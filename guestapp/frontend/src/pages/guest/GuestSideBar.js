@@ -12,7 +12,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AnnouncementOutlinedIcon from "@mui/icons-material/AnnouncementOutlined";
-import TableOutlinedIcon from "@mui/icons-material/ClassOutlined";
+// import TableOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import BackHandIcon from "@mui/icons-material/BackHand";
 
@@ -33,11 +33,11 @@ const GuestSideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        <ListItemButton component={Link} to="/Guest/notes">
+        <ListItemButton component={Link} to="/Guest/preferences">
           <ListItemIcon>
             <AssignmentIcon
               color={
-                location.pathname.startsWith("/Guest/notes")
+                location.pathname.startsWith("/Guest/preferences")
                   ? "primary"
                   : "inherit"
               }

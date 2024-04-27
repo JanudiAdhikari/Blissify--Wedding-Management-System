@@ -7,6 +7,7 @@ import { underControl } from "../../../redux/userRelated/userSlice";
 import { getAllStablees } from "../../../redux/stableRelated/stableHandle";
 import { CircularProgress } from "@mui/material";
 // import "../../../styles/adminstyles.css";
+// import "../../../index.css";
 
 const AddGuest = ({ situation }) => {
   const dispatch = useDispatch();
@@ -92,13 +93,17 @@ const AddGuest = ({ situation }) => {
 
   return (
     <>
-      <div tableName="register">
-        <form tableName="registerForm" onSubmit={submitHandler}>
-          <span tableName="registerTitle">Add Guest</span>
+      <div className="register">
+        <form className="registerForm" onSubmit={submitHandler}>
+          {/* <span className="registerTitle">Add Guest</span> */}
+          <h2>
+            <center>Add Guest</center>
+          </h2>
+
           <br />
           <label>Name</label>
           <input
-            tableName="registerInput"
+            className="registerInput"
             type="text"
             placeholder="Enter guest's name..."
             value={name}
@@ -111,7 +116,7 @@ const AddGuest = ({ situation }) => {
             <>
               <label>Table</label>
               <select
-                tableName="registerInput"
+                className="registerInput"
                 value={tableName}
                 onChange={changeHandler}
                 required
@@ -128,7 +133,7 @@ const AddGuest = ({ situation }) => {
           <br />
           <label>Seat Number</label>
           <input
-            tableName="registerInput"
+            className="registerInput"
             type="number"
             placeholder="Enter guest's Seat Number..."
             value={rollNum}
@@ -138,7 +143,7 @@ const AddGuest = ({ situation }) => {
           <br />
           <label>ID Number</label>
           <input
-            tableName="registerInput"
+            className="registerInput"
             type="text"
             placeholder="Enter guest's ID Number"
             value={password}
@@ -147,7 +152,12 @@ const AddGuest = ({ situation }) => {
             required
           />
 
-          <button tableName="registerButton" type="submit" disabled={loader}>
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+            style={{ backgroundColor: "#4d1c9c" }}
+          >
             {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
           </button>
         </form>

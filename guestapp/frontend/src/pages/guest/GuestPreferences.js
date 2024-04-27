@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getNoteList } from "../../redux/stableRelated/stableHandle";
+import { getPreferenceList } from "../../redux/stableRelated/stableHandle";
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -22,9 +22,11 @@ import TableChartIcon from "@mui/icons-material/TableChart";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 import { StyledTableCell, StyledTableRow } from "../../components/styles";
 
-const GuestNotes = () => {
+const GuestPreferences = () => {
   const dispatch = useDispatch();
-  const { notesList, stableDetails } = useSelector((state) => state.stable);
+  const { preferencesList, stableDetails } = useSelector(
+    (state) => state.stable
+  );
   const { userDetails, currentUser, loading, response, error } = useSelector(
     (state) => state.user
   );
@@ -39,20 +41,22 @@ const GuestNotes = () => {
     console.log(error);
   }
 
-  const [noteMarks, setNoteMarks] = useState([]);
+  const [preferenceObliges, setPreferenceObliges] = useState([]);
   const [selectedSection, setSelectedSection] = useState("table");
 
   useEffect(() => {
     if (userDetails) {
-      setNoteMarks(userDetails.examResult || []);
+      setPreferenceObliges(userDetails.examResult || []);
     }
   }, [userDetails]);
 
   useEffect(() => {
-    if (noteMarks === []) {
-      dispatch(getNoteList(currentUser.stableName._id, "TableNotes"));
+    if (preferenceObliges === []) {
+      dispatch(
+        getPreferenceList(currentUser.stableName._id, "TablePreferences")
+      );
     }
-  }, [noteMarks, dispatch, currentUser.stableName._id]);
+  }, [preferenceObliges, dispatch, currentUser.stableName._id]);
 
   const handleSectionChange = (event, newSection) => {
     setSelectedSection(newSection);
@@ -62,24 +66,24 @@ const GuestNotes = () => {
     return (
       <>
         <Typography variant="h4" align="center" gutterBottom>
-          Note Marks
+          Obligations
         </Typography>
         <Table>
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell>Note</StyledTableCell>
-              <StyledTableCell>Marks</StyledTableCell>
+              <StyledTableCell>Preference</StyledTableCell>
+              <StyledTableCell>Obligation</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {noteMarks.map((result, index) => {
-              if (!result.subName || !result.marksObtained) {
+            {preferenceObliges.map((result, index) => {
+              if (!result.subName || !result.obligesObtained) {
                 return null;
               }
               return (
                 <StyledTableRow key={index}>
                   <StyledTableCell>{result.subName.subName}</StyledTableCell>
-                  <StyledTableCell>{result.marksObtained}</StyledTableCell>
+                  <StyledTableCell>{result.obligesObtained}</StyledTableCell>
                 </StyledTableRow>
               );
             })}
@@ -90,7 +94,9 @@ const GuestNotes = () => {
   };
 
   const renderChartSection = () => {
-    return <CustomBarChart chartData={noteMarks} dataKey="marksObtained" />;
+    return (
+      <CustomBarChart chartData={preferenceObliges} dataKey="obligesObtained" />
+    );
   };
 
   const renderTableDetailsSection = () => {
@@ -108,13 +114,13 @@ const GuestNotes = () => {
           You are currently in Table {stableDetails && stableDetails.stableName}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          And these are the notes:
+          And these are the preferences:
         </Typography>
-        {notesList &&
-          notesList.map((note, index) => (
+        {preferencesList &&
+          preferencesList.map((preference, index) => (
             <div key={index}>
               <Typography variant="subtitle1">
-                {note.subName} ({note.subCode})
+                {preference.subName} ({preference.subCode})
               </Typography>
             </div>
           ))}
@@ -133,7 +139,9 @@ const GuestNotes = () => {
         </div>
       ) : (
         <div>
-          {noteMarks && Array.isArray(noteMarks) && noteMarks.length > 0 ? (
+          {preferenceObliges &&
+          Array.isArray(preferenceObliges) &&
+          preferenceObliges.length > 0 ? (
             <>
               {selectedSection === "table" && renderTableSection()}
               {selectedSection === "chart" && renderChartSection()}
@@ -181,4 +189,4 @@ const GuestNotes = () => {
   );
 };
 
-export default GuestNotes;
+export default GuestPreferences;

@@ -14,8 +14,8 @@ import {
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import {
   calculateOverallAttendancePercentage,
-  calculateNoteAttendancePercentage,
-  groupAttendanceByNote,
+  calculatePreferenceAttendancePercentage,
+  groupAttendanceByPreference,
 } from "../../components/attendanceCalculator";
 import CustomPieChart from "../../components/CustomPieChart";
 import { PurpleButton } from "../../components/buttonStyles";
@@ -32,8 +32,8 @@ const VendorViewGuest = () => {
 
   const address = "Guest";
   const guestID = params.id;
-  const teachNote = currentUser.teachNote?.subName;
-  const teachNoteID = currentUser.teachNote?._id;
+  const teachPreference = currentUser.teachPreference?.subName;
+  const teachPreferenceID = currentUser.teachPreference?._id;
 
   useEffect(() => {
     dispatch(getUserDetails(guestID, address));
@@ -47,8 +47,8 @@ const VendorViewGuest = () => {
 
   const [stableName, setStableName] = useState("");
   const [guestEvent, setGuestEvent] = useState("");
-  const [noteMarks, setNoteMarks] = useState("");
-  const [noteAttendance, setNoteAttendance] = useState([]);
+  const [preferenceObliges, setPreferenceObliges] = useState("");
+  const [preferenceAttendance, setPreferenceAttendance] = useState([]);
 
   const [openStates, setOpenStates] = useState({});
 
@@ -63,13 +63,13 @@ const VendorViewGuest = () => {
     if (userDetails) {
       setStableName(userDetails.stableName || "");
       setGuestEvent(userDetails.event || "");
-      setNoteMarks(userDetails.examResult || "");
-      setNoteAttendance(userDetails.attendance || []);
+      setPreferenceObliges(userDetails.examResult || "");
+      setPreferenceAttendance(userDetails.attendance || []);
     }
   }, [userDetails]);
 
   const overallAttendancePercentage =
-    calculateOverallAttendancePercentage(noteAttendance);
+    calculateOverallAttendancePercentage(preferenceAttendance);
   const overallAbsentPercentage = 100 - overallAttendancePercentage;
 
   const chartData = [
@@ -100,21 +100,26 @@ const VendorViewGuest = () => {
           <br />
           <br />
           <h3>Attendance:</h3>
-          {noteAttendance &&
-            Array.isArray(noteAttendance) &&
-            noteAttendance.length > 0 && (
+          {preferenceAttendance &&
+            Array.isArray(preferenceAttendance) &&
+            preferenceAttendance.length > 0 && (
               <>
-                {Object.entries(groupAttendanceByNote(noteAttendance)).map(
+                {Object.entries(
+                  groupAttendanceByPreference(preferenceAttendance)
+                ).map(
                   ([subName, { present, allData, subId, sessions }], index) => {
-                    if (subName === teachNote) {
-                      const noteAttendancePercentage =
-                        calculateNoteAttendancePercentage(present, sessions);
+                    if (subName === teachPreference) {
+                      const preferenceAttendancePercentage =
+                        calculatePreferenceAttendancePercentage(
+                          present,
+                          sessions
+                        );
 
                       return (
                         <Table key={index}>
                           <TableHead>
                             <StyledTableRow>
-                              <StyledTableCell>Note</StyledTableCell>
+                              <StyledTableCell>Preferences</StyledTableCell>
                               <StyledTableCell>Present</StyledTableCell>
                               <StyledTableCell>Total Sessions</StyledTableCell>
                               <StyledTableCell>
@@ -132,7 +137,7 @@ const VendorViewGuest = () => {
                               <StyledTableCell>{present}</StyledTableCell>
                               <StyledTableCell>{sessions}</StyledTableCell>
                               <StyledTableCell>
-                                {noteAttendancePercentage}%
+                                {preferenceAttendancePercentage}%
                               </StyledTableCell>
                               <StyledTableCell align="center">
                                 <Button
@@ -228,7 +233,7 @@ const VendorViewGuest = () => {
             variant="contained"
             onClick={() =>
               navigate(
-                `/Vendor/table/guest/attendance/${guestID}/${teachNoteID}`
+                `/Vendor/table/guest/attendance/${guestID}/${teachPreferenceID}`
               )
             }
           >
@@ -237,45 +242,49 @@ const VendorViewGuest = () => {
           <br />
           <br />
           <br />
-          <h3>Note Marks:</h3>
-          {noteMarks && Array.isArray(noteMarks) && noteMarks.length > 0 && (
-            <>
-              {noteMarks.map((result, index) => {
-                if (result.subName.subName === teachNote) {
-                  return (
-                    <Table key={index}>
-                      <TableHead>
-                        <StyledTableRow>
-                          <StyledTableCell>Note</StyledTableCell>
-                          <StyledTableCell>Marks</StyledTableCell>
-                        </StyledTableRow>
-                      </TableHead>
-                      <TableBody>
-                        <StyledTableRow>
-                          <StyledTableCell>
-                            {result.subName.subName}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {result.marksObtained}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      </TableBody>
-                    </Table>
-                  );
-                } else if (!result.subName || !result.marksObtained) {
+          <h3>Obligations</h3>
+          {preferenceObliges &&
+            Array.isArray(preferenceObliges) &&
+            preferenceObliges.length > 0 && (
+              <>
+                {preferenceObliges.map((result, index) => {
+                  if (result.subName.subName === teachPreference) {
+                    return (
+                      <Table key={index}>
+                        <TableHead>
+                          <StyledTableRow>
+                            <StyledTableCell>Preferences</StyledTableCell>
+                            <StyledTableCell>Obligations</StyledTableCell>
+                          </StyledTableRow>
+                        </TableHead>
+                        <TableBody>
+                          <StyledTableRow>
+                            <StyledTableCell>
+                              {result.subName.subName}
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              {result.obligesObtained}
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        </TableBody>
+                      </Table>
+                    );
+                  } else if (!result.subName || !result.obligesObtained) {
+                    return null;
+                  }
                   return null;
-                }
-                return null;
-              })}
-            </>
-          )}
+                })}
+              </>
+            )}
           <PurpleButton
             variant="contained"
             onClick={() =>
-              navigate(`/Vendor/table/guest/marks/${guestID}/${teachNoteID}`)
+              navigate(
+                `/Vendor/table/guest/obliges/${guestID}/${teachPreferenceID}`
+              )
             }
           >
-            Add Marks
+            Add Obligation
           </PurpleButton>
           <br />
           <br />

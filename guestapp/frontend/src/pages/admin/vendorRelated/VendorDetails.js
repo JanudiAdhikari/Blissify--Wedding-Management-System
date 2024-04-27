@@ -22,11 +22,11 @@ const VendorDetails = () => {
     console.log(error);
   }
 
-  const isNoteNamePresent = vendorDetails?.teachNote?.subName;
+  const isPreferenceNamePresent = vendorDetails?.teachPreference?.subName;
 
-  const handleAddNote = () => {
+  const handleAddPreference = () => {
     navigate(
-      `/Admin/vendors/choosenote/${vendorDetails?.teachStable?._id}/${vendorDetails?._id}`
+      `/Admin/vendors/choosepreference/${vendorDetails?.teachStable?._id}/${vendorDetails?._id}`
     );
   };
 
@@ -50,18 +50,18 @@ const VendorDetails = () => {
           <Typography variant="h6" gutterBottom>
             Table Name: {vendorDetails?.teachStable?.stableName}
           </Typography>
-          {isNoteNamePresent ? (
+          {isPreferenceNamePresent ? (
             <>
               <Typography variant="h6" gutterBottom>
-                Note Name: {vendorDetails?.teachNote?.subName}
+                Preference Name: {vendorDetails?.teachPreference?.subName}
               </Typography>
               <Typography variant="h6" gutterBottom>
-                Note Sessions: {vendorDetails?.teachNote?.sessions}
+                Preference Sessions: {vendorDetails?.teachPreference?.sessions}
               </Typography>
             </>
           ) : (
-            <Button variant="contained" onClick={handleAddNote}>
-              Add Note
+            <Button variant="contained" onClick={handleAddPreference}>
+              Add Preference
             </Button>
           )}
         </Container>

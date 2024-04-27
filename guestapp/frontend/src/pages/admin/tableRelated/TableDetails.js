@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   getTableDetails,
   getTableGuests,
-  getNoteList,
+  getPreferenceList,
 } from "../../../redux/stableRelated/stableHandle";
 import { deleteUser } from "../../../redux/userRelated/userHandle";
 import { Box, Container, Typography, Tab, IconButton } from "@mui/material";
@@ -12,7 +12,7 @@ import { Dialog, DialogTitle } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { resetNotes } from "../../../redux/stableRelated/stableSlice";
+import { resetPreferences } from "../../../redux/stableRelated/stableSlice";
 import {
   BlueButton,
   GreenButton,
@@ -31,7 +31,7 @@ const TableDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    notesList,
+    preferencesList,
     stableGuests,
     stableDetails,
     loading,
@@ -44,7 +44,7 @@ const TableDetails = () => {
 
   useEffect(() => {
     dispatch(getTableDetails(tableID, "Stable"));
-    dispatch(getNoteList(tableID, "TableNotes"));
+    dispatch(getPreferenceList(tableID, "TablePreferences"));
     dispatch(getTableGuests(tableID));
   }, [dispatch, tableID]);
 
@@ -68,38 +68,38 @@ const TableDetails = () => {
     setShowPopup(true);
     dispatch(deleteUser(deleteID, address)).then(() => {
       dispatch(getTableGuests(tableID));
-      dispatch(resetNotes());
-      dispatch(getNoteList(tableID, "TableNotes"));
+      dispatch(resetPreferences());
+      dispatch(getPreferenceList(tableID, "TablePreferences"));
       setMessage("Deleted Successfully");
     });
   };
 
-  const noteColumns = [
-    { id: "name", label: "Note Name", minWidth: 170 },
-    { id: "code", label: "Note Code", minWidth: 100 },
+  const preferenceColumns = [
+    { id: "name", label: "Preference Name", minWidth: 170 },
+    { id: "code", label: "Preference Category", minWidth: 100 },
   ];
 
-  const noteRows =
-    notesList &&
-    notesList.length > 0 &&
-    notesList.map((note) => {
+  const preferenceRows =
+    preferencesList &&
+    preferencesList.length > 0 &&
+    preferencesList.map((preference) => {
       return {
-        name: note.subName,
-        code: note.subCode,
-        id: note._id,
+        name: preference.subName,
+        code: preference.subCode,
+        id: preference._id,
       };
     });
 
-  const NotesButtonHaver = ({ row }) => {
+  const PreferencesButtonHaver = ({ row }) => {
     return (
       <>
-        <IconButton onClick={() => deleteHandler(row.id, "Note")}>
+        <IconButton onClick={() => deleteHandler(row.id, "Preference")}>
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton
           variant="contained"
           onClick={() => {
-            navigate(`/Admin/table/note/${tableID}/${row.id}`);
+            navigate(`/Admin/table/preference/${tableID}/${row.id}`);
           }}
         >
           View
@@ -108,20 +108,20 @@ const TableDetails = () => {
     );
   };
 
-  const noteActions = [
+  const preferenceActions = [
     {
       icon: <PostAddIcon color="primary" />,
-      name: "Add New Note",
-      action: () => navigate("/Admin/addnote/" + tableID),
+      name: "Add New Preference",
+      action: () => navigate("/Admin/addpreference/" + tableID),
     },
     {
       icon: <DeleteIcon color="error" />,
-      name: "Delete All Notes",
-      action: () => deleteHandler(tableID, "NotesTable"),
+      name: "Delete All Preferences",
+      action: () => deleteHandler(tableID, "PreferencesTable"),
     },
   ];
 
-  const TableNotesSection = () => {
+  const TablePreferencesSection = () => {
     return (
       <>
         {response ? (
@@ -134,23 +134,24 @@ const TableDetails = () => {
           >
             <GreenButton
               variant="contained"
-              onClick={() => navigate("/Admin/addnote/" + tableID)}
+              onClick={() => navigate("/Admin/addpreference/" + tableID)}
             >
-              Add Notes
+              Add Preferences
             </GreenButton>
           </Box>
         ) : (
           <>
             <Typography variant="h5" gutterBottom>
-              Notes List:
+              Preferences List:
             </Typography>
-
-            <TableTemplate
-              buttonHaver={NotesButtonHaver}
-              columns={noteColumns}
-              rows={noteRows}
-            />
-            <SpeedDialTemplate actions={noteActions} />
+            <div style={{ margin: "50px" }}>
+              <TableTemplate
+                buttonHaver={PreferencesButtonHaver}
+                columns={preferenceColumns}
+                rows={preferenceRows}
+              />
+            </div>
+            <SpeedDialTemplate actions={preferenceActions} />
           </>
         )}
       </>
@@ -230,12 +231,13 @@ const TableDetails = () => {
             <Typography variant="h5" gutterBottom>
               Guests List:
             </Typography>
-
-            <TableTemplate
-              buttonHaver={GuestsButtonHaver}
-              columns={guestColumns}
-              rows={guestRows}
-            />
+            <div style={{ margin: "50px" }}>
+              <TableTemplate
+                buttonHaver={GuestsButtonHaver}
+                columns={guestColumns}
+                rows={guestRows}
+              />
+            </div>
             <SpeedDialTemplate actions={guestActions} />
           </>
         )}
@@ -244,11 +246,15 @@ const TableDetails = () => {
   };
 
   const TableVendorsSection = () => {
-    return <>Vendors</>;
+    return (
+      <>
+        <center>Vendors</center>
+      </>
+    );
   };
 
   const TableDetailsSection = () => {
-    const numberOfNotes = notesList.length;
+    const numberOfPreferences = preferencesList.length;
     const numberOfGuests = stableGuests.length;
 
     return (
@@ -260,7 +266,7 @@ const TableDetails = () => {
           This is Table {stableDetails && stableDetails.stableName}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Number of Notes: {numberOfNotes}
+          Number of Preferences: {numberOfPreferences}
         </Typography>
         <Typography variant="h6" gutterBottom>
           Number of Guests: {numberOfGuests}
@@ -276,9 +282,9 @@ const TableDetails = () => {
         {response && (
           <GreenButton
             variant="contained"
-            onClick={() => navigate("/Admin/addnote/" + tableID)}
+            onClick={() => navigate("/Admin/addpreference/" + tableID)}
           >
-            Add Notes
+            Add Preferences
           </GreenButton>
         )}
       </>
@@ -301,6 +307,7 @@ const TableDetails = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   onChange={handleChange}
+                  centered
                   sx={{
                     position: "fixed",
                     width: "100%",
@@ -309,7 +316,7 @@ const TableDetails = () => {
                   }}
                 >
                   <Tab label="Details" value="1" />
-                  <Tab label="Notes" value="2" />
+                  <Tab label="Preferences" value="2" />
                   <Tab label="Guests" value="3" />
                   <Tab label="Vendors" value="4" />
                 </TabList>
@@ -319,7 +326,7 @@ const TableDetails = () => {
                   <TableDetailsSection />
                 </TabPanel>
                 <TabPanel value="2">
-                  <TableNotesSection />
+                  <TablePreferencesSection />
                 </TabPanel>
                 <TabPanel value="3">
                   <TableGuestsSection />

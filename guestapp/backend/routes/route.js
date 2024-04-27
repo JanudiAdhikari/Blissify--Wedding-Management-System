@@ -38,21 +38,21 @@ const {
   guestAttendance,
   deleteGuestsByTable,
   updateExamResult,
-  clearAllGuestsAttendanceByNote,
+  clearAllGuestsAttendanceByPreference,
   clearAllGuestsAttendance,
-  removeGuestAttendanceByNote,
+  removeGuestAttendanceByPreference,
   removeGuestAttendance,
 } = require("../controllers/guest_controller.js");
 const {
-  noteCreate,
-  tableNotes,
-  deleteNotesByTable,
-  getNoteDetail,
-  deleteNote,
-  freeNoteList,
-  allNotes,
-  deleteNotes,
-} = require("../controllers/note-controller.js");
+  preferenceCreate,
+  tablePreferences,
+  deletePreferencesByTable,
+  getPreferenceDetail,
+  deletePreference,
+  freePreferenceList,
+  allPreferences,
+  deletePreferences,
+} = require("../controllers/preference-controller.js");
 const {
   vendorRegister,
   vendorLogIn,
@@ -61,7 +61,7 @@ const {
   deleteVendors,
   deleteVendorsByTable,
   deleteVendor,
-  updateVendorNote,
+  updateVendorPreference,
   vendorAttendance,
 } = require("../controllers/vendor-controller.js");
 const {
@@ -100,10 +100,13 @@ router.put("/UpdateExamResult/:id", updateExamResult);
 
 router.put("/GuestAttendance/:id", guestAttendance);
 
-router.put("/RemoveAllGuestsSubAtten/:id", clearAllGuestsAttendanceByNote);
+router.put(
+  "/RemoveAllGuestsSubAtten/:id",
+  clearAllGuestsAttendanceByPreference
+);
 router.put("/RemoveAllGuestsAtten/:id", clearAllGuestsAttendance);
 
-router.put("/RemoveGuestSubAtten/:id", removeGuestAttendanceByNote);
+router.put("/RemoveGuestSubAtten/:id", removeGuestAttendanceByPreference);
 router.put("/RemoveGuestAtten/:id", removeGuestAttendance);
 
 // Vendor
@@ -118,7 +121,7 @@ router.delete("/Vendors/:id", deleteVendors);
 router.delete("/VendorsTable/:id", deleteVendorsByTable);
 router.delete("/Vendor/:id", deleteVendor);
 
-router.put("/VendorNote", updateVendorNote);
+router.put("/VendorPreference", updateVendorPreference);
 
 router.post("/VendorAttendance/:id", vendorAttendance);
 
@@ -159,17 +162,17 @@ router.get("/Stable/Guests/:id", getStableGuests);
 router.delete("/Stablees/:id", deleteStablees);
 router.delete("/Stable/:id", deleteStable);
 
-// Note
+// Preference
 
-router.post("/NoteCreate", noteCreate);
+router.post("/PreferenceCreate", preferenceCreate);
 
-router.get("/AllNotes/:id", allNotes);
-router.get("/TableNotes/:id", tableNotes);
-router.get("/FreeNoteList/:id", freeNoteList);
-router.get("/Note/:id", getNoteDetail);
+router.get("/AllPreferences/:id", allPreferences);
+router.get("/TablePreferences/:id", tablePreferences);
+router.get("/FreePreferenceList/:id", freePreferenceList);
+router.get("/Preference/:id", getPreferenceDetail);
 
-router.delete("/Note/:id", deleteNote);
-router.delete("/Notes/:id", deleteNotes);
-router.delete("/NotesTable/:id", deleteNotesByTable);
+router.delete("/Preference/:id", deletePreference);
+router.delete("/Preferences/:id", deletePreferences);
+router.delete("/PreferencesTable/:id", deletePreferencesByTable);
 
 module.exports = router;

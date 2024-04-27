@@ -75,6 +75,7 @@ export const GreenButton = styled(Button)`
   && {
     background-color: #133104;
     margin-top: 10px;
+    margin-right: 5px;
     color: #fff;
     &:hover {
       background-color: #266810;

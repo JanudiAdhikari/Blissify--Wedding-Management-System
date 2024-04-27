@@ -90,15 +90,15 @@ const ShowGuests = () => {
       if (selectedIndex === 0) {
         handleAttendance();
       } else if (selectedIndex === 1) {
-        handleMarks();
+        handleObliges();
       }
     };
 
     const handleAttendance = () => {
       navigate("/Admin/guests/guest/attendance/" + row.id);
     };
-    const handleMarks = () => {
-      navigate("/Admin/guests/guest/marks/" + row.id);
+    const handleObliges = () => {
+      navigate("/Admin/guests/guest/obliges/" + row.id);
     };
 
     const handleMenuItemClick = (event, index) => {
@@ -230,11 +230,13 @@ const ShowGuests = () => {
           ) : (
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
               {Array.isArray(guestsList) && guestsList.length > 0 && (
-                <TableTemplate
-                  buttonHaver={GuestButtonHaver}
-                  columns={guestColumns}
-                  rows={guestRows}
-                />
+                <div style={{ margin: "50px" }}>
+                  <TableTemplate
+                    buttonHaver={GuestButtonHaver}
+                    columns={guestColumns}
+                    rows={guestRows}
+                  />
+                </div>
               )}
               <SpeedDialTemplate actions={actions} />
             </Paper>
