@@ -141,8 +141,8 @@ const ViewPreference = () => {
           </>
         ) : (
           <>
-            <Typography variant="h5" gutterBottom>
-              Guests List:
+            <Typography variant="h5" gutterBottom sx={{ marginTop: "10px" }}>
+              <center>Guests List</center>
             </Typography>
 
             {selectedSection === "attendance" && (

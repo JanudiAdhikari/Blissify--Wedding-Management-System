@@ -190,8 +190,8 @@ const VendorTableDetails = () => {
             </>
           ) : (
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <Typography variant="h5" gutterBottom>
-                Guests List:
+              <Typography variant="h5" gutterBottom sx={{ marginTop: "10px" }}>
+                <center>Guests List</center>
               </Typography>
 
               {Array.isArray(stableGuests) && stableGuests.length > 0 && (

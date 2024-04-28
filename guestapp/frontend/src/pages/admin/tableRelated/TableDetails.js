@@ -228,8 +228,8 @@ const TableDetails = () => {
           </>
         ) : (
           <>
-            <Typography variant="h5" gutterBottom>
-              Guests List:
+            <Typography variant="h5" gutterBottom sx={{ marginTop: "10px" }}>
+              <center>Guests List</center>
             </Typography>
             <div style={{ margin: "50px" }}>
               <TableTemplate

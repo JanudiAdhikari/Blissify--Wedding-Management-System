@@ -90,100 +90,126 @@ const ViewStdAttendance = () => {
   const renderTableSection = () => {
     return (
       <>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ marginTop: "20px" }}
+        >
           Attendance
         </Typography>
-        <Table>
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell>Preferences</StyledTableCell>
-              <StyledTableCell>Present</StyledTableCell>
-              <StyledTableCell>Total Sessions</StyledTableCell>
-              <StyledTableCell>Attendance Percentage</StyledTableCell>
-              <StyledTableCell align="center">Actions</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          {Object.entries(attendanceByPreference).map(
-            ([subName, { present, allData, subId, sessions }], index) => {
-              const preferenceAttendancePercentage =
-                calculatePreferenceAttendancePercentage(present, sessions);
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "50px",
+          }}
+        >
+          <Table>
+            <TableHead>
+              <StyledTableRow>
+                <StyledTableCell>Preferences</StyledTableCell>
+                <StyledTableCell>Present</StyledTableCell>
+                <StyledTableCell>Total Sessions</StyledTableCell>
+                <StyledTableCell>Attendance Percentage</StyledTableCell>
+                <StyledTableCell align="center">Actions</StyledTableCell>
+              </StyledTableRow>
+            </TableHead>
+            {Object.entries(attendanceByPreference).map(
+              ([subName, { present, allData, subId, sessions }], index) => {
+                const preferenceAttendancePercentage =
+                  calculatePreferenceAttendancePercentage(present, sessions);
 
-              return (
-                <TableBody key={index}>
-                  <StyledTableRow>
-                    <StyledTableCell>{subName}</StyledTableCell>
-                    <StyledTableCell>{present}</StyledTableCell>
-                    <StyledTableCell>{sessions}</StyledTableCell>
-                    <StyledTableCell>
-                      {preferenceAttendancePercentage}%
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <Button
-                        variant="contained"
-                        onClick={() => handleOpen(subId)}
+                return (
+                  <TableBody key={index}>
+                    <StyledTableRow>
+                      <StyledTableCell>{subName}</StyledTableCell>
+                      <StyledTableCell>{present}</StyledTableCell>
+                      <StyledTableCell>{sessions}</StyledTableCell>
+                      <StyledTableCell>
+                        {preferenceAttendancePercentage}%
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        <Button
+                          variant="contained"
+                          onClick={() => handleOpen(subId)}
+                        >
+                          {openStates[subId] ? (
+                            <KeyboardArrowUp />
+                          ) : (
+                            <KeyboardArrowDown />
+                          )}
+                          Details
+                        </Button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                    <StyledTableRow>
+                      <StyledTableCell
+                        style={{ paddingBottom: 0, paddingTop: 0 }}
+                        colSpan={6}
                       >
-                        {openStates[subId] ? (
-                          <KeyboardArrowUp />
-                        ) : (
-                          <KeyboardArrowDown />
-                        )}
-                        Details
-                      </Button>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                  <StyledTableRow>
-                    <StyledTableCell
-                      style={{ paddingBottom: 0, paddingTop: 0 }}
-                      colSpan={6}
-                    >
-                      <Collapse
-                        in={openStates[subId]}
-                        timeout="auto"
-                        unmountOnExit
-                      >
-                        <Box sx={{ margin: 1 }}>
-                          <Typography variant="h6" gutterBottom component="div">
-                            Attendance Details
-                          </Typography>
-                          <Table size="small" aria-label="purchases">
-                            <TableHead>
-                              <StyledTableRow>
-                                <StyledTableCell>Date</StyledTableCell>
-                                <StyledTableCell align="right">
-                                  Status
-                                </StyledTableCell>
-                              </StyledTableRow>
-                            </TableHead>
-                            <TableBody>
-                              {allData.map((data, index) => {
-                                const date = new Date(data.date);
-                                const dateString =
-                                  date.toString() !== "Invalid Date"
-                                    ? date.toISOString().substring(0, 10)
-                                    : "Invalid Date";
-                                return (
-                                  <StyledTableRow key={index}>
-                                    <StyledTableCell component="th" scope="row">
-                                      {dateString}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                      {data.status}
-                                    </StyledTableCell>
-                                  </StyledTableRow>
-                                );
-                              })}
-                            </TableBody>
-                          </Table>
-                        </Box>
-                      </Collapse>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                </TableBody>
-              );
-            }
-          )}
-        </Table>
-        <div>
+                        <Collapse
+                          in={openStates[subId]}
+                          timeout="auto"
+                          unmountOnExit
+                        >
+                          <Box sx={{ margin: 1 }}>
+                            <Typography
+                              variant="h6"
+                              gutterBottom
+                              component="div"
+                            >
+                              Attendance Details
+                            </Typography>
+                            <Table size="small" aria-label="purchases">
+                              <TableHead>
+                                <StyledTableRow>
+                                  <StyledTableCell>Date</StyledTableCell>
+                                  <StyledTableCell align="right">
+                                    Status
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              </TableHead>
+                              <TableBody>
+                                {allData.map((data, index) => {
+                                  const date = new Date(data.date);
+                                  const dateString =
+                                    date.toString() !== "Invalid Date"
+                                      ? date.toISOString().substring(0, 10)
+                                      : "Invalid Date";
+                                  return (
+                                    <StyledTableRow key={index}>
+                                      <StyledTableCell
+                                        component="th"
+                                        scope="row"
+                                      >
+                                        {dateString}
+                                      </StyledTableCell>
+                                      <StyledTableCell align="right">
+                                        {data.status}
+                                      </StyledTableCell>
+                                    </StyledTableRow>
+                                  );
+                                })}
+                              </TableBody>
+                            </Table>
+                          </Box>
+                        </Collapse>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </TableBody>
+                );
+              }
+            )}
+          </Table>
+        </div>
+        <div
+          style={{
+            margin: "10px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           Overall Attendance Percentage:{" "}
           {overallAttendancePercentage.toFixed(2)}%
         </div>

@@ -193,7 +193,14 @@ const ViewGuest = () => {
     const renderTableSection = () => {
       return (
         <>
-          <h3>Attendance:</h3>
+          <h3
+            style={{
+              margin: "10px",
+              textAlign: "center",
+            }}
+          >
+            Attendance
+          </h3>
           <Table>
             <TableHead>
               <StyledTableRow>
@@ -297,7 +304,13 @@ const ViewGuest = () => {
               );
             })}
           </Table>
-          <div>
+          <div
+            style={{
+              margin: "10px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             Overall Attendance Percentage:{" "}
             {overallAttendancePercentage.toFixed(2)}%
           </div>
@@ -393,7 +406,14 @@ const ViewGuest = () => {
     const renderTableSection = () => {
       return (
         <>
-          <h3>Obligations</h3>
+          <h3
+            style={{
+              margin: "10px",
+              textAlign: "center",
+            }}
+          >
+            Obligations
+          </h3>
           <Table>
             <TableHead>
               <StyledTableRow>

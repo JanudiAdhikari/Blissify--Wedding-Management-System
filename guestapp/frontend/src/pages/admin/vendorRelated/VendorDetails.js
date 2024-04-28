@@ -41,7 +41,12 @@ const VendorDetails = () => {
         </div>
       ) : (
         <Container>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ marginTop: "50px" }}
+          >
             Vendor Details
           </Typography>
           <Typography variant="h6" gutterBottom>

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addStuff } from '../../../redux/userRelated/userHandle';
-import { underControl } from '../../../redux/userRelated/userSlice';
-import { CircularProgress } from '@mui/material';
-import Popup from '../../../components/Popup';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addStuff } from "../../../redux/userRelated/userHandle";
+import { underControl } from "../../../redux/userRelated/userSlice";
+import { CircularProgress } from "@mui/material";
+import Popup from "../../../components/Popup";
 
 const AddNotice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { status, response, error } = useSelector(state => state.user);
-  const { currentUser } = useSelector(state => state.user);
+  const { status, response, error } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
-  const [title, setTitle] = useState('');
-  const [details, setDetails] = useState('');
-  const [date, setDate] = useState('');
-  const adminID = currentUser._id
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+  const [date, setDate] = useState("");
+  const adminID = currentUser._id;
 
   const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
   const fields = { title, details, date, adminID };
-  const address = "Notice"
+  const address = "Notice";
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -31,49 +31,69 @@ const AddNotice = () => {
   };
 
   useEffect(() => {
-    if (status === 'added') {
-      navigate('/Admin/notices');
-      dispatch(underControl())
-    } else if (status === 'error') {
-      setMessage("Network Error")
-      setShowPopup(true)
-      setLoader(false)
+    if (status === "added") {
+      navigate("/Admin/notices");
+      dispatch(underControl());
+    } else if (status === "error") {
+      setMessage("Network Error");
+      setShowPopup(true);
+      setLoader(false);
     }
   }, [status, navigate, error, response, dispatch]);
 
   return (
     <>
-      <div tableName="register">
-        <form tableName="registerForm" onSubmit={submitHandler}>
-          <span tableName="registerTitle">Add Notice</span>
+      <div className="register">
+        <form className="registerForm" onSubmit={submitHandler}>
+          {/* <span className="registerTitle">Add Notice</span> */}
+          <h2>
+            <center>Add Notice</center>
+          </h2>
           <label>Title</label>
-          <input tableName="registerInput" type="text" placeholder="Enter notice title..."
+          <input
+            className="registerInput"
+            type="text"
+            placeholder="Enter notice title..."
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            required />
+            required
+          />
 
           <label>Details</label>
-          <input tableName="registerInput" type="text" placeholder="Enter notice details..."
+          <input
+            className="registerInput"
+            type="text"
+            placeholder="Enter notice details..."
             value={details}
             onChange={(event) => setDetails(event.target.value)}
-            required />
+            required
+          />
 
           <label>Date</label>
-          <input tableName="registerInput" type="date" placeholder="Enter notice date..."
+          <input
+            className="registerInput"
+            type="date"
+            placeholder="Enter notice date..."
             value={date}
             onChange={(event) => setDate(event.target.value)}
-            required />
+            required
+          />
 
-          <button tableName="registerButton" type="submit" disabled={loader}>
-            {loader ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'Add'
-            )}
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+            style={{ backgroundColor: "#4d1c9c" }}
+          >
+            {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
           </button>
         </form>
       </div>
-      <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
+      <Popup
+        message={message}
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+      />
     </>
   );
 };

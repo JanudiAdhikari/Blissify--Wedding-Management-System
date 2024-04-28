@@ -65,30 +65,43 @@ const GuestPreferences = () => {
   const renderTableSection = () => {
     return (
       <>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ marginTop: "20px" }}
+        >
           Obligations
         </Typography>
-        <Table>
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell>Preference</StyledTableCell>
-              <StyledTableCell>Obligation</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {preferenceObliges.map((result, index) => {
-              if (!result.subName || !result.obligesObtained) {
-                return null;
-              }
-              return (
-                <StyledTableRow key={index}>
-                  <StyledTableCell>{result.subName.subName}</StyledTableCell>
-                  <StyledTableCell>{result.obligesObtained}</StyledTableCell>
-                </StyledTableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "50px",
+          }}
+        >
+          <Table>
+            <TableHead>
+              <StyledTableRow>
+                <StyledTableCell>Preference</StyledTableCell>
+                <StyledTableCell>Obligation</StyledTableCell>
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {preferenceObliges.map((result, index) => {
+                if (!result.subName || !result.obligesObtained) {
+                  return null;
+                }
+                return (
+                  <StyledTableRow key={index}>
+                    <StyledTableCell>{result.subName.subName}</StyledTableCell>
+                    <StyledTableCell>{result.obligesObtained}</StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </>
     );
   };
