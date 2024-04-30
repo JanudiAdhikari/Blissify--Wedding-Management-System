@@ -12,9 +12,7 @@ function CalendarView() {
 
   return (
     <div>
-      <h1
-        style={{ fontSize: "1.5rem", textAlign: "center", marginTop: "3rem" }}
-      >
+      <h1 style={{ fontSize: "1.5rem", textAlign: "center", margin: "3rem" }}>
         Plan Schedule
       </h1>
       <div id="calendar">

@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, styled } from '@mui/material';
-import Slide from './Slide';
-import Banner from './Banner';
-import { useDispatch, useSelector } from 'react-redux';
-import { getServices } from '../redux/userHandle';
-import ServicesMenu from './couple/components/ServicesMenu';
-import { NewtonsCradle } from '@uiball/loaders';
-import { Link } from 'react-router-dom';
+//Referenced from: https://www.youtube.com/watch?v=9zTm0a0eQZc
+
+import React, { useEffect, useState } from "react";
+import { Box, Container, styled } from "@mui/material";
+import Slide from "./Slide";
+import Banner from "./Banner";
+import { useDispatch, useSelector } from "react-redux";
+import { getServices } from "../redux/userHandle";
+import ServicesMenu from "./couple/components/ServicesMenu";
+import { NewtonsCradle } from "@uiball/loaders";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const adURL =
-    'd';
+  const adURL = "d";
 
   const dispatch = useDispatch();
 
-  const { serviceData, responseServices, error } = useSelector((state) => state.user);
+  const { serviceData, responseServices, error } = useSelector(
+    (state) => state.user
+  );
 
   const [showNetworkError, setShowNetworkError] = useState(false);
 
@@ -36,9 +39,9 @@ const Home = () => {
     <div id="top">
       <Container
         sx={{
-          display: 'none',
-          '@media (max-width: 600px)': {
-            display: 'flex',
+          display: "none",
+          "@media (max-width: 600px)": {
+            display: "flex",
           },
         }}
       >
@@ -65,9 +68,7 @@ const Home = () => {
               <StyledContainer>No services found right now</StyledContainer>
               <StyledContainer>
                 Become a vendor to add services
-                <Link to={"/Vendorregister"}>
-                  Join
-                </Link>
+                <Link to={"/Vendorregister"}>Join</Link>
               </StyledContainer>
             </>
           ) : (
@@ -106,7 +107,7 @@ const StyledContainer = styled(Container)`
 
 const BannerBox = styled(Box)`
   padding: 20px 10px;
-  background: #F2F2F2;
+  background: #f2f2f2;
 `;
 
 const Component = styled(Box)`
@@ -114,20 +115,20 @@ const Component = styled(Box)`
 `;
 
 const LeftComponent = styled(Box)(({ theme }) => ({
-  width: '83%',
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
+  width: "83%",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
   },
 }));
 
 const RightComponent = styled(Box)(({ theme }) => ({
   marginTop: 10,
-  background: '#FFFFFF',
-  width: '17%',
+  background: "#FFFFFF",
+  width: "17%",
   marginLeft: 10,
   padding: 5,
-  textAlign: 'center',
-  [theme.breakpoints.down('md')]: {
-    display: 'none',
+  textAlign: "center",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
   },
 }));

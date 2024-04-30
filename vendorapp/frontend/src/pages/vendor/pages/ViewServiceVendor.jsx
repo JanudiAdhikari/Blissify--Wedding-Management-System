@@ -28,6 +28,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Dialog, DialogTitle } from "@mui/material";
 import altImage from "../../../assets/altimg.png";
 import Popup from "../../../components/Popup";
@@ -100,11 +101,23 @@ const ViewServiceVendor = () => {
     description,
     tagline,
   };
-
+  const [errorMessage, setErrorMessage] = useState("");
   const submitHandler = (event) => {
     event.preventDefault();
     setLoader(true);
-    dispatch(updateStuff(fields, serviceID, "ServiceUpdate"));
+    // dispatch(updateStuff(fields, serviceID, "ServiceUpdate"));
+    // Validate all fields before submitting
+    validateDescription(description);
+    validateMrp(mrp);
+    validateCost(cost);
+    validateDiscountPercent(discountPercent);
+
+    // Only submit if there are no errors
+    if (!descriptionError && !mrpError && !costError && !discountPercentError) {
+      dispatch(updateStuff(fields, serviceID, "ServiceUpdate"));
+    } else {
+      setErrorMessage("Please update all required fields correctly");
+    }
   };
 
   const deleteHandler = (reviewId) => {
@@ -134,6 +147,69 @@ const ViewServiceVendor = () => {
     }
   }, [status, error, dispatch, serviceID]);
 
+  // Add state for error messages
+  const [descriptionError, setDescriptionError] = useState("");
+  const [mrpError, setMrpError] = useState("");
+  const [costError, setCostError] = useState("");
+  const [discountPercentError, setDiscountPercentError] = useState("");
+
+  // Add validation functions
+  const validateDescription = (value) => {
+    if (value.trim() === "") {
+      setDescriptionError("Description is required");
+    } else if (value.length < 10) {
+      setDescriptionError("Description must be at least 10 characters long");
+    } else {
+      setDescriptionError("");
+    }
+  };
+
+  const validateMrp = (value) => {
+    if (value === null || value === undefined || value === "") {
+      setMrpError("MRP is required");
+    } else if (isNaN(value)) {
+      setMrpError("MRP must be a number");
+    } else if (value < 0) {
+      setMrpError("MRP must be positive");
+    } else {
+      setMrpError("");
+    }
+  };
+
+  const validateCost = (value) => {
+    if (value === null || value === undefined || value === "") {
+      setCostError("Cost is required");
+    } else if (isNaN(value)) {
+      setCostError("Cost must be a number");
+    } else if (value < 0) {
+      setCostError("Cost must be positive");
+    } else {
+      setCostError("");
+    }
+  };
+
+  const validateDiscountPercent = (value) => {
+    if (value === null || value === undefined || value === "") {
+      setDiscountPercentError("Discount Percent is required");
+    } else if (isNaN(value)) {
+      setDiscountPercentError("Discount Percent must be a number");
+    } else if (value < 0 || value > 100) {
+      setDiscountPercentError("Discount Percent must be between 0 and 100");
+    } else {
+      setDiscountPercentError("");
+    }
+  };
+
+  const categories = [
+    "Attire",
+    "Venue",
+    "Florist",
+    "Caterer",
+    "Beautician",
+    "Transport Provider",
+    "Entertainment Provider",
+    "Other",
+  ];
   return (
     <>
       {loading ? (
@@ -148,6 +224,11 @@ const ViewServiceVendor = () => {
             </Dialog>
           ) : (
             <>
+              {errorMessage && (
+                <Dialog open={true}>
+                  <DialogTitle>{errorMessage}</DialogTitle>
+                </Dialog>
+              )}
               <ServiceContainer>
                 <div>
                   <ServiceImage
@@ -254,63 +335,119 @@ const ViewServiceVendor = () => {
                               shrink: true,
                             }}
                           />
+
                           <TextField
                             fullWidth
                             multiline
                             label="Description"
                             value={description}
-                            onChange={(event) =>
-                              setDescription(event.target.value)
-                            }
+                            onChange={(event) => {
+                              setDescription(event.target.value);
+                              validateDescription(event.target.value);
+                            }}
                             required
                             InputLabelProps={{
                               shrink: true,
                             }}
                           />
+                          {descriptionError && (
+                            <div
+                              style={{
+                                color: "red",
+                                fontWeight: "bold",
+                                marginTop: "10px",
+                              }}
+                            >
+                              {descriptionError}
+                            </div>
+                          )}
                           <TextField
                             fullWidth
                             label="MRP"
                             value={mrp}
-                            onChange={(event) => setMrp(event.target.value)}
+                            onChange={(event) => {
+                              setMrp(event.target.value);
+                              validateMrp(event.target.value);
+                            }}
                             required
                             InputLabelProps={{
                               shrink: true,
                             }}
                           />
+                          {mrpError && (
+                            <div
+                              style={{
+                                color: "red",
+                                fontWeight: "bold",
+                                marginTop: "10px",
+                              }}
+                            >
+                              {mrpError}
+                            </div>
+                          )}
                           <TextField
                             fullWidth
                             label="Cost"
                             value={cost}
-                            onChange={(event) => setCost(event.target.value)}
+                            onChange={(event) => {
+                              setCost(event.target.value);
+                              validateCost(event.target.value);
+                            }}
                             required
                             InputLabelProps={{
                               shrink: true,
                             }}
                           />
+                          {costError && (
+                            <div
+                              style={{
+                                color: "red",
+                                fontWeight: "bold",
+                                marginTop: "10px",
+                              }}
+                            >
+                              {costError}
+                            </div>
+                          )}
                           <TextField
                             fullWidth
                             label="Discount Percent"
                             value={discountPercent}
-                            onChange={(event) =>
-                              setDiscountPercent(event.target.value)
-                            }
+                            onChange={(event) => {
+                              setDiscountPercent(event.target.value);
+                              validateDiscountPercent(event.target.value);
+                            }}
                             required
                             InputLabelProps={{
                               shrink: true,
                             }}
                           />
-                          <TextField
-                            fullWidth
-                            label="Category"
-                            value={category}
-                            onChange={(event) =>
-                              setCategory(event.target.value)
-                            }
-                            required
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
+                          {discountPercentError && (
+                            <div
+                              style={{
+                                color: "red",
+                                fontWeight: "bold",
+                                marginTop: "10px",
+                              }}
+                            >
+                              {discountPercentError}
+                            </div>
+                          )}
+                          <FormControl fullWidth required>
+                            <InputLabel shrink>Category</InputLabel>
+                            <Select
+                              value={category}
+                              onChange={(event) =>
+                                setCategory(event.target.value)
+                              }
+                            >
+                              {categories.map((category) => (
+                                <MenuItem value={category} key={category}>
+                                  {category}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                           <TextField
                             fullWidth
                             label="Subcategory"
@@ -334,20 +471,27 @@ const ViewServiceVendor = () => {
                             }}
                           />
                         </Stack>
-                        <BlueButton
-                          fullWidth
-                          size="large"
-                          sx={{ mt: 3 }}
-                          variant="contained"
-                          type="submit"
-                          disabled={loader}
+
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          marginTop={5}
                         >
-                          {loader ? (
-                            <CircularProgress size={24} color="inherit" />
-                          ) : (
-                            "Update"
-                          )}
-                        </BlueButton>
+                          <BlueButton
+                            fullWidth
+                            size="large"
+                            sx={{ mt: 3 }}
+                            variant="contained"
+                            type="submit"
+                            disabled={loader}
+                          >
+                            {loader ? (
+                              <CircularProgress size={24} color="inherit" />
+                            ) : (
+                              "Update"
+                            )}
+                          </BlueButton>
+                        </Box>
                       </form>
                     </div>
                   </Box>
