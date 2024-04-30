@@ -6,26 +6,10 @@ import { plus } from "../../../assets/budgetImages/budgetIcons";
 import "./expenseform.css";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
+import toast from "react-hot-toast";
 
 const ExpenseForm = () => {
-  const [expenses, setExpenses] = useState([]);
   const [error, setError] = useState(null);
-
-  const addExpense = async (expense) => {
-    const response = await axios
-      .post("http://localhost:8000/api/addExpense", expense)
-      .catch((err) => {
-        setError(err.response.data.message);
-      });
-    getExpenses();
-  };
-
-  const getExpenses = async () => {
-    const response = await axios.get("http://localhost:8000/api/getExpenses");
-    setExpenses(response.data);
-    console.log(response.data);
-  };
-
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
@@ -34,23 +18,27 @@ const ExpenseForm = () => {
     description: "",
   });
 
-  const { title, amount, date, category, description } = inputState;
-
   const handleInput = (name) => (e) => {
     setInputState({ ...inputState, [name]: e.target.value });
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addExpense(inputState);
-    setInputState({
-      title: "",
-      amount: "",
-      date: "",
-      category: "",
-      description: "",
-    });
+    try {
+      await axios.post("http://localhost:8000/api/addExpense", inputState);
+      setInputState({
+        title: "",
+        amount: "",
+        date: "",
+        category: "",
+        description: "",
+      });
+      // Show success toast message
+      toast.success("Expense added successfully!");
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -59,7 +47,7 @@ const ExpenseForm = () => {
       <div className="input-control">
         <TextField
           type="text"
-          value={title}
+          value={inputState.title}
           name="title"
           id="title"
           label="Expense Title"
@@ -68,7 +56,7 @@ const ExpenseForm = () => {
       </div>
       <div className="input-control">
         <TextField
-          value={amount}
+          value={inputState.amount}
           type="text"
           name="amount"
           id="amount"
@@ -80,7 +68,7 @@ const ExpenseForm = () => {
         <DatePicker
           id="date"
           placeholderText="Enter A Date"
-          selected={date}
+          selected={inputState.date}
           dateFormat="dd/MM/yyyy"
           onChange={(date) => {
             setInputState({ ...inputState, date: date });
@@ -90,7 +78,7 @@ const ExpenseForm = () => {
       <div className="selects input-control">
         <select
           required
-          value={category}
+          value={inputState.category}
           name="category"
           id="category"
           onChange={handleInput("category")}
@@ -98,20 +86,18 @@ const ExpenseForm = () => {
           <option value="" disabled>
             Select Expense Category
           </option>
-          <option value="education">Education</option>
-          <option value="groceries">Groceries</option>
-          <option value="health">Health</option>
-          <option value="subscriptions">Subscriptions</option>
-          <option value="takeaways">Takeaways</option>
-          <option value="clothing">Clothing</option>
-          <option value="traveling">Traveling</option>
-          <option value="other">Other</option>
+          <option value="Vendors Cost">Vendors' Cost</option>
+          <option value="Insurance">Insurance</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Taxes">Taxes</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Other">Other</option>
         </select>
       </div>
       <div className="input-control">
         <TextField
           name="description"
-          value={description}
+          value={inputState.description}
           label="Add A Reference"
           id="description"
           multiline

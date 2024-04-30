@@ -20,6 +20,9 @@ route.post("/addExpense", addExpense);
 route.get("/getExpenses", getExpenses);
 route.delete("/deleteExpense/:id", deleteExpense);
 
+//route.delete("/deleteTransaction/:id", deleteTransaction);
+
 //route.delete("/updateTransaction", updateTransaction);
+
 
 export default route;

@@ -17,7 +17,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 const AddBudget = () => {
   const budgets = {
     eventID: "",
-    groomName: "",
+    groomName: "Customized",
     brideName: "",
     packages: "",
     estimatedBudget: "",
@@ -41,13 +41,19 @@ const AddBudget = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    const vendorServices = Object.keys(state)
+        .filter((service) => state[service]);
+    const budgetToSend = {
+      ...budget,
+      vendorServices: vendorServices,
+    };
     await axios
-      .post("http://localhost:8000/api/createBudget", budget)
-      .then((response) => {
-        toast.success(response.data.msg, { position: "top-right" });
-        navigate("/displayBudgets");
-      })
-      .catch((error) => console.log(error));
+        .post("http://localhost:8000/api/createBudget", budgetToSend)
+        .then((response) => {
+          toast.success(response.data.msg, { position: "top-right" });
+          navigate("/displayBudgets");
+        })
+        .catch((error) => console.log(error));
   };
 
   const [state, setState] = useState({
@@ -106,31 +112,29 @@ const AddBudget = () => {
           {/* <label htmlFor='eventID'>Event ID</label>
                 <input type='text' onChange={inputHandler} id='eventID' name='eventID' autoComplete='off' placeholder='Event ID'/> */}
           <TextField
-            required
-            id="eventID"
-            label="Event Name/ID"
-            onChange={inputHandler}
+              required
+              id="eventID"
+              label="Event Name/ID"
+              onChange={inputHandler}
+              name="eventID"
           />
 
           <TextField
-            id="groomName"
-            label="Groom's Name"
-            // defaultValue="Groom" // NAME eka auto enna hdnna one
-            // InputProps={{
-            //   readOnly: true,
-            // }}
+              id="groomName"
+              label="Groom's Name"
+              onChange={inputHandler}
+              name="groomName"
           />
-          <TextField
-            id="brideName"
-            label="Bride's Name"
-            // defaultValue="Bride" // NAME eka auto enna hdnna one
-            // InputProps={{
-            //   readOnly: true,
-            // }}
-          />
-        </div>
 
-        <div className="inputGroup">
+          <TextField
+              id="brideName"
+              label="Bride's Name"
+              onChange={inputHandler}
+              name="brideName"
+          />
+          </div>
+
+          <div className="inputGroup">
           <FormLabel component="legend">Vendor Services</FormLabel>
           <FormGroup
             sx={{
@@ -209,47 +213,49 @@ const AddBudget = () => {
         </div>
 
         <div className="inputGroup" style={{marginLeft: '20px'}}>
-  <div className="flexContainer">
-    <div>
-      <TextField
-        id="packages"
-        select
-        label="Packages"
-        defaultValue={packages[0].value}
-        onChange={inputHandler}
-      >
-        {packages.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </div>
+          <div className="flexContainer">
+            <div>
+              <TextField
+                id="packages"
+                select
+                sx={{width: '100%'}}
+                label="Packages"
+                defaultValue={packages[0].value}
+                onChange={inputHandler}
+                name="packages"
+              >
+                {packages.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
 
-    <div>
-      <FormControl>
-        <InputLabel htmlFor="outlined-adornment-amount">Estimated Budget</InputLabel>
-        <OutlinedInput
-          id="estimatedBudget"
-          startAdornment={<InputAdornment position="start">LKR</InputAdornment>}
-          label="Amount"
-          onChange={inputHandler}
-        />
-      </FormControl>
-    </div>
-  </div>
-</div>
-
-
-        <div className="inputGroup">
-          <TextField
+            <div>
+              <FormControl>
+                <InputLabel htmlFor="outlined-adornment-amount">Estimated Budget</InputLabel>
+                <OutlinedInput
+                    id="estimatedBudget"
+                    startAdornment={<InputAdornment position="start">LKR</InputAdornment>}
+                    label="Amount"
+                    onChange={inputHandler}
+                    name="estimatedBudget"
+                />
+              </FormControl>
+            </div>
+          </div>
+        </div>
+        <TextField
             id="additionalNotes"
             label="Additional Notes"
             multiline
             rows={4}
             fullWidth
-          />
-        </div>
+            onChange={inputHandler}
+            name="additionalNotes"
+            sx={{mb: 2}}
+        />
 
         <div className="inputGroup">
           <button className="submit">ADD BUDGET</button>

@@ -9,6 +9,10 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
+import toast from "react-hot-toast";
+import { CardActions, IconButton } from "@mui/material";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const columns = [
   { id: "title", label: "Title", minWidth: 100 },
@@ -32,8 +36,8 @@ const columns = [
     align: "center",
   },
   {
-    id: "delete",
-    label: "Delete",
+    id: "options",
+    label: "Options",
     minWidth: 100,
     align: "center",
   },
@@ -43,10 +47,10 @@ const dateFormat = (date) => {
   return moment(date).format("DD/MM/YYYY");
 };
 
-
 export default function AllTransactions() {
   const [rowsNew, setRowsNew] = useState([]);
   const [exp, setExp] = useState([]);
+  const [trans, setTrans] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,13 +63,14 @@ export default function AllTransactions() {
 
       setRowsNew(combinedData);
       setExp(expenseResponse.data);
+      setTrans(combinedData); // Initialize trans state with combined data
     };
 
     fetchData();
   }, []);
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -76,6 +81,25 @@ export default function AllTransactions() {
     setPage(0);
   };
 
+  const deleteTransaction = async (id, type) => {
+    try {
+      if (type === 'Income') {
+        await axios.delete(`http://localhost:8000/api/deleteIncome/${id}`);
+      } else if (type === 'Expense') {
+        await axios.delete(`http://localhost:8000/api/deleteExpense/${id}`);
+      } else {
+        throw new Error('Invalid Transaction Type');
+      }
+      // Remove the deleted transaction from the frontend state
+      setRowsNew(rowsNew.filter(transaction => transaction._id !== id));
+      toast.success("Transaction Deleted Successfully");
+    } catch (error) {
+      console.error("Error Deleting Transaction:", error);
+      toast.error("Error Deleting Transaction");
+    }
+  };
+  
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 540 }}>
@@ -84,10 +108,10 @@ export default function AllTransactions() {
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
+                key={column.id}
+                align={column.align}
+                style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white', fontWeight: 'bold', fontSize: '1.1rem'}}
+              >
                   {column.label}
                 </TableCell>
               ))}
@@ -102,12 +126,24 @@ export default function AllTransactions() {
                     const value = row[column.id];
                     return (
                       <TableCell key={column.id} align={column.align}>
-      {column.id === 'date' ? dateFormat(value) : (
-        column.format && typeof value === "number"
-          ? column.format(value)
-          : value
-      )}
-    </TableCell>
+                        {column.id === 'date' ? dateFormat(value) : (
+                          column.format && typeof value === "number"
+                            ? column.format(value)
+                            : column.id === 'options' ? (
+                              
+                              <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
+                                {/* <Link to={`/updateBudget/${row._id}`} style={{ textDecoration: "none" }}>
+                                  <IconButton size="small">
+                                    <FaEdit />
+                                  </IconButton>
+                                </Link> */}
+                                <IconButton onClick={() => deleteTransaction(row._id, row.type)} size="small">
+                                  <FaTrash />
+                                </IconButton>
+                              </CardActions>
+                            ) : value
+                        )}
+                      </TableCell>
                     );
                   })}
                 </TableRow>
@@ -127,4 +163,3 @@ export default function AllTransactions() {
     </Paper>
   );
 }
-

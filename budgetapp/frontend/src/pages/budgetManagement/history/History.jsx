@@ -15,9 +15,9 @@ const History = ({ incomes, expenses }) => {
             <h2>Recent History</h2>
             {historyItems.map(({ _id, title, amount, type }) => (
                 <div key={_id} className="history-item">
-                    <p style={{ color: type === 'expense' ? 'red' : '#42AD00' }}>{title}</p>
-                    <p style={{ color: type === 'expense' ? 'red' : '#42AD00' }}>
-                        {type === 'expense' ? `-${Math.max(amount, 0)}` : `+${Math.max(amount, 0)}`}
+                    <p style={{ color: type === 'Expense' ? 'red' : '#42AD00' }}>{title}</p>
+                    <p style={{ color: type === 'Expense' ? 'red' : '#42AD00' }}>
+                        {type === 'Expense' ? `-${Math.max(amount, 0)}` : `+${Math.max(amount, 0)}`}
                     </p>
                 </div>
             ))}

@@ -33,7 +33,7 @@ const SideBar = () => {
     {
       text: "Analytics",
       icon: budgetAnaly,
-      link: "/",
+      link: "/analytics",
     }
   ];
 
@@ -50,7 +50,6 @@ const SideBar = () => {
       <div className="nav-upper">
         <div className="nav-heading">
           <div className="nav-brand">
-            <img src="./BudgetIcons/Logo.svg" alt="Logo" />
             <h2>Blissify</h2>
           </div>
         </div>
