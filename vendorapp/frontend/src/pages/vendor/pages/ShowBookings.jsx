@@ -39,10 +39,14 @@ const ShowBookings = () => {
         <OutForDeliverySection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        0 Completed Bookings
+        <div style={{ textAlign: "center", margin: "auto" }}>
+          0 Completed Bookings
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        0 Cancelled Bookings
+        <div style={{ textAlign: "center", margin: "auto" }}>
+          0 Cancelled Bookings
+        </div>
       </CustomTabPanel>
     </Box>
   );

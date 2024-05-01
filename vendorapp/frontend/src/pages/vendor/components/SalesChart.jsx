@@ -36,9 +36,7 @@ const SalesChart = ({ type }) => {
                 <RefreshIcon />
               </SvgIcon>
             }
-          >
-            Refresh
-          </Button>
+          ></Button>
         }
       />
       <CardContent

@@ -274,6 +274,7 @@ const ViewServiceVendor = () => {
                 <Button
                   variant="contained"
                   onClick={generatePDF}
+                  size="small"
                   style={{
                     margin: "20px",
                     float: "right",
