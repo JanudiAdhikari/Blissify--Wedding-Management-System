@@ -36,6 +36,10 @@ import { generateRandomColor, timeAgo } from "../../../utils/helperFunctions";
 import { underControl } from "../../../redux/userSlice";
 import AlertDialogSlide from "../../../components/AlertDialogSlide";
 
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import Button from "@mui/material/Button";
+
 const ViewServiceVendor = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -210,6 +214,43 @@ const ViewServiceVendor = () => {
     "Entertainment Provider",
     "Other",
   ];
+
+  //  generatePDF function
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // Define the columns for  table
+    const tableColumn = [
+      "Service Name",
+      "MRP",
+      "Cost",
+      "Discount",
+      "Description",
+      "Category",
+      "Subcategory",
+    ];
+
+    // Extract the data from  serviceDetails
+    const tableRows = [
+      [
+        serviceDetails.serviceName,
+        serviceDetails.price.mrp,
+        serviceDetails.price.cost,
+        serviceDetails.price.discountPercent,
+        serviceDetails.description,
+        serviceDetails.category,
+        serviceDetails.subcategory,
+      ],
+    ];
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+
+    doc.text("Vendor Service Report", 14, 15);
+
+    // Save the PDF
+    doc.save("Vendor_Service_Report.pdf");
+  };
+
   return (
     <>
       {loading ? (
@@ -229,6 +270,19 @@ const ViewServiceVendor = () => {
                   <DialogTitle>{errorMessage}</DialogTitle>
                 </Dialog>
               )}
+              <div>
+                <Button
+                  variant="contained"
+                  onClick={generatePDF}
+                  style={{
+                    margin: "20px",
+                    float: "right",
+                    backgroundColor: "#2f2b80",
+                  }}
+                >
+                  Generate Report
+                </Button>
+              </div>
               <ServiceContainer>
                 <div>
                   <ServiceImage
