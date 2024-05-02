@@ -7,6 +7,8 @@ import { Paper, Box, IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import SearchIcon from "@mui/icons-material/Search";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import {
@@ -134,6 +136,7 @@ const ShowGuests = () => {
 
       setOpen(false);
     };
+
     return (
       <>
         <IconButton onClick={() => deleteHandler(row.id, "Guest")}>
@@ -218,6 +221,26 @@ const ShowGuests = () => {
     },
   ];
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    const tableColumn = ["Name", "Seat Number", "Table"];
+    const tableRows = [];
+
+    const guests = searchTerm === "" ? guestRows : filterguestRows;
+
+    guests.forEach((guest) => {
+      const guestData = [guest.name, guest.rollNum, guest.stableName];
+      tableRows.push(guestData);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    const date = Date().split(" ");
+    const dateStr = date[0] + date[1] + date[2] + date[3] + date[4];
+    doc.text("Guests Report", 14, 15);
+    doc.save(`report_${dateStr}.pdf`);
+  };
+
   return (
     <>
       {loading ? (
@@ -251,7 +274,7 @@ const ShowGuests = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "20vh",
+                  height: "15vh",
                 }}
               >
                 <div style={{ position: "relative", width: "20%" }}>
@@ -283,7 +306,22 @@ const ShowGuests = () => {
                   />
                 </div>
               </div>
-
+              <div
+                style={{
+                  textAlign: "right",
+                  marginRight: "50px",
+                  marginBottom: "15px",
+                }}
+              >
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={generatePDF}
+                >
+                  Generate Report
+                </Button>
+              </div>
               <Paper sx={{ width: "100%", overflow: "hidden" }}>
                 {Array.isArray(guestsList) && guestsList.length > 0 && (
                   <div style={{ margin: "50px" }}>
