@@ -6,6 +6,7 @@ import { deleteUser } from "../../../redux/userRelated/userHandle";
 import { Paper, Box, IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
+import SearchIcon from "@mui/icons-material/Search";
 
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import {
@@ -47,6 +48,7 @@ const ShowGuests = () => {
 
   const [showPopup, setShowPopup] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
@@ -78,6 +80,21 @@ const ShowGuests = () => {
       };
     });
 
+  const filterguestRows =
+    guestsList &&
+    guestsList.length > 0 &&
+    guestsList
+      .filter((guest) =>
+        guest.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .map((guest) => {
+        return {
+          name: guest.name,
+          rollNum: guest.rollNum,
+          stableName: guest.stableName.stableName,
+          id: guest._id,
+        };
+      });
   const GuestButtonHaver = ({ row }) => {
     const options = ["Take Attendance", "Oblige"];
 
@@ -228,18 +245,58 @@ const ShowGuests = () => {
               </GreenButton>
             </Box>
           ) : (
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              {Array.isArray(guestsList) && guestsList.length > 0 && (
-                <div style={{ margin: "50px" }}>
-                  <TableTemplate
-                    buttonHaver={GuestButtonHaver}
-                    columns={guestColumns}
-                    rows={guestRows}
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "20vh",
+                }}
+              >
+                <div style={{ position: "relative", width: "20%" }}>
+                  <input
+                    type="text"
+                    placeholder="Search Guest"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={{
+                      padding: "10px",
+                      fontSize: "17px",
+                      border: "none",
+                      borderBottom: "2px solid blue",
+                      borderRadius: "5px",
+                      width: "100%",
+                      outline: "none",
+                      paddingLeft: "40px", // make room for the icon
+                    }}
+                  />
+                  <SearchIcon
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      fontSize: "20px",
+                      color: "grey",
+                    }}
                   />
                 </div>
-              )}
-              <SpeedDialTemplate actions={actions} />
-            </Paper>
+              </div>
+
+              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                {Array.isArray(guestsList) && guestsList.length > 0 && (
+                  <div style={{ margin: "50px" }}>
+                    <TableTemplate
+                      buttonHaver={GuestButtonHaver}
+                      columns={guestColumns}
+                      rows={searchTerm === "" ? guestRows : filterguestRows}
+                    />
+                  </div>
+                )}
+                <SpeedDialTemplate actions={actions} />
+              </Paper>
+            </>
           )}
         </>
       )}
