@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../../redux/userRelated/userHandle";
@@ -46,6 +47,8 @@ const ShowTablees = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
+  //Search tables function
+  const [searchInput, setSearchInput] = useState("");
 
   const deleteHandler = (deleteID, address) => {
     console.log(deleteID);
@@ -70,6 +73,19 @@ const ShowTablees = () => {
       };
     });
 
+  const filteredStables =
+    stableesList &&
+    stableesList.length > 0 &&
+    stableesList
+      .filter((stable) =>
+        stable.stableName.toLowerCase().includes(searchInput.toLowerCase())
+      )
+      .map((stable) => {
+        return {
+          name: stable.stableName,
+          id: stable._id,
+        };
+      });
   const StableButtonHaver = ({ row }) => {
     const actions = [
       {
@@ -197,12 +213,50 @@ const ShowTablees = () => {
             </Box>
           ) : (
             <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "20vh",
+                }}
+              >
+                <div style={{ position: "relative", width: "20%" }}>
+                  <input
+                    type="text"
+                    placeholder="Search Table"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    style={{
+                      padding: "10px",
+                      fontSize: "17px",
+                      border: "none",
+                      borderBottom: "2px solid blue",
+                      borderRadius: "5px",
+                      width: "100%",
+                      outline: "none",
+                      paddingLeft: "40px", // make room for the icon
+                    }}
+                  />
+                  <SearchIcon
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      fontSize: "20px",
+                      color: "grey",
+                    }}
+                  />
+                </div>
+              </div>
+
               {Array.isArray(stableesList) && stableesList.length > 0 && (
                 <div style={{ margin: "50px" }}>
                   <TableTemplate
                     buttonHaver={StableButtonHaver}
                     columns={stableColumns}
-                    rows={stableRows}
+                    rows={searchInput === "" ? stableRows : filteredStables}
                   />
                 </div>
               )}
