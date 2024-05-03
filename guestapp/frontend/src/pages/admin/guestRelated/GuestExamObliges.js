@@ -162,7 +162,7 @@ const GuestExamObliges = ({ situation }) => {
                   <FormControl>
                     <TextField
                       type="number"
-                      label="Obligation from Couple(Out of 5)"
+                      label="Obligation(Out of 5)"
                       value={obligesObtained}
                       required
                       onChange={(e) => setObligesObtained(e.target.value)}

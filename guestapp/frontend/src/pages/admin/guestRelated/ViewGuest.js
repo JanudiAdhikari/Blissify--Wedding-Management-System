@@ -394,6 +394,12 @@ const ViewGuest = () => {
             onClick={() =>
               navigate("/Admin/guests/guest/attendance/" + guestID)
             }
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "auto",
+              alignItems: "center",
+            }}
           >
             Add Attendance
           </Button>
