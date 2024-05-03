@@ -17,6 +17,10 @@ import UploadIcon from "@mui/icons-material/Upload";
 import AlertDialogSlide from "../../../components/AlertDialogSlide.jsx";
 import { Dialog, DialogTitle } from "@mui/material";
 
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import Button from "@mui/material/Button";
+
 const ShowServices = () => {
   const dispatch = useDispatch();
 
@@ -86,6 +90,29 @@ const ShowServices = () => {
     },
   ];
 
+  //  generatePDF function
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // Define the columns
+    const tableColumn = ["Service Name", "MRP", "Cost", "Discount"];
+
+    // Extract the data from  vendorServiceData
+    const tableRows = vendorServiceData.map((service) => [
+      service.serviceName,
+      service.price.mrp,
+      service.price.cost,
+      service.price.discountPercent,
+    ]);
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+
+    doc.text("Vendor Service Report", 14, 15);
+
+    // Save the PDF
+    doc.save("Vendor_Service_Report.pdf");
+  };
+
   return (
     <>
       {loading ? (
@@ -96,6 +123,18 @@ const ShowServices = () => {
         </div>
       ) : (
         <>
+          <Button
+            variant="contained"
+            onClick={generatePDF}
+            size="small"
+            style={{
+              margin: "20px",
+              float: "right",
+              backgroundColor: "#2f2b80",
+            }}
+          >
+            Generate Report
+          </Button>
           {responseVendorServices ? (
             <Box
               sx={{
@@ -155,6 +194,7 @@ const ShowServices = () => {
                     </ServiceGrid>
                   </div>
                 )}
+
               {currentRole === "Shopinvoice" ? (
                 <SpeedDialTemplate actions={shopinvoiceActions} />
               ) : (

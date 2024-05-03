@@ -21,14 +21,25 @@ const Homepage = () => {
             {/* <img src={Guests} alt="guests" style={{ width: "100%" }} /> */}
           </Grid>
         </Grid>
+        <div>
+          <StyledBoxRegister style={{ float: "right", marginTop: "200" }}>
+            {/* <StyledText> */}
+            {/* Don't have an account?{" "} */}
+            <Link to="/Adminregister" style={{ color: "#550080" }}>
+              <LightPurpleButton variant="contained" fullWidth>
+                Sign up
+              </LightPurpleButton>
+            </Link>
+            {/* </StyledText> */}
+          </StyledBoxRegister>
 
-        <StyledBox style={{ float: "right", marginTop: "200" }}>
-          <StyledLink to="/choose">
-            <LightPurpleButton variant="contained" fullWidth>
-              Login
-            </LightPurpleButton>
+          <StyledBox style={{ float: "right", marginTop: "200" }}>
+            <StyledLink to="/choose">
+              <LightPurpleButton variant="contained" fullWidth>
+                Login
+              </LightPurpleButton>
 
-            {/* <Grid container spacing={2} columns={16}>
+              {/* <Grid container spacing={2} columns={16}>
                             <Grid item xs={8}>
                                 <item>xs=8</item>
                             </Grid>
@@ -36,31 +47,20 @@ const Homepage = () => {
                                 <item>xs=8</item>
                             </Grid>
                             </Grid> */}
-          </StyledLink>
+            </StyledLink>
 
-          <StyledLink to="/chooseasguest">
-            {/* <Button variant="outlined" fullWidth
+            <StyledLink to="/chooseasguest">
+              {/* <Button variant="outlined" fullWidth
                                     sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
                                 >
                                     Login as Guest
                                 </Button> */}
-          </StyledLink>
-        </StyledBox>
-
-        <StyledBoxRegister style={{ float: "right", marginTop: "200" }}>
-          {/* <StyledText> */}
-          {/* Don't have an account?{" "} */}
-          <Link to="/Adminregister" style={{ color: "#550080" }}>
-            <LightPurpleButton variant="contained" fullWidth>
-              Sign up
-            </LightPurpleButton>
-          </Link>
-          {/* </StyledText> */}
-        </StyledBoxRegister>
-
+            </StyledLink>
+          </StyledBox>
+        </div>
         <Grid item xs={4}>
           <StyledPaper elevation={3}>
-            <StyledTitle>Blissify Guest Portal</StyledTitle>
+            {/* <StyledTitle>Blissify Guest Portal</StyledTitle> */}
             <StyledText>
               {/* <h1><center> Welcome to Blissify</center></h1> */}
               {/* Streamline wedding management, event organization, and add vendors
@@ -89,15 +89,26 @@ const StyledPaper = styled.div`
   height: 100vh;
 `;
 
+// const StyledBox = styled(Box)`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-end;
+//   justify-content: right;
+//   gap: 16px;
+//   padding: 24px;
+// `;
+
 const StyledBox = styled(Box)`
+  position: absolute;
+  top: 0;
+  right: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: right;
   gap: 16px;
   padding: 24px;
 `;
-
 const StyledTitle = styled.h1`
   font-size: 3rem;
   color: #252525;
@@ -122,10 +133,13 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledBoxRegister = styled(Box)`
+  position: absolute;
+  top: 0;
+  right: 150px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: right;
   gap: 16px;
   padding: 24px;
   margin-top: 20px;

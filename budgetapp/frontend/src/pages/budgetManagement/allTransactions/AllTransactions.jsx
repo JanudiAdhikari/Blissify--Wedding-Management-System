@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,6 +8,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import moment from "moment";
+import toast from "react-hot-toast";
+import { CardActions, IconButton } from "@mui/material";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const columns = [
   { id: "title", label: "Title", minWidth: 100 },
@@ -21,8 +27,7 @@ const columns = [
     id: "amount",
     label: "Amount\u00a0(Rs.)",
     minWidth: 100,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
+    align: "right"
   },
   {
     id: "date",
@@ -31,39 +36,41 @@ const columns = [
     align: "center",
   },
   {
-    id: "delete",
-    label: "Delete",
+    id: "options",
+    label: "Options",
     minWidth: 100,
     align: "center",
   },
 ];
 
-function createData(title, type, category, amount) {
-  const date = category / amount;
-  return { title, type, category, amount, date };
-}
+const dateFormat = (date) => {
+  return moment(date).format("DD/MM/YYYY");
+};
 
-const rows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
+export default function AllTransactions() {
+  const [rowsNew, setRowsNew] = useState([]);
+  const [exp, setExp] = useState([]);
+  const [trans, setTrans] = useState([]);
 
-export default function StickyHeadTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  useEffect(() => {
+    const fetchData = async () => {
+      const incomeResponse = await axios.get("http://localhost:8000/api/getIncomes");
+      const expenseResponse = await axios.get("http://localhost:8000/api/getExpenses");
+
+      const combinedData = [...incomeResponse.data, ...expenseResponse.data];
+      // Sort the combined data array based on date in descending order
+      combinedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      setRowsNew(combinedData);
+      setExp(expenseResponse.data);
+      setTrans(combinedData); // Initialize trans state with combined data
+    };
+
+    fetchData();
+  }, []);
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -74,6 +81,25 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  const deleteTransaction = async (id, type) => {
+    try {
+      if (type === 'Income') {
+        await axios.delete(`http://localhost:8000/api/deleteIncome/${id}`);
+      } else if (type === 'Expense') {
+        await axios.delete(`http://localhost:8000/api/deleteExpense/${id}`);
+      } else {
+        throw new Error('Invalid Transaction Type');
+      }
+      // Remove the deleted transaction from the frontend state
+      setRowsNew(rowsNew.filter(transaction => transaction._id !== id));
+      toast.success("Transaction Deleted Successfully");
+    } catch (error) {
+      console.error("Error Deleting Transaction:", error);
+      toast.error("Error Deleting Transaction");
+    }
+  };
+  
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 540 }}>
@@ -82,41 +108,53 @@ export default function StickyHeadTable() {
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
+                key={column.id}
+                align={column.align}
+                style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white', fontWeight: 'bold', fontSize: '1.1rem'}}
+              >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {rowsNew
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.type}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
+              .map((row, index) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.id === 'date' ? dateFormat(value) : (
+                          column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+                            : column.id === 'options' ? (
+                              
+                              <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
+                                {/* <Link to={`/updateBudget/${row._id}`} style={{ textDecoration: "none" }}>
+                                  <IconButton size="small">
+                                    <FaEdit />
+                                  </IconButton>
+                                </Link> */}
+                                <IconButton onClick={() => deleteTransaction(row._id, row.type)} size="small">
+                                  <FaTrash />
+                                </IconButton>
+                              </CardActions>
+                            ) : value
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={rowsNew.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

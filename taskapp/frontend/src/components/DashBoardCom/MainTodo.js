@@ -82,7 +82,10 @@ const MainTodo = ({ todo, setTodo }) => {
             Some of your readonly Todo's...
             <br />
             <br />
-            <FaHandPointDown size={30} style={{ marginLeft: "45%" }} />
+            {/* <FaHandPointDown
+              size={30}
+              style={{ marginLeft: "45%", color: "#cfc9c8" }}
+            /> */}
           </div>
         </div>
       </div>

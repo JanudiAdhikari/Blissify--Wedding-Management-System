@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Button } from '@mui/material';
+import styled from "styled-components";
+import { Button } from "@mui/material";
 
 export const RedButton = styled(Button)`
   && {
@@ -43,6 +43,7 @@ export const BlueButton = styled(Button)`
   && {
     background-color: #080a43;
     color: #fff;
+    margin-right: 5px;
     &:hover {
       background-color: #0a1e82;
     }
@@ -53,6 +54,7 @@ export const PurpleButton = styled(Button)`
   && {
     background-color: #270843;
     color: #fff;
+
     &:hover {
       background-color: #3f1068;
     }
@@ -72,6 +74,8 @@ export const LightPurpleButton = styled(Button)`
 export const GreenButton = styled(Button)`
   && {
     background-color: #133104;
+    margin-top: 10px;
+    margin-right: 5px;
     color: #fff;
     &:hover {
       background-color: #266810;

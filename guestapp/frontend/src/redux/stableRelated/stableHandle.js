@@ -7,7 +7,7 @@ import {
   getGuestsSuccess,
   detailsSuccess,
   getFailedTwo,
-  getNotesSuccess,
+  getPreferencesSuccess,
   getSubDetailsSuccess,
   getSubDetailsRequest,
 } from "./stableSlice";
@@ -58,7 +58,7 @@ export const getTableDetails = (id, address) => async (dispatch) => {
   }
 };
 
-export const getNoteList = (id, address) => async (dispatch) => {
+export const getPreferenceList = (id, address) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
@@ -66,29 +66,31 @@ export const getNoteList = (id, address) => async (dispatch) => {
     if (result.data.message) {
       dispatch(getFailed(result.data.message));
     } else {
-      dispatch(getNotesSuccess(result.data));
+      dispatch(getPreferencesSuccess(result.data));
     }
   } catch (error) {
     dispatch(getError(error));
   }
 };
 
-export const getVendorFreeTableNotes = (id) => async (dispatch) => {
+export const getVendorFreeTablePreferences = (id) => async (dispatch) => {
   dispatch(getRequest());
 
   try {
-    const result = await axios.get(`${REACT_APP_BASE_URL}/FreeNoteList/${id}`);
+    const result = await axios.get(
+      `${REACT_APP_BASE_URL}/FreePreferenceList/${id}`
+    );
     if (result.data.message) {
       dispatch(getFailed(result.data.message));
     } else {
-      dispatch(getNotesSuccess(result.data));
+      dispatch(getPreferencesSuccess(result.data));
     }
   } catch (error) {
     dispatch(getError(error));
   }
 };
 
-export const getNoteDetails = (id, address) => async (dispatch) => {
+export const getPreferenceDetails = (id, address) => async (dispatch) => {
   dispatch(getSubDetailsRequest());
 
   try {

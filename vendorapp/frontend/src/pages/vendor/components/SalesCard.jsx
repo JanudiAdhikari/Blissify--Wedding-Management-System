@@ -13,21 +13,23 @@ const SalesCard = ({ title, total, color, icon }) => {
         boxShadow: 0,
         textAlign: "center",
         color: (theme) => theme.palette[color].darker,
-        backgroundImage: (theme) =>
-          `linear-gradient(135deg, ${alpha(
-            theme.palette[color].dark,
-            0
-          )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
+        // backgroundImage: (theme) =>
+        //   `linear-gradient(135deg, ${alpha(
+        //     theme.palette[color].dark,
+        //     0
+        //   )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
+        backgroundColor: "#fff",
       }}
     >
       <StyledIcon
         sx={{
           color: (theme) => theme.palette[color].dark,
-          backgroundImage: (theme) =>
-            `linear-gradient(135deg, ${alpha(
-              theme.palette[color].dark,
-              0
-            )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
+          // backgroundImage: (theme) =>
+          //   `linear-gradient(135deg, ${alpha(
+          //     theme.palette[color].dark,
+          //     0
+          //   )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
+          backgroundColor: "#fff",
         }}
       >
         <Iconify icon={icon} width={24} height={24} />

@@ -37,9 +37,13 @@
 
 }
 
+.submit-btn {
+    margin-bottom: 20px;
+}
+
 .addButton {
     text-decoration: none;
-    background-color: #061b28;
+    background-color: #4d1c9c;
     color: white;
     font-weight: 500;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
@@ -51,9 +55,21 @@
     -o-border-radius: 5px;
 }
 
+.addButton:hover {
+    background-color: #5d5271;
+}
+
 .budget-card-row {
     display: flex;
-    justify-content: space-around; /* Adjust as needed */
-    margin-bottom: 20px; /* Adjust spacing between rows */
+    justify-content: space-around;
+    margin-bottom: 20px;
   }
+
+  .budget-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px; /* spacing between cards */
+    margin-top: 20px; /* adjust as needed */
+  }
+  
   

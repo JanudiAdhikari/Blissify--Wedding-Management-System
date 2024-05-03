@@ -24,7 +24,7 @@ const IncomeForm = () => {
     setError("");
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:8000/api/addIncome", inputState);
@@ -35,6 +35,8 @@ const IncomeForm = () => {
         category: "",
         description: "",
       });
+      
+      toast.success("Income Added Successfully!");
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -87,14 +89,12 @@ const IncomeForm = () => {
           <option value="" disabled>
             Select Income Category
           </option>
-          <option value="salary">Salary</option>
-          <option value="freelancing">Freelancing</option>
-          <option value="investments">Investments</option>
-          <option value="stocks">Stocks</option>
-          <option value="bitcoin">Bitcoin</option>
-          <option value="bank">Bank Transfer</option>
-          <option value="youtube">Youtube</option>
-          <option value="other">Other</option>
+          <option value="Vendors Commission">Vendors Commission</option>
+          <option value="Clients Fees">Clients Fees</option>
+          <option value="Consultation Fees">Consultation Fees</option>
+          <option value="Advertising Revenue">Advertising Revenue</option>
+          <option value="Affiliate Marketing">Affiliate Marketing</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 

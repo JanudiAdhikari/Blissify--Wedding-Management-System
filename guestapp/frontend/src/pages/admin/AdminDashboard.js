@@ -21,19 +21,19 @@ import AddGuest from "./guestRelated/AddGuest";
 import SeeComplains from "./guestRelated/SeeComplains";
 import ShowGuests from "./guestRelated/ShowGuests";
 import GuestAttendance from "./guestRelated/GuestAttendance";
-import GuestExamMarks from "./guestRelated/GuestExamMarks";
+import GuestExamObliges from "./guestRelated/GuestExamObliges";
 import ViewGuest from "./guestRelated/ViewGuest";
 
 import AddNotice from "./noticeRelated/AddNotice";
 import ShowNotices from "./noticeRelated/ShowNotices";
 
-import ShowNotes from "./noteRelated/ShowNotes";
-import NoteForm from "./noteRelated/NoteForm";
-import ViewNote from "./noteRelated/ViewNote";
+import ShowPreferences from "./preferenceRelated/ShowPreferences";
+import PreferenceForm from "./preferenceRelated/PreferenceForm";
+import ViewPreference from "./preferenceRelated/ViewPreference";
 
 import AddVendor from "./vendorRelated/AddVendor";
 import ChooseTable from "./vendorRelated/ChooseTable";
-import ChooseNote from "./vendorRelated/ChooseNote";
+import ChoosePreference from "./vendorRelated/ChoosePreference";
 import ShowVendors from "./vendorRelated/ShowVendors";
 import VendorDetails from "./vendorRelated/VendorDetails";
 
@@ -110,30 +110,33 @@ const AdminDashboard = () => {
             <Route path="/Admin/addnotice" element={<AddNotice />} />
             <Route path="/Admin/notices" element={<ShowNotices />} />
 
-            {/* Note */}
-            <Route path="/Admin/notes" element={<ShowNotes />} />
+            {/* Preference */}
+            <Route path="/Admin/preferences" element={<ShowPreferences />} />
             <Route
-              path="/Admin/notes/note/:tableID/:noteID"
-              element={<ViewNote />}
+              path="/Admin/preferences/preference/:tableID/:preferenceID"
+              element={<ViewPreference />}
             />
             <Route
-              path="/Admin/notes/choosetable"
-              element={<ChooseTable situation="Note" />}
-            />
-
-            <Route path="/Admin/addnote/:id" element={<NoteForm />} />
-            <Route
-              path="/Admin/table/note/:tableID/:noteID"
-              element={<ViewNote />}
+              path="/Admin/preferences/choosetable"
+              element={<ChooseTable situation="Preference" />}
             />
 
             <Route
-              path="/Admin/note/guest/attendance/:guestID/:noteID"
-              element={<GuestAttendance situation="Note" />}
+              path="/Admin/addpreference/:id"
+              element={<PreferenceForm />}
             />
             <Route
-              path="/Admin/note/guest/marks/:guestID/:noteID"
-              element={<GuestExamMarks situation="Note" />}
+              path="/Admin/table/preference/:tableID/:preferenceID"
+              element={<ViewPreference />}
+            />
+
+            <Route
+              path="/Admin/preference/guest/attendance/:guestID/:preferenceID"
+              element={<GuestAttendance situation="Preference" />}
+            />
+            <Route
+              path="/Admin/preference/guest/obliges/:guestID/:preferenceID"
+              element={<GuestExamObliges situation="Preference" />}
             />
 
             {/* Table */}
@@ -157,8 +160,8 @@ const AdminDashboard = () => {
               element={<GuestAttendance situation="Guest" />}
             />
             <Route
-              path="/Admin/guests/guest/marks/:id"
-              element={<GuestExamMarks situation="Guest" />}
+              path="/Admin/guests/guest/obliges/:id"
+              element={<GuestExamObliges situation="Guest" />}
             />
 
             {/* Vendor */}
@@ -172,12 +175,12 @@ const AdminDashboard = () => {
               element={<ChooseTable situation="Vendor" />}
             />
             <Route
-              path="/Admin/vendors/choosenote/:id"
-              element={<ChooseNote situation="Norm" />}
+              path="/Admin/vendors/choosepreference/:id"
+              element={<ChoosePreference situation="Norm" />}
             />
             <Route
-              path="/Admin/vendors/choosenote/:tableID/:vendorID"
-              element={<ChooseNote situation="Vendor" />}
+              path="/Admin/vendors/choosepreference/:tableID/:vendorID"
+              element={<ChoosePreference situation="Vendor" />}
             />
             <Route
               path="/Admin/vendors/addvendor/:id"

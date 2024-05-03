@@ -11,6 +11,7 @@ const VendorProfile = () => {
       <h1>
         <center>Your Profile</center>
       </h1>
+
       <ProfileContainer>
         <ProfileHeader elevation={3}>
           <ProfileAvatar>

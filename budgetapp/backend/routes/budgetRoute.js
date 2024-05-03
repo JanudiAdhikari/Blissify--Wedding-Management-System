@@ -1,7 +1,7 @@
 import express from "express";
-import { createBudget, getAllBudgets, getOneBudget, updateBudget, deleteBudget } from "../controllers/budgetController.js";
-import { addIncome, getIncomes, deleteIncome } from "../controllers/budgetIncome.js";
-import { addExpense, getExpenses, deleteExpense } from "../controllers/budgetExpense.js";
+import { createBudget, getAllBudgets, getOneBudget, updateBudget, deleteBudget } from "../controllers/BudgetController.js";
+import { addIncome, getIncomes, deleteIncome } from "../controllers/IncomeController.js";
+import { addExpense, getExpenses, deleteExpense } from "../controllers/ExpenseController.js";
 
 
 const route = express.Router();
@@ -20,6 +20,9 @@ route.post("/addExpense", addExpense);
 route.get("/getExpenses", getExpenses);
 route.delete("/deleteExpense/:id", deleteExpense);
 
-route.delete("/updateTransaction", updateTransaction);
+//route.delete("/deleteTransaction/:id", deleteTransaction);
+
+//route.delete("/updateTransaction", updateTransaction);
+
 
 export default route;

@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt');
-const Admin = require('../models/adminSchema.js');
-const Stable = require('../models/stableSchema.js');
-const Guest = require('../models/guestSchema.js');
-const Vendor = require('../models/vendorSchema.js');
-const Note = require('../models/noteSchema.js');
-const Notice = require('../models/noticeSchema.js');
-const Complain = require('../models/complainSchema.js');
+const bcrypt = require("bcrypt");
+const Admin = require("../models/adminSchema.js");
+const Stable = require("../models/stableSchema.js");
+const Guest = require("../models/guestSchema.js");
+const Vendor = require("../models/vendorSchema.js");
+const Preference = require("../models/preferenceSchema.js");
+const Notice = require("../models/noticeSchema.js");
+const Complain = require("../models/complainSchema.js");
 
 // const adminRegister = async (req, res) => {
 //     try {
@@ -56,62 +56,61 @@ const Complain = require('../models/complainSchema.js');
 // };
 
 const adminRegister = async (req, res) => {
-    try {
-        const admin = new Admin({
-            ...req.body
-        });
+  try {
+    const admin = new Admin({
+      ...req.body,
+    });
 
-        const existingAdminByEmail = await Admin.findOne({ email: req.body.email });
-        const existingEvent = await Admin.findOne({ eventName: req.body.eventName });
+    const existingAdminByEmail = await Admin.findOne({ email: req.body.email });
+    const existingEvent = await Admin.findOne({
+      eventName: req.body.eventName,
+    });
 
-        if (existingAdminByEmail) {
-            res.send({ message: 'Email already exists' });
-        }
-        else if (existingEvent) {
-            res.send({ message: 'Event name already exists' });
-        }
-        else {
-            let result = await admin.save();
-            result.password = undefined;
-            res.send(result);
-        }
-    } catch (err) {
-        res.status(500).json(err);
+    if (existingAdminByEmail) {
+      res.send({ message: "Email already exists" });
+    } else if (existingEvent) {
+      res.send({ message: "Event name already exists" });
+    } else {
+      let result = await admin.save();
+      result.password = undefined;
+      res.send(result);
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 const adminLogIn = async (req, res) => {
-    if (req.body.email && req.body.password) {
-        let admin = await Admin.findOne({ email: req.body.email });
-        if (admin) {
-            if (req.body.password === admin.password) {
-                admin.password = undefined;
-                res.send(admin);
-            } else {
-                res.send({ message: "Invalid password" });
-            }
-        } else {
-            res.send({ message: "User not found" });
-        }
+  if (req.body.email && req.body.password) {
+    let admin = await Admin.findOne({ email: req.body.email });
+    if (admin) {
+      if (req.body.password === admin.password) {
+        admin.password = undefined;
+        res.send(admin);
+      } else {
+        res.send({ message: "Invalid password" });
+      }
     } else {
-        res.send({ message: "Email and password are required" });
+      res.send({ message: "User not found" });
     }
+  } else {
+    res.send({ message: "Email and password are required" });
+  }
 };
 
 const getAdminDetail = async (req, res) => {
-    try {
-        let admin = await Admin.findById(req.params.id);
-        if (admin) {
-            admin.password = undefined;
-            res.send(admin);
-        }
-        else {
-            res.send({ message: "No admin found" });
-        }
-    } catch (err) {
-        res.status(500).json(err);
+  try {
+    let admin = await Admin.findById(req.params.id);
+    if (admin) {
+      admin.password = undefined;
+      res.send(admin);
+    } else {
+      res.send({ message: "No admin found" });
     }
-}
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 // const deleteAdmin = async (req, res) => {
 //     try {
@@ -120,7 +119,7 @@ const getAdminDetail = async (req, res) => {
 //         await Stable.deleteMany({ event: req.params.id });
 //         await Guest.deleteMany({ event: req.params.id });
 //         await Vendor.deleteMany({ event: req.params.id });
-//         await Note.deleteMany({ event: req.params.id });
+//         await Preference.deleteMany({ event: req.params.id });
 //         await Notice.deleteMany({ event: req.params.id });
 //         await Complain.deleteMany({ event: req.params.id });
 

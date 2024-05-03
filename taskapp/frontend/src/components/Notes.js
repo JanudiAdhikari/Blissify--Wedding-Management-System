@@ -5,6 +5,8 @@ import Note from "./Note";
 import axios from "axios";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 axios.defaults.withCredentials = true;
 
 const Notes = ({ notes, setNotes, toast }) => {
@@ -49,6 +51,20 @@ const Notes = ({ notes, setNotes, toast }) => {
     setNoteTitle("");
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const tableColumn = ["Title", "Date", "Time", "Text"];
+    const tableRows = [];
+
+    notes.forEach((note) => {
+      const noteData = [note.title, note.date, note.time, note.noteText];
+      tableRows.push(noteData);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.save("Task Notes.pdf");
+  };
+
   return (
     <div className="notes-body" data-aos="zoom-in">
       <div className="search-bar">
@@ -85,6 +101,11 @@ const Notes = ({ notes, setNotes, toast }) => {
             toast={toast}
           />
         ))}
+      </div>
+      <div>
+        <button id="note-report-bt" onClick={generatePDF}>
+          Generate Report
+        </button>
       </div>
     </div>
   );

@@ -56,7 +56,7 @@
   text-transform: uppercase;
   border-radius: 30px;
   color: var(--text);
-  background-color: var(--nav);
+  background-color: rgb(244, 244, 244);
 }
 #add-todo:hover {
   border-radius: 10px;
