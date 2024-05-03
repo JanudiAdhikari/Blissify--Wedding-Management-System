@@ -5,6 +5,8 @@ import Note from "./Note";
 import axios from "axios";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 axios.defaults.withCredentials = true;
 
 const Notes = ({ notes, setNotes, toast }) => {
@@ -49,6 +51,34 @@ const Notes = ({ notes, setNotes, toast }) => {
     setNoteTitle("");
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const tableColumn = ["Title", "Date", "Time", "Text"];
+    const tableRows = [];
+
+
+      // Add a title to the PDF
+      doc.setFontSize(20);
+      doc.text("Task Notes Report", 15, 15);
+
+      notes.forEach((note) => {
+        const noteData = [note.title, note.date, note.time, note.noteText];
+        tableRows.push(noteData);
+      });
+
+      // Start the table lower to make room for the title
+      doc.autoTable(tableColumn, tableRows, { startY: 30 });
+      doc.save("Task Notes.pdf");
+    };
+    notes.forEach((note) => {
+      const noteData = [note.title, note.date, note.time, note.noteText];
+      tableRows.push(noteData);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.save("Notes.pdf");
+  };
+
   return (
     <div className="notes-body" data-aos="zoom-in">
       <div className="search-bar">
@@ -85,6 +115,11 @@ const Notes = ({ notes, setNotes, toast }) => {
             toast={toast}
           />
         ))}
+      </div>
+      <div>
+        <button id="note-report-bt" onClick={generatePDF}>
+          Generate Report
+        </button>
       </div>
     </div>
   );
