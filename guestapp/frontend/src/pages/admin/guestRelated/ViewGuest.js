@@ -503,6 +503,12 @@ const ViewGuest = () => {
             variant="contained"
             sx={styles.styledButton}
             onClick={() => navigate("/Admin/guests/guest/obliges/" + guestID)}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "auto",
+            }}
           >
             Add Obligation
           </Button>
@@ -514,60 +520,104 @@ const ViewGuest = () => {
   const GuestDetailsSection = () => {
     return (
       <div>
-        Name: {userDetails.name}
-        <br />
-        Seat Number: {userDetails.rollNum}
-        <br />
-        Table: {stableName.stableName}
-        <br />
-        Event: {guestEvent.eventName}
-        {preferenceAttendance &&
-          Array.isArray(preferenceAttendance) &&
-          preferenceAttendance.length > 0 && (
-            <CustomPieChart data={chartData} />
-          )}
-        <Button
-          variant="contained"
-          sx={styles.styledButton}
-          onClick={deleteHandler}
+        <h4>
+          <center>Guest Details</center>
+        </h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          Delete
-        </Button>
-        <br />
-        {/* <Button variant="contained" sx={styles.styledButton} tableName="show-tab" onClick={() => { setShowTab(!showTab) }}>
-                    {
-                        showTab
-                            ? <KeyboardArrowUp />
-                            : <KeyboardArrowDown />
-                    }
-                    Edit Guest
-                </Button>
-                <Collapse in={showTab} timeout="auto" unmountOnExit>
-                    <div tableName="register">
-                        <form tableName="registerForm" onSubmit={submitHandler}>
-                            <span tableName="registerTitle">Edit Details</span>
-                            <label>Name</label>
-                            <input tableName="registerInput" type="text" placeholder="Enter user's name..."
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
-                                autoComplete="name" required />
+          Name: {userDetails.name}
+          <br />
+          Seat No: {userDetails.rollNum}
+          <br />
+          Table: {stableName.stableName}
+          <br />
+          Event {guestEvent.eventName}
+          {preferenceAttendance &&
+            Array.isArray(preferenceAttendance) &&
+            preferenceAttendance.length > 0 && (
+              <CustomPieChart data={chartData} />
+            )}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={styles.styledButton}
+            onClick={deleteHandler}
+          >
+            Remove Guest
+          </Button>
+          <br />
+          <Button
+            variant="contained"
+            sx={styles.styledButton}
+            className="show-tab"
+            onClick={() => {
+              setShowTab(!showTab);
+            }}
+          >
+            {showTab ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            Edit Guest
+          </Button>
+        </div>
+        <Collapse in={showTab} timeout="auto" unmountOnExit>
+          <div className="register">
+            <form className="registerForm" onSubmit={submitHandler}>
+              <h2>
+                <center>Edit Guest</center>
+              </h2>
 
-                            <label>Seat Number</label>
-                            <input tableName="registerInput" type="number" placeholder="Enter user's Seat Number..."
-                                value={rollNum}
-                                onChange={(event) => setRollNum(event.target.value)}
-                                required />
+              <label>Name</label>
+              <input
+                className="registerInput"
+                type="text"
+                placeholder="Enter user's name..."
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                autoComplete="name"
+                required
+              />
 
-                            <label>Password</label>
-                            <input tableName="registerInput" type="password" placeholder="Enter user's password..."
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
-                                autoComplete="new-password" />
+              <label>Seat Number</label>
+              <input
+                className="registerInput"
+                type="number"
+                placeholder="Enter user's Seat Number..."
+                value={rollNum}
+                onChange={(event) => setRollNum(event.target.value)}
+                required
+              />
 
-                            <button tableName="registerButton" type="submit" >Update</button>
-                        </form>
-                    </div>
-                </Collapse> */}
+              <label>ID Number</label>
+              <input
+                className="registerInput"
+                type="text"
+                placeholder="Enter user's ID Number"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="new-password"
+              />
+
+              <button
+                className="registerButton"
+                type="submit"
+                style={{ backgroundColor: "#4d1c9c" }}
+              >
+                Update
+              </button>
+            </form>
+          </div>
+        </Collapse>
       </div>
     );
   };
