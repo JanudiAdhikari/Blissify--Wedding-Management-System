@@ -56,27 +56,13 @@ const Notes = ({ notes, setNotes, toast }) => {
     const tableColumn = ["Title", "Date", "Time", "Text"];
     const tableRows = [];
 
-
-      // Add a title to the PDF
-      doc.setFontSize(20);
-      doc.text("Task Notes Report", 15, 15);
-
-      notes.forEach((note) => {
-        const noteData = [note.title, note.date, note.time, note.noteText];
-        tableRows.push(noteData);
-      });
-
-      // Start the table lower to make room for the title
-      doc.autoTable(tableColumn, tableRows, { startY: 30 });
-      doc.save("Task Notes.pdf");
-    };
     notes.forEach((note) => {
       const noteData = [note.title, note.date, note.time, note.noteText];
       tableRows.push(noteData);
     });
 
     doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.save("Notes.pdf");
+    doc.save("Task Notes.pdf");
   };
 
   return (
