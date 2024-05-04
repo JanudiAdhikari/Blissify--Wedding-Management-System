@@ -15,14 +15,14 @@ export const addIncome = async (req, res) => {
     try {
         // Validation
         if (!title || !amount || !date || !category || !description) {
-            return res.status(400).json({ msg: "Please fill in all fields" });
+            return res.status(400).json({ msg: "Please Fill in All Fields" });
         }
         if (isNaN(amount) || amount <= 0) {
-            return res.status(400).json({ msg: "Amount must be a positive number" });
+            return res.status(400).json({ msg: "Amount must be a Positive Number" });
         }
 
         await income.save();
-        res.status(200).json({ msg: "Income added successfully" });
+        res.status(200).json({ msg: "Income Added Successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
