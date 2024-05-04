@@ -26,6 +26,7 @@ const AddBudget = () => {
 
   const [budget, setBudget] = useState(budgets);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -41,8 +42,10 @@ const AddBudget = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const vendorServices = Object.keys(state)
-        .filter((service) => state[service]);
+    if (!validateForm()) {
+      return;
+    }
+    const vendorServices = Object.keys(state).filter((service) => state[service]);
     const budgetToSend = {
       ...budget,
       vendorServices: vendorServices,
@@ -50,11 +53,43 @@ const AddBudget = () => {
     await axios
         .post("http://localhost:8000/api/createBudget", budgetToSend)
         .then((response) => {
-          toast.success(response.data.msg, { position: "top-right" });
+          toast.success(response.data.msg, { position: "top-center" });
           navigate("/displayBudgets");
         })
         .catch((error) => console.log(error));
   };
+
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+  
+    if (!budget.eventID.trim()) {
+      errors.eventID = "Event ID is required";
+      isValid = false;
+    }
+  
+    if (!budget.brideName.trim()) {
+      errors.brideName = "Bride's Name is required";
+      isValid = false;
+    }
+  
+    if (!budget.packages) {
+      errors.packages = "Package is required";
+      isValid = false;
+    }
+  
+    if (!budget.estimatedBudget) {
+      errors.estimatedBudget = "Estimated Budget is required";
+      isValid = false;
+    } else if (isNaN(budget.estimatedBudget) || budget.estimatedBudget <= 0) {
+      errors.estimatedBudget = "Estimated Budget must be a valid number";
+      isValid = false;
+    }
+  
+    setErrors(errors);
+    return isValid;
+  };
+  
 
   const [state, setState] = useState({
     Venue: false,
@@ -72,32 +107,24 @@ const AddBudget = () => {
       (v) => v
     ).length !== 2;
 
-  const packages = [
-    {
-      value: "Customized",
-      label: "Customized Package",
-    },
-    {
-      value: "Gold",
-      label: "Gold Package",
-    },
-    {
-      value: "Silver",
-      label: "Silver Package",
-    },
-    {
-      value: "Bronze",
-      label: "Bronze Package",
-    },
-    {
-      value: "Summer",
-      label: "Summer Love Package",
-    },
-    {
-      value: "Spring",
-      label: "Spring Blossom Package",
-    },
-  ];
+    const packages = [
+      {
+        value: "Classic Elegance Package",
+        label: "Classic Elegance Package",
+      },
+      {
+        value: "Luxury Romance Package",
+        label: "Luxury Romance Package",
+      },
+      {
+        value: "Beach Bliss Package",
+        label: "Beach Bliss Package",
+      },
+      {
+        value: "Cultural Celebration Package",
+        label: "Cultural Celebration Package",
+      }
+    ];
 
   return (
     <div className="addBudget">
@@ -109,32 +136,36 @@ const AddBudget = () => {
           className="inputGroup"
           style={{ display: "flex", flexDirection: "row", columnGap: "10px" }}
         >
-          {/* <label htmlFor='eventID'>Event ID</label>
-                <input type='text' onChange={inputHandler} id='eventID' name='eventID' autoComplete='off' placeholder='Event ID'/> */}
           <TextField
-              required
-              id="eventID"
-              label="Event Name/ID"
-              onChange={inputHandler}
-              name="eventID"
+            required
+            id="eventID"
+            label="Event Name/ID"
+            onChange={inputHandler}
+            name="eventID"
+            error={errors.eventID ? true : false}
+            helperText={errors.eventID}
           />
 
           <TextField
-              id="groomName"
-              label="Groom's Name"
-              onChange={inputHandler}
-              name="groomName"
+            id="groomName"
+            label="Groom's Name"
+            onChange={inputHandler}
+            name="groomName"
+            error={errors.groomName ? true : false}
+            helperText={errors.groomName}
           />
 
           <TextField
-              id="brideName"
-              label="Bride's Name"
-              onChange={inputHandler}
-              name="brideName"
+            id="brideName"
+            label="Bride's Name"
+            onChange={inputHandler}
+            name="brideName"
+            error={errors.brideName ? true : false}
+            helperText={errors.brideName}
           />
-          </div>
+        </div>
 
-          <div className="inputGroup">
+        <div className="inputGroup">
           <FormLabel component="legend">Vendor Services</FormLabel>
           <FormGroup
             sx={{
@@ -212,17 +243,19 @@ const AddBudget = () => {
           </FormGroup>
         </div>
 
-        <div className="inputGroup" style={{marginLeft: '20px'}}>
+        <div className="inputGroup" style={{ marginLeft: '20px' }}>
           <div className="flexContainer">
             <div>
               <TextField
                 id="packages"
                 select
-                sx={{width: '100%'}}
+                sx={{ width: '100%' }}
                 label="Packages"
                 defaultValue={packages[0].value}
                 onChange={inputHandler}
                 name="packages"
+                error={errors.packages ? true : false}
+                helperText={errors.packages}
               >
                 {packages.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -236,25 +269,28 @@ const AddBudget = () => {
               <FormControl>
                 <InputLabel htmlFor="outlined-adornment-amount">Estimated Budget</InputLabel>
                 <OutlinedInput
-                    id="estimatedBudget"
-                    startAdornment={<InputAdornment position="start">LKR</InputAdornment>}
-                    label="Amount"
-                    onChange={inputHandler}
-                    name="estimatedBudget"
+                  id="estimatedBudget"
+                  startAdornment={<InputAdornment position="start">LKR</InputAdornment>}
+                  label="Amount"
+                  onChange={inputHandler}
+                  name="estimatedBudget"
+                  error={errors.estimatedBudget ? true : false}
+                  helperText={errors.estimatedBudget}
                 />
               </FormControl>
             </div>
           </div>
         </div>
+
         <TextField
-            id="additionalNotes"
-            label="Additional Notes"
-            multiline
-            rows={4}
-            fullWidth
-            onChange={inputHandler}
-            name="additionalNotes"
-            sx={{mb: 2}}
+          id="additionalNotes"
+          label="Additional Notes"
+          multiline
+          rows={4}
+          fullWidth
+          onChange={inputHandler}
+          name="additionalNotes"
+          sx={{ mb: 2 }}
         />
 
         <div className="inputGroup">
