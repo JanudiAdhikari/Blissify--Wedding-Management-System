@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const port = process.env.PORT || 3006;
-const host = "localhost";
+// const host = "localhost";
 const mongoose = require("mongoose");
 const router = require("./routes/feedbackRouter");
 
@@ -25,7 +25,7 @@ const connect = async () => {
 connect();
 
 //call back function
-const server = app.listen(port, host, () => {
+const server = app.listen(port, () => {
   console.log(`Node server is listing to ${server.address().port}`); //check actually working sever?
 });
 
