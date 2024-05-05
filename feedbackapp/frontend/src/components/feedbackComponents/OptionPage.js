@@ -39,7 +39,7 @@ const OptionPage = () => {
                 getFeedback();
                 setSubmitted(false);
                 setIsEdit(false);
-                setShowForm(false);
+                setShowForm(true);
             })
             .catch(error => {
                 console.error("Axios Error: ", error);
@@ -76,7 +76,7 @@ const OptionPage = () => {
             sx={{
                 width: '100%',
                 height: '100vh',
-                backgroundImage: 'url("/path/to/your/background-image.jpg")', // Replace with the path to your background image
+                backgroundImage: 'url("/path/to/your/background-image.jpg")', 
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 display: 'flex',

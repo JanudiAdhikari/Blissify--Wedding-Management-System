@@ -1,51 +1,12 @@
-import React, { useState } from "react";
-import { Button, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
-import Search from '@mui/icons-material/Search';
+import React from "react";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 
 const UserView = ({ rows, selectedFeedback, deleteFeedback }) => {
-    const [searchQuery, setSearchQuery] = useState("");
-
-    const filteredRows = rows.filter(row =>
-        (row.Jewelry_Name && row.Jewelry_Name.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
-
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-    };
-
     return (
         <div>
             <Typography variant="h4" sx={{fontWeight: 'bold', color: '#4643FF', marginBottom: '20px', marginTop: '20px', textAlign: 'center' }}>Previous Feedbacks</Typography>
-            <TextField
-                sx={{
-                    borderRadius: '20px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    width: '80%',
-                    maxWidth: 350,
-                    textAlign: 'center',
-                    marginBottom: '20px',
-                    '@media (min-width: 600px)': {
-                        width: 'auto',
-                        maxWidth: 'none',
-                        marginLeft: 80,
-                        marginRight: 40,
-                    },
-                }}
-                label="Search"
-                variant="outlined"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Search sx={{ fontSize: '2rem', borderRadius: '50%' }} />
-                        </InputAdornment>
-                    )
-                }}
-            />
-
-            {filteredRows.map(row => (
+            
+            {rows.map(row => (
                 <Card key={row.id} sx={{ 
                     position: 'relative', 
                     marginBottom: '20px', 
@@ -61,20 +22,19 @@ const UserView = ({ rows, selectedFeedback, deleteFeedback }) => {
                     },
                 }}>
                     <CardContent>
-                        <Typography variant="h6">{row.Jewelry_Name}</Typography>
                         <Typography>Rating: {row.rating}</Typography>
                         <Typography>Feedback: {row.feedback}</Typography>
                         <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                             <Button
                                 sx={{
                                     borderRadius: '20px',
-                                    backgroundColor: '#FFD700',
+                                    backgroundColor: '#CBC3E3',
                                     color: '#000',
                                     '&:hover': {
-                                        backgroundColor: '#FFC107',
+                                        backgroundColor: '#A020F0',
                                     },
                                 }}
-                                onClick={() => selectedFeedback({ id: row.id, User_ID: row.User_ID, name: row.name, email: row.email, rating: row.rating, feedback: row.feedback })}
+                                onClick={() => selectedFeedback({ id: row.id, User_ID: row.User_ID, name: row.name, email: row.email,  rating: row.rating, feedback: row.feedback })}
                             >
                                 Update
                             </Button>

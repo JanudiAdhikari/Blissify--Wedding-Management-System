@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, TextField, Paper } from "@mui/material";
 import { Rating } from "@mui/material";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const FeedbackForm = ({ createFeedback, updateFeedback, submitted, isEdit, data }) => {
     const [id, setId] = useState(0);
     const [User_ID, setUser_ID] = useState(0);
@@ -54,6 +58,7 @@ const FeedbackForm = ({ createFeedback, updateFeedback, submitted, isEdit, data 
             newErrors.email = 'Email is required';
             isValid = false;
         }
+     
         if (!rating) {
             newErrors.rating = 'Rating is required';
             isValid = false;
@@ -70,12 +75,14 @@ const FeedbackForm = ({ createFeedback, updateFeedback, submitted, isEdit, data 
     const handleSubmit = () => {
         if (handleValidation()) {
             if (isEdit) {
-                updateFeedback({ id, User_ID, name, email, rating, feedback });
+                updateFeedback({ id, User_ID, name, email,  rating, feedback });
             } else {
-                createFeedback({ id, User_ID, name, email, rating, feedback });
+                createFeedback({ id, User_ID, name, email,  rating, feedback });
+                toast.success('Feedback Submitted!');
             }
         }
     };
+    
 
     const handleCancel = () => {
         setId(0);
@@ -88,7 +95,9 @@ const FeedbackForm = ({ createFeedback, updateFeedback, submitted, isEdit, data 
     };
 
     return (
+        
         <Paper elevation={3} sx={{ padding: '20px', margin: 'auto', width: '70%' }}>
+            <ToastContainer />
             <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', marginBottom: '20px' }}>Feedback Form</Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -139,6 +148,7 @@ const FeedbackForm = ({ createFeedback, updateFeedback, submitted, isEdit, data 
                         required
                     />
                 </Grid>
+               
                 <Grid item xs={12}>
                     <Typography component="legend">Rating</Typography>
                     <Rating
