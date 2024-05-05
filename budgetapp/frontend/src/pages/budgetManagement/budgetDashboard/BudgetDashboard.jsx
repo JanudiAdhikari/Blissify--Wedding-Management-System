@@ -88,7 +88,7 @@ const BudgetDashboard = () => {
                     </div>
                     <div className="history-con">
                         {loading ? (
-                            <p>Loading...</p> // Show loading indicator
+                            <p>Loading...</p>
                         ) : (
                             <History incomes={data.incomes} expenses={data.expenses} />
                         )}
