@@ -1,27 +1,24 @@
-import { legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk'
-import { occasionReducer } from './reducers/occasionReducer';
-import { alertsReducer } from './reducers/alertsReducer';
-import { bookingsReducer } from './reducers/bookingsReducer';
+import {
+  legacy_createStore as createStore,
+  applyMiddleware,
+  combineReducers,
+} from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { occasionReducer } from "./reducers/occasionReducer";
+import { alertsReducer } from "./reducers/alertsReducer";
+import { eventbookingsReducer } from "./reducers/eventbookingsReducer";
 
-
-
-const composeEnhancers = composeWithDevTools({
-
-});
+const composeEnhancers = composeWithDevTools({});
 
 const rootReducer = combineReducers({
   occasionReducer,
   alertsReducer,
-  bookingsReducer,
-})
+  eventbookingsReducer,
+});
 const store = createStore(
   rootReducer,
-  composeEnhancers(
-    applyMiddleware(thunk)
-
-  )
+  composeEnhancers(applyMiddleware(thunk))
 );
 
-export default store
+export default store;

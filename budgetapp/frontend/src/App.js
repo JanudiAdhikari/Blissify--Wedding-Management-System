@@ -28,8 +28,11 @@ function App() {
               <Route path="/displayTransactions" element={<AllTransactions />} />
               <Route path='/analytics' element={<Analytics/>}/>
               <Route path='/budget/:id' element={<DisplayBudgetDetails/>}/>
+              
             </Routes>
           </FMLayout>
+
+          {/* <Route path="/packageapp" element={<packageapp />} /> */}
           
         </BrowserRouter>
       </div>

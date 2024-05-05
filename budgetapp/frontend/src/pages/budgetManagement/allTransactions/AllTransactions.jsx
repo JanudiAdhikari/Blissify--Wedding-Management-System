@@ -171,7 +171,7 @@ export default function AllTransactions() {
                                   </IconButton>
                                 </Link> */}
                                 <IconButton onClick={() => deleteTransaction(row._id, row.type)} size="small">
-                                  <FaTrash />
+                                <FaTrash style={{ color: 'red' }} />
                                 </IconButton>
                               </CardActions>
                             ) : value

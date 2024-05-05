@@ -18,7 +18,7 @@ const SideBar = () => {
     {
       text: "Packages",
       icon: budgetPackage,
-      link: "/",
+      link: "/packageapp",
     },
     {
       text: "Incomes & Expenses",

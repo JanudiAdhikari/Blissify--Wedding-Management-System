@@ -15,13 +15,13 @@ import {
   message,
 } from "antd";
 import moment from "moment";
-import { bookOccasion } from "../redux/actions/bookingActions";
+import { bookOccasion } from "../redux/actions/eventbookingActions";
 import dayjs from "dayjs";
 import "aos/dist/aos.css";
 import axios from "axios";
 
 const { RangePicker } = DatePicker;
-function BookingOccasion({ match }) {
+function EventbookingOccasion({ match }) {
   const { occasionid } = useParams();
   const { occasions } = useSelector((state) => state.occasionReducer);
   const { loading } = useSelector((state) => state.alertsReducer);
@@ -86,9 +86,11 @@ function BookingOccasion({ match }) {
 
   //Get time slots
   const getTimeSlots = () => {
-    axios.get(`/api/bookings/getoccasionbookings/${occasionid}`).then((res) => {
-      setTimeSlots(res.data.bookings);
-    });
+    axios
+      .get(`/api/eventbookings/getoccasioneventbookings/${occasionid}`)
+      .then((res) => {
+        setTimeSlots(res.data.eventbookings);
+      });
   };
 
   useEffect(() => {
@@ -274,4 +276,4 @@ function BookingOccasion({ match }) {
   );
 }
 
-export default BookingOccasion;
+export default EventbookingOccasion;

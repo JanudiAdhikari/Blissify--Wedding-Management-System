@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBookings } from "../redux/actions/bookingActions";
+import { getAllEventbookings } from "../redux/actions/eventbookingActions";
 import { Col, Pagination, Popconfirm, Row, message } from "antd";
 import dayjs from "dayjs";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import moment from "moment";
 
-function UserBookings() {
+function UserEventbookings() {
   const dispatch = useDispatch();
-  const { bookings } = useSelector((state) => state.bookingsReducer);
+  const { eventbookings } = useSelector((state) => state.eventbookingsReducer);
   const user = JSON.parse(localStorage.getItem("user"));
   const { loading } = useSelector((state) => state.alertsReducer);
 
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllBookings());
+    dispatch(getAllEventbookings());
   }, []);
 
   //Get the array length of the filtered occasions
-  const occasionsLength = bookings.filter(
-    (booking) => booking.user._id == user._id
+  const occasionsLength = eventbookings.filter(
+    (eventbooking) => eventbooking.user._id == user._id
   ).length;
 
   //Pagination
@@ -36,11 +36,11 @@ function UserBookings() {
 
   const deleteHandler = (id) => {
     axios
-      .delete(`/api/bookings/deletebooking/${id}`)
+      .delete(`/api/eventbookings/deleteeventbooking/${id}`)
       .then((res) => {
         message.success("Occasion Deleted Succesfully");
         setTimeout(() => {
-          window.location.href = "/userbookings";
+          window.location.href = "/usereventbookings";
         }, 500);
       })
       .catch((err) => {
@@ -52,7 +52,7 @@ function UserBookings() {
     <DefaultLayout>
       {loading && <Spinner />}
 
-      <h3 className="text-center mt-4 mb-4">My Bookings</h3>
+      <h3 className="text-center mt-4 mb-4">My Eventbookings</h3>
 
       <Row justify={"center"} gutter={16}>
         <Col
@@ -66,16 +66,17 @@ function UserBookings() {
             gap: "40px",
           }}
         >
-          {bookings.filter((booking) => booking.user._id == user._id).length ==
-          0 ? (
+          {eventbookings.filter(
+            (eventbooking) => eventbooking.user._id == user._id
+          ).length == 0 ? (
             <h6 className="text-center mt-4 mb-4">
               You have not booked any occasions yet
             </h6>
           ) : (
-            bookings
-              .filter((booking) => booking.user._id == user._id)
+            eventbookings
+              .filter((eventbooking) => eventbooking.user._id == user._id)
               .slice((page - 1) * 4, page * 4)
-              .map((booking) => {
+              .map((eventbooking) => {
                 return (
                   <div
                     style={{
@@ -95,7 +96,7 @@ function UserBookings() {
                       }}
                     >
                       <img
-                        src={booking.occasion.image}
+                        src={eventbooking.occasion.image}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -114,11 +115,11 @@ function UserBookings() {
                         fontSize: "12px",
                       }}
                     >
-                      <h5>{booking.occasion.name}</h5>
+                      <h5>{eventbooking.occasion.name}</h5>
                       <p>
                         From :{" "}
                         <b>
-                          {moment(booking.bookedTimeSlots.from).format(
+                          {moment(eventbooking.bookedTimeSlots.from).format(
                             "MMM DD YYYY HH:mm A"
                           )}
                         </b>
@@ -127,31 +128,33 @@ function UserBookings() {
                         To :{" "}
                         <b>
                           {" "}
-                          {moment(booking.bookedTimeSlots.to).format(
+                          {moment(eventbooking.bookedTimeSlots.to).format(
                             "MMM DD YYYY HH:mm A"
                           )}
                         </b>
                       </p>
                       <p>
                         Booked Date :{" "}
-                        <b>{dayjs(booking.createdAt).format("MMM DD YYYY")}</b>
+                        <b>
+                          {dayjs(eventbooking.createdAt).format("MMM DD YYYY")}
+                        </b>
                       </p>
                       <p>
                         <b>Total Amount : </b>
-                        {booking.totalAmount} LKR
+                        {eventbooking.totalAmount} LKR
                       </p>
 
-                      {booking.bookingStatus == "Pending" ? (
+                      {eventbooking.eventbookingStatus == "Pending" ? (
                         <div className="d-flex align-items-center">
                           <p style={{ color: "#ffc107" }}>
-                            <b>Booking Status : </b>
-                            {booking.bookingStatus}
+                            <b>Eventbooking Status : </b>
+                            {eventbooking.eventbookingStatus}
                           </p>
                           <Popconfirm
                             title="Delete the task"
                             description="Are you sure to delete this Event?"
                             onConfirm={() => {
-                              deleteHandler(booking._id);
+                              deleteHandler(eventbooking._id);
                             }}
                             onCancel={() => {}}
                             okText="Yes"
@@ -169,19 +172,19 @@ function UserBookings() {
                                 marginLeft: "10px",
                               }}
                             >
-                              Cancel Booking
+                              Cancel Eventbooking
                             </button>
                           </Popconfirm>
                         </div>
-                      ) : booking.bookingStatus == "Confirmed" ? (
+                      ) : eventbooking.eventbookingStatus == "Confirmed" ? (
                         <p style={{ color: "green" }}>
-                          <b>Booking Status : </b>
-                          {booking.bookingStatus}
+                          <b>Eventbooking Status : </b>
+                          {eventbooking.eventbookingStatus}
                         </p>
                       ) : (
                         <p style={{ color: "red" }}>
-                          <b>Booking Status : </b>
-                          {booking.bookingStatus}
+                          <b>Eventbooking Status : </b>
+                          {eventbooking.eventbookingStatus}
                         </p>
                       )}
                     </div>
@@ -204,4 +207,4 @@ function UserBookings() {
   );
 }
 
-export default UserBookings;
+export default UserEventbookings;

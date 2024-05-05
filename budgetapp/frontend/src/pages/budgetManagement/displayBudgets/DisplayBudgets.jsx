@@ -69,7 +69,7 @@ const DisplayBudgets = () => {
       <div className="budget-cards">
         {displayedBudgets.map((budgetItem, index) => (
           <Link to={`/budget/${budgetItem._id}`} style={{ textDecoration: "none" }}>
-          <Card key={index} sx={{ margin: "10px", backgroundColor: "#ede4fa" }}>
+          <Card key={index} sx={{ margin: "10px", backgroundColor: "white", border: "1px solid #e0e0e0", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {budgetItem.eventID}
@@ -82,14 +82,16 @@ const DisplayBudgets = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <IconButton onClick={() => deleteBudget(budgetItem._id)}>
-                <FaTrash />
-              </IconButton>
+              
               <Link to={`/updateBudget/${budgetItem._id}`} style={{ textDecoration: "none" }}>
                 <IconButton>
-                  <FaEdit />
+                <FaEdit style={{ color: 'green' }} />
                 </IconButton>
               </Link>
+
+              <IconButton onClick={() => deleteBudget(budgetItem._id)}>
+              <FaTrash style={{ color: 'red' }} />
+              </IconButton>
             </CardActions>
           </Card>
           </Link>

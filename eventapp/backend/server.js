@@ -13,12 +13,12 @@ const port = process.env.PORT || 5003;
 //import routes
 const userRoute = require("./routes/user/user.routes");
 const occasionRoute = require("./routes/events/occasion.routes");
-const bookingRouter = require("./routes/events/booking.routes");
+const eventbookingRouter = require("./routes/events/eventbooking.routes");
 
 //define routes
 app.use("/api/users/", userRoute);
 app.use("/api/occasions/", occasionRoute);
-app.use("/api/bookings/", bookingRouter);
+app.use("/api/eventbookings/", eventbookingRouter);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Occasion renting system!");

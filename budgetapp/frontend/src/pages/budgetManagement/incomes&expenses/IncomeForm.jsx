@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from "../../../components/Button/Button"
+import Button from "../../../components/Button/Button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./incomeform.css";
@@ -9,17 +9,18 @@ import TextField from "@mui/material/TextField";
 import { plus } from "../../../assets/budgetImages/budgetIcons";
 
 const IncomeForm = () => {
+  const today = new Date(); // Get today's date
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
-    date: "",
+    date: today, // Set default date to today's date
     category: "",
     description: "",
   });
 
   const [error, setError] = useState(null);
 
-  const handleInput = name => e => {
+  const handleInput = (name) => (e) => {
     setInputState({ ...inputState, [name]: e.target.value });
     setError("");
   };
@@ -47,7 +48,7 @@ const IncomeForm = () => {
       setInputState({
         title: "",
         amount: "",
-        date: "",
+        date: today, // Reset date to today's date after submission
         category: "",
         description: "",
       });
@@ -66,7 +67,7 @@ const IncomeForm = () => {
           type="text"
           value={inputState.title}
           name="title"
-          id = 'title'
+          id="title"
           label="Income Title"
           onChange={handleInput("title")}
         />
@@ -89,7 +90,9 @@ const IncomeForm = () => {
           placeholderText="Enter A Date"
           selected={inputState.date}
           dateFormat="dd/MM/yyyy"
-          onChange={date => setInputState({ ...inputState, date })}
+          onChange={(date) => setInputState({ ...inputState, date })}
+          minDate={new Date("1900-01-01")} // Set minDate to an earliest allowed date
+          maxDate={today} // Set maxDate to today's date
         />
       </div>
 
