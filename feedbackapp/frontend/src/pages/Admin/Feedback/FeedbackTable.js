@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, } from "@mui/material";
+import { Box, Button, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { CSVLink } from 'react-csv';
 import Search from '@mui/icons-material/Search';
-import { Navigate } from "react-router-dom";
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 
 const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
@@ -11,7 +11,7 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
 
     const filteredRows = rows.filter(row =>
         (row.name && row.name.toLowerCase().includes(searchQuery.toLowerCase())) 
-        //(row.Jewelry_Name && row.Jewelry_Name.toLowerCase().includes(searchQuery.toLowerCase()))
+        
     );
 
     const handleSearchChange = (event) => {
@@ -23,8 +23,6 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
         { label: 'User_ID', key: 'User_ID' },
         { label: 'Name', key: 'name' },
         { label: 'Email', key: 'email' },
-        { label: 'Jewelry_ID', key: 'Jewelry_ID' },
-        { label: 'Jewelry_Name', key: 'Jewelry_Name' },
         { label: 'Rating', key: 'rating' },
         { label: 'Feedback', key: 'feedback' },
     ];
@@ -34,14 +32,23 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
         User_ID: row.User_ID,
         name: row.name,
         email: row.email,
-        Jewelry_ID: row.Jewelry_ID,
-        Jewelry_Name: row.Jewelry_Name,
         rating: row.rating,
         feedback: row.feedback,
     }));
 
     const totalFeedbackCount = filteredRows.length;
 
+    const handleGeneratePDF = () => {
+        const doc = new jsPDF();
+        doc.text("Feedback Report", 14, 15);
+        doc.autoTable({
+            head: [['ID', 'User_ID', 'Name', 'Email',  'Rating', 'Feedback']],
+            body: csvData.map(row => [row.id, row.User_ID, row.name, row.email, row.rating, row.feedback]),
+            startY: 20
+        });
+        doc.save("feedback_report.pdf");
+    };
+    
     return (
         <div>
             <Typography variant="h4" sx={{ flex: 1, color: '#000000', marginLeft: 5, textAlign: 'center',fontWeight: 'bold', marginTop: '20px' }}>Admin View Feedback</Typography>
@@ -81,7 +88,7 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
                         data={csvData}
                         headers={csvHeaders}
                         filename={"feedback_data.csv"}
-                        style={{ textDecoration: 'none' }}
+                        style={{ textDecoration: 'none', marginRight: '10px' }}
                     >
                         <Button sx={{
                             color: "white",
@@ -92,8 +99,20 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
                             '&:hover': {
                                 backgroundColor: '#0d47a1',
                             },
+                            textTransform: 'none', // Preserve the case of the text
                         }}>Generate CSV</Button>
                     </CSVLink>
+                    <Button onClick={handleGeneratePDF} sx={{
+                        color: "white",
+                        fontWeight: 'bold',
+                        fontSize: 14,
+                        borderRadius: '40px',
+                        backgroundColor: '#1565c0',
+                        '&:hover': {
+                            backgroundColor: '#0d47a1',
+                        },
+                        textTransform: 'none', // Preserve the case of the text
+                    }}>Generate PDF</Button>
                 </Paper>
 
                 <Paper elevation={3} sx={{ padding: '20px', margin: '20px auto', width: 'fit-content' }}>
@@ -110,8 +129,6 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>User_ID</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Name</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Email</TableCell>
-                            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Jewelry_ID</TableCell>
-                            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Jewelry_Name</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Rating</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Feedback</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Actions</TableCell>
@@ -125,8 +142,6 @@ const FeedbackTable = ({ rows, selectedFeedback, deleteFeedback }) => {
                                     <TableCell>{row.User_ID}</TableCell>
                                     <TableCell>{row.name}</TableCell>
                                     <TableCell>{row.email}</TableCell>
-                                    <TableCell>{row.Jewelry_ID}</TableCell>
-                                    <TableCell>{row.Jewelry_Name}</TableCell>
                                     <TableCell>{row.rating}</TableCell>
                                     <TableCell>{row.feedback}</TableCell>
                                     <TableCell>
