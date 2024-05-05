@@ -172,9 +172,15 @@ const ShowServices = () => {
                             </PriceDiscount>
                             <ButtonContainer>
                               <DarkRedButton
-                                onClick={() =>
-                                  deleteHandler(data._id, "DeleteService")
-                                }
+                                onClick={() => {
+                                  if (
+                                    window.confirm(
+                                      "Are you sure you want to delete this service?"
+                                    )
+                                  ) {
+                                    deleteHandler(data._id, "DeleteService");
+                                  }
+                                }}
                               >
                                 Delete
                               </DarkRedButton>
