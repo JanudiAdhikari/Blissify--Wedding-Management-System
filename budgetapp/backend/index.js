@@ -13,13 +13,15 @@ dotenv.config();
 const PORT = process.env.PORT || 7000;
 const URL = process.env.MONGODB_URL;
 
-mongoose.connect(URL).then(() => {
+mongoose
+  .connect(URL)
+  .then(() => {
     console.log("Database Connected Successfully");
 
     app.listen(PORT, () => {
-        console.log(`Server is running on port: ${PORT}`);
-    })
-}).catch(error => console.log(error));
-
+      console.log(`Server is running on port: ${PORT}`);
+    });
+  })
+  .catch((error) => console.log(error));
 
 app.use("/api", route);
