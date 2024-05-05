@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 
-const port = 3001;
+const port = process.env.PORT || 3006;
 const host = "localhost";
 const mongoose = require("mongoose");
 const router = require("./routes/feedbackRouter");
