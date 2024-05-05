@@ -64,67 +64,67 @@ const UpdateBudget = () => {
       (v) => v
     ).length !== 2;
 
-    const packages = [
-      {
-        value: "Classic Elegance Package",
-        label: "Classic Elegance Package",
-      },
-      {
-        value: "Luxury Romance Package",
-        label: "Luxury Romance Package",
-      },
-      {
-        value: "Beach Bliss Package",
-        label: "Beach Bliss Package",
-      },
-      {
-        value: "Cultural Celebration Package",
-        label: "Cultural Celebration Package",
-      }
-    ];
+  const packages = [
+    {
+      value: "Classic Elegance Package",
+      label: "Classic Elegance Package",
+    },
+    {
+      value: "Luxury Romance Package",
+      label: "Luxury Romance Package",
+    },
+    {
+      value: "Beach Bliss Package",
+      label: "Beach Bliss Package",
+    },
+    {
+      value: "Cultural Celebration Package",
+      label: "Cultural Celebration Package",
+    },
+  ];
 
   const submitForm = async (e) => {
     e.preventDefault();
     const vendorServices = Object.entries(state)
-        .filter(([key, value]) => value)
-        .map(([key]) => key);
+      .filter(([key, value]) => value)
+      .map(([key]) => key);
     const budgetToSend = {
       ...budget,
       vendorServices,
     };
     await axios
-        .put(`http://localhost:8000/api/updateBudget/${id}`, budgetToSend)
-        .then((response) => {
-          toast.success(response.data.msg, { position: "top-right" });
-          navigate("/displayBudgets");
-        })
-        .catch((error) => console.log(error));
+      .put(`http://localhost:8000/api/updateBudget/${id}`, budgetToSend)
+      .then((response) => {
+        toast.success(response.data.msg, { position: "top-right" });
+        navigate("/displayBudgets");
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     axios
-        .get(`http://localhost:8000/api/getOneBudget/${id}`)
-        .then((response) => {
-          const fetchedBudget = response.data;
-          setBudget(fetchedBudget);
-          const vendorServicesState = {
-            Venue: false,
-            Catering: false,
-            Photography: false,
-            Outfit: false,
-            Decorations: false,
-            Transport: false,
-          };
-          fetchedBudget.vendorServices.forEach((service) => {
-            if (vendorServicesState.hasOwnProperty(service)) {
-              vendorServicesState[service] = true;
-            }
-          });
-          setState(vendorServicesState);
-        })
-        .catch((error) => {
-          console.log(error);
+      .get(`http://localhost:8000/api/getOneBudget/${id}`)
+      .then((response) => {
+        const fetchedBudget = response.data;
+        setBudget(fetchedBudget);
+        const vendorServicesState = {
+          Venue: false,
+          Catering: false,
+          Photography: false,
+          Outfit: false,
+          Decorations: false,
+          Transport: false,
+        };
+        fetchedBudget.vendorServices.forEach((service) => {
+          if (vendorServicesState.hasOwnProperty(service)) {
+            vendorServicesState[service] = true;
+          }
         });
+        setState(vendorServicesState);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [id]);
 
   return (
@@ -133,7 +133,7 @@ const UpdateBudget = () => {
       <h2>Update Budget</h2>
 
       <form className="addBudgetForm" onSubmit={submitForm}>
-      <div
+        <div
           className="inputGroup"
           style={{ display: "flex", flexDirection: "row", columnGap: "10px" }}
         >
@@ -191,7 +191,7 @@ const UpdateBudget = () => {
             <div>
               <TextField
                 id="packages"
-                sx={{width: '100%'}}
+                sx={{ width: "100%" }}
                 select
                 label="Packages"
                 value={budget.packages}

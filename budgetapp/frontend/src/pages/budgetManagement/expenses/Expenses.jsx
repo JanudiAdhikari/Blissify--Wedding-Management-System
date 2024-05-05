@@ -3,7 +3,7 @@ import IncomeItems from "../incomes/IncomeItems";
 import ExpenseForm from "./ExpenseForm";
 import "./expenses.css";
 import axios from "axios";
-import IncomeForm from '../incomes/IncomeForm'
+import IncomeForm from "../incomes/IncomeForm";
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -118,7 +118,6 @@ const Expenses = () => {
             <div className="form-container">
               <IncomeForm />
             </div>
-            
           </div>
         )}
       </div>
@@ -135,11 +134,9 @@ const Expenses = () => {
             <div className="form-container">
               <ExpenseForm />
             </div>
-            
           </div>
         )}
       </div>
-      
     </div>
   );
 };

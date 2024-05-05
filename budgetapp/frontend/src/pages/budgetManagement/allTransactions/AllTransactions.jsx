@@ -10,13 +10,25 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
 import toast from "react-hot-toast";
-import { CardActions, IconButton, TextField, Select, MenuItem, Grid } from "@mui/material"; // Import Grid for layout
+import {
+  CardActions,
+  IconButton,
+  TextField,
+  Select,
+  MenuItem,
+  Grid,
+} from "@mui/material"; // Import Grid for layout
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const columns = [
   { id: "title", label: "Title", minWidth: 100 },
-  { id: "type", label: "Transaction\u00a0Type", minWidth: 100, align: "center" },
+  {
+    id: "type",
+    label: "Transaction\u00a0Type",
+    minWidth: 100,
+    align: "center",
+  },
   {
     id: "category",
     label: "Category",
@@ -27,7 +39,7 @@ const columns = [
     id: "amount",
     label: "Amount\u00a0(Rs.)",
     minWidth: 100,
-    align: "right"
+    align: "right",
   },
   {
     id: "date",
@@ -56,8 +68,12 @@ export default function AllTransactions() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const incomeResponse = await axios.get("http://localhost:8000/api/getIncomes");
-      const expenseResponse = await axios.get("http://localhost:8000/api/getExpenses");
+      const incomeResponse = await axios.get(
+        "http://localhost:8000/api/getIncomes"
+      );
+      const expenseResponse = await axios.get(
+        "http://localhost:8000/api/getExpenses"
+      );
 
       const combinedData = [...incomeResponse.data, ...expenseResponse.data];
       // Sort the combined data array based on date in descending order
@@ -85,15 +101,15 @@ export default function AllTransactions() {
 
   const deleteTransaction = async (id, type) => {
     try {
-      if (type === 'Income') {
+      if (type === "Income") {
         await axios.delete(`http://localhost:8000/api/deleteIncome/${id}`);
-      } else if (type === 'Expense') {
+      } else if (type === "Expense") {
         await axios.delete(`http://localhost:8000/api/deleteExpense/${id}`);
       } else {
-        throw new Error('Invalid Transaction Type');
+        throw new Error("Invalid Transaction Type");
       }
       // Remove the deleted transaction from the frontend state
-      setRowsNew(rowsNew.filter(transaction => transaction._id !== id));
+      setRowsNew(rowsNew.filter((transaction) => transaction._id !== id));
       toast.success("Transaction Deleted Successfully");
     } catch (error) {
       console.error("Error Deleting Transaction:", error);
@@ -102,14 +118,15 @@ export default function AllTransactions() {
   };
 
   // Function to filter transactions based on search query and selected type
-  const filteredTransactions = rowsNew.filter(transaction =>
-    transaction.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (selectedType === "All" || transaction.type === selectedType)
+  const filteredTransactions = rowsNew.filter(
+    (transaction) =>
+      transaction.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (selectedType === "All" || transaction.type === selectedType)
   );
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <Grid container spacing={2} sx={{marginTop: 1, marginBottom: 2}}>
+      <Grid container spacing={2} sx={{ marginTop: 1, marginBottom: 2 }}>
         <Grid item xs={6}>
           {/* Filter bar */}
           <Select
@@ -121,7 +138,6 @@ export default function AllTransactions() {
             <MenuItem value="All">All</MenuItem>
             <MenuItem value="Income">Income</MenuItem>
             <MenuItem value="Expense">Expense</MenuItem>
-            
           </Select>
         </Grid>
         <Grid item xs={6}>
@@ -136,7 +152,7 @@ export default function AllTransactions() {
         </Grid>
       </Grid>
 
-      <TableContainer sx={{ maxHeight: 540}}>
+      <TableContainer sx={{ maxHeight: 540 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -144,7 +160,13 @@ export default function AllTransactions() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white', fontWeight: 'bold', fontSize: '1.1rem'}}
+                  style={{
+                    minWidth: column.minWidth,
+                    backgroundColor: "black",
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: "1.1rem",
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -160,21 +182,33 @@ export default function AllTransactions() {
                     const value = row[column.id];
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {column.id === 'date' ? dateFormat(value) : (
-                          column.format && typeof value === "number"
-                            ? column.format(value)
-                            : column.id === 'options' ? (
-                              <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
-                                {/* <Link to={`/updateBudget/${row._id}`} style={{ textDecoration: "none" }}>
+                        {column.id === "date" ? (
+                          dateFormat(value)
+                        ) : column.format && typeof value === "number" ? (
+                          column.format(value)
+                        ) : column.id === "options" ? (
+                          <CardActions
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {/* <Link to={`/updateBudget/${row._id}`} style={{ textDecoration: "none" }}>
                                   <IconButton size="small">
                                     <FaEdit />
                                   </IconButton>
                                 </Link> */}
-                                <IconButton onClick={() => deleteTransaction(row._id, row.type)} size="small">
-                                <FaTrash style={{ color: 'red' }} />
-                                </IconButton>
-                              </CardActions>
-                            ) : value
+                            <IconButton
+                              onClick={() =>
+                                deleteTransaction(row._id, row.type)
+                              }
+                              size="small"
+                            >
+                              <FaTrash style={{ color: "red" }} />
+                            </IconButton>
+                          </CardActions>
+                        ) : (
+                          value
                         )}
                       </TableCell>
                     );

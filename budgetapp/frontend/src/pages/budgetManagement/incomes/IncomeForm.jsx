@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from "../../../components/Button/Button"
+import Button from "../../../components/Button/Button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./incomeform.css";
@@ -19,12 +19,12 @@ const IncomeForm = () => {
 
   const [error, setError] = useState(null);
 
-  const handleInput = name => e => {
+  const handleInput = (name) => (e) => {
     setInputState({ ...inputState, [name]: e.target.value });
     setError("");
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:8000/api/addIncome", inputState);
@@ -49,7 +49,7 @@ const IncomeForm = () => {
           type="text"
           value={inputState.title}
           name="title"
-          id = 'title'
+          id="title"
           label="Salary Title"
           onChange={handleInput("title")}
         />
@@ -72,7 +72,7 @@ const IncomeForm = () => {
           placeholderText="Enter A Date"
           selected={inputState.date}
           dateFormat="dd/MM/yyyy"
-          onChange={date => setInputState({ ...inputState, date })}
+          onChange={(date) => setInputState({ ...inputState, date })}
         />
       </div>
 

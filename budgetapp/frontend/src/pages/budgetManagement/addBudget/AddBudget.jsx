@@ -45,39 +45,41 @@ const AddBudget = () => {
     if (!validateForm()) {
       return;
     }
-    const vendorServices = Object.keys(state).filter((service) => state[service]);
+    const vendorServices = Object.keys(state).filter(
+      (service) => state[service]
+    );
     const budgetToSend = {
       ...budget,
       vendorServices: vendorServices,
     };
     await axios
-        .post("http://localhost:8000/api/createBudget", budgetToSend)
-        .then((response) => {
-          toast.success(response.data.msg, { position: "top-center" });
-          navigate("/displayBudgets");
-        })
-        .catch((error) => console.log(error));
+      .post("http://localhost:8000/api/createBudget", budgetToSend)
+      .then((response) => {
+        toast.success(response.data.msg, { position: "top-center" });
+        navigate("/displayBudgets");
+      })
+      .catch((error) => console.log(error));
   };
 
   const validateForm = () => {
     let errors = {};
     let isValid = true;
-  
+
     if (!budget.eventID.trim()) {
       errors.eventID = "Event ID is required";
       isValid = false;
     }
-  
+
     if (!budget.brideName.trim()) {
       errors.brideName = "Bride's Name is required";
       isValid = false;
     }
-  
+
     if (!budget.packages) {
       errors.packages = "Package is required";
       isValid = false;
     }
-  
+
     if (!budget.estimatedBudget) {
       errors.estimatedBudget = "Estimated Budget is required";
       isValid = false;
@@ -85,11 +87,10 @@ const AddBudget = () => {
       errors.estimatedBudget = "Estimated Budget must be a valid number";
       isValid = false;
     }
-  
+
     setErrors(errors);
     return isValid;
   };
-  
 
   const [state, setState] = useState({
     Venue: false,
@@ -107,24 +108,24 @@ const AddBudget = () => {
       (v) => v
     ).length !== 2;
 
-    const packages = [
-      {
-        value: "Classic Elegance Package",
-        label: "Classic Elegance Package",
-      },
-      {
-        value: "Luxury Romance Package",
-        label: "Luxury Romance Package",
-      },
-      {
-        value: "Beach Bliss Package",
-        label: "Beach Bliss Package",
-      },
-      {
-        value: "Cultural Celebration Package",
-        label: "Cultural Celebration Package",
-      }
-    ];
+  const packages = [
+    {
+      value: "Classic Elegance Package",
+      label: "Classic Elegance Package",
+    },
+    {
+      value: "Luxury Romance Package",
+      label: "Luxury Romance Package",
+    },
+    {
+      value: "Beach Bliss Package",
+      label: "Beach Bliss Package",
+    },
+    {
+      value: "Cultural Celebration Package",
+      label: "Cultural Celebration Package",
+    },
+  ];
 
   return (
     <div className="addBudget">
@@ -243,13 +244,13 @@ const AddBudget = () => {
           </FormGroup>
         </div>
 
-        <div className="inputGroup" style={{ marginLeft: '20px' }}>
+        <div className="inputGroup" style={{ marginLeft: "20px" }}>
           <div className="flexContainer">
             <div>
               <TextField
                 id="packages"
                 select
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
                 label="Packages"
                 defaultValue={packages[0].value}
                 onChange={inputHandler}
@@ -267,10 +268,14 @@ const AddBudget = () => {
 
             <div>
               <FormControl>
-                <InputLabel htmlFor="outlined-adornment-amount">Estimated Budget</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Estimated Budget
+                </InputLabel>
                 <OutlinedInput
                   id="estimatedBudget"
-                  startAdornment={<InputAdornment position="start">LKR</InputAdornment>}
+                  startAdornment={
+                    <InputAdornment position="start">LKR</InputAdornment>
+                  }
                   label="Amount"
                   onChange={inputHandler}
                   name="estimatedBudget"

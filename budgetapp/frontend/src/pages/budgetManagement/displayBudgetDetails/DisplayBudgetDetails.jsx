@@ -28,10 +28,10 @@ const DisplayBudgetDetails = () => {
     if (componentRef.current) {
       const opt = {
         margin: 1,
-        filename: 'budget_report.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        filename: "budget_report.pdf",
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       };
       html2pdf().from(componentRef.current).set(opt).save();
     }
@@ -39,8 +39,8 @@ const DisplayBudgetDetails = () => {
 
   return (
     <div className="addBudget">
-        <Link to={"/displayBudgets"}>Back</Link>
-      
+      <Link to={"/displayBudgets"}>Back</Link>
+
       {budget && (
         <div>
           <h2 className="budget-details-heading">Budget Details</h2>

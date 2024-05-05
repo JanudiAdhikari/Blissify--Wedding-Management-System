@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ExpenseForm from "./ExpenseForm";
 import "./incomesexpenses.css";
 import axios from "axios";
-import IncomeForm from './IncomeForm';
+import IncomeForm from "./IncomeForm";
 
 const IncomesExpenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -117,7 +117,6 @@ const IncomesExpenses = () => {
             <div className="form-container">
               <IncomeForm />
             </div>
-            
           </div>
         )}
       </div>
@@ -134,11 +133,9 @@ const IncomesExpenses = () => {
             <div className="form-container">
               <ExpenseForm />
             </div>
-            
           </div>
         )}
       </div>
-      
     </div>
   );
 };

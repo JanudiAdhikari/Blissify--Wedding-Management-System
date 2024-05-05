@@ -71,7 +71,6 @@ const Incomes = () => {
             <div className="form-container">
               <IncomeForm />
             </div>
-            
           </div>
         )}
       </div>
