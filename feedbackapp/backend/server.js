@@ -7,14 +7,11 @@ const host = 'localhost';
 const mongoose = require('mongoose');
 const router = require('./routes/feedbackRouter');
 
-app.use(cors()); 
+app.use(cors()); //cors origin unblocking(cross origine resoures sharing)
 
 app.use(express.json());
 
-const uri = 'mongodb+srv://sunera:feedback1211@cluster0.j2j5esj.mongodb.net/feedback_db?retryWrites=true&w=majority&appName=Cluster0';
-
-
-
+const uri =  'mongodb+srv://sunera:feedback1211@cluster0.j2j5esj.mongodb.net/feedback_db?retryWrites=true&w=majority&appName=Cluster0';
 const connect = async () => {
     try {
         await mongoose.connect(uri);

@@ -36,8 +36,8 @@ const addFeedback = (req, res, next) => {
 
 //update feedback
 const updateFeedback = (req, res, next) => {
-    const { id, User_ID, name, email, rating, feedback } = req.body;
-    Feedback.updateOne({ id: id }, { $set: { User_ID: User_ID ,name: name ,email:email, rating:rating, feedback:feedback }} )
+    const { id, User_ID, name, email,  rating, feedback } = req.body;
+    Feedback.updateOne({ id: id }, { $set: { User_ID: User_ID ,name: name ,email:email , rating:rating, feedback:feedback }} )
         .then(response => {
             res.json({ response })
         })
