@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema(
+const eventbookingSchema = new mongoose.Schema(
   {
     occasion: { type: mongoose.Schema.Types.ObjectID, ref: "occasions" },
     user: { type: mongoose.Schema.Types.ObjectID, ref: "users" },
@@ -8,10 +8,10 @@ const bookingSchema = new mongoose.Schema(
     totalHours: { type: Number },
     totalAmount: { type: Number },
     driverRequired: { type: Boolean },
-    bookingStatus: { type: String, default: "Pending" },
+    eventbookingStatus: { type: String, default: "Pending" },
   },
   { timestamps: true, versionKey: false }
 );
 
-const bookingModel = mongoose.model("bookings", bookingSchema);
-module.exports = bookingModel;
+const eventbookingModel = mongoose.model("eventbookings", eventbookingSchema);
+module.exports = eventbookingModel;

@@ -13,7 +13,7 @@ const ExpenseForm = () => {
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
-    date: "",
+    date: new Date(), // Set default date to today's date
     category: "",
     description: "",
   });
@@ -46,7 +46,7 @@ const ExpenseForm = () => {
       setInputState({
         title: "",
         amount: "",
-        date: "",
+        date: new Date(), // Reset date to today's date after submission
         category: "",
         description: "",
       });
@@ -55,7 +55,6 @@ const ExpenseForm = () => {
       setError(error.response.data.message);
     }
   };
-  
 
   return (
     <div className="ExpenseFormStyled" onSubmit={handleSubmit}>
@@ -87,8 +86,9 @@ const ExpenseForm = () => {
           selected={inputState.date}
           dateFormat="dd/MM/yyyy"
           onChange={(date) => {
-            setInputState({ ...inputState, date: date });
+            setInputState({ ...inputState, date });
           }}
+          maxDate={new Date()} // Set maxDate to today's date
         />
       </div>
       <div className="selects input-control">
