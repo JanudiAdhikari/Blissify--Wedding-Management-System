@@ -1,15 +1,14 @@
 //import React from 'react'
 import { Sidebar } from "flowbite-react";
-import { BiBuoy } from "react-icons/bi";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiOutlineCloudUpload, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
 
 
 const SideBar = () => {
   return (
-  <Sidebar aria-label="Sidebar with content separator example" style={{marginTop:'80px'}}>
+  <Sidebar aria-label="Sidebar with content separator example" style={{marginTop:'100px' , marginLeft: '30px'}}>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="/admin/dashboard" icon={HiChartPie}>
+          <Sidebar.Item href="/package" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
 
@@ -30,12 +29,12 @@ const SideBar = () => {
           </Sidebar.Item>*/}
 
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Log In
-          </Sidebar.Item>
-
-          <Sidebar.Item href="#" icon={HiTable}>
             Log Out
           </Sidebar.Item>
+
+         {/* <Sidebar.Item href="#" icon={HiTable}>
+            Log Out
+        </Sidebar.Item> */}
 
         </Sidebar.ItemGroup>
         {/*<Sidebar.ItemGroup>

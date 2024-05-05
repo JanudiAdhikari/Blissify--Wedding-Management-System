@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from "flowbite-react";
 
 const Package = () => {
@@ -19,7 +19,7 @@ const Package = () => {
         {
           packages.map(pkg => (
             <Card className="max-w-sm" key={pkg.id}>
-            <img src={pkg.imageurl} alt={pkg.PackageName} />
+            <img src={pkg.imageurl} alt={pkg.PackageName} className='h-96' />
 
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {pkg.PackageName}
@@ -30,6 +30,8 @@ const Package = () => {
               {pkg.PackageDescription}
               </p>
             </p>
+            <button className='bg-blue-700 font-semibold text-white' style={{ borderRadius: '10px',padding: '12px 24px'}}>GET A QUOTE</button>
+
 
           </Card>
         ))}
