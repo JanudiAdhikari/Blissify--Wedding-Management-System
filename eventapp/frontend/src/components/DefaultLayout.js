@@ -13,7 +13,7 @@ function DefaultLayout(props) {
     },
     {
       key: "2",
-      label: <a href="/userbookings">My Bookings</a>,
+      label: <a href="/usereventbookings">My Eventbookings</a>,
     },
     {
       key: "4",
@@ -37,7 +37,7 @@ function DefaultLayout(props) {
     },
     {
       key: "2",
-      label: <a href="/allbookings">All Bookings</a>,
+      label: <a href="/alleventbookings">All Eventbookings</a>,
     },
     {
       key: "3",

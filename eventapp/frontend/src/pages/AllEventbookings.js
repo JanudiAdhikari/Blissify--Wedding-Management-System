@@ -11,10 +11,10 @@ import * as FileSaver from "file-saver";
 import XLSX from "sheetjs-style";
 import moment from "moment";
 
-const AllBookings = () => {
+const AllEventbookings = () => {
   //Pagination
   const [page, setPage] = useState(1);
-  const [bookingLength, setBookingLength] = useState(0);
+  const [eventbookingLength, setEventbookingLength] = useState(0);
   const [totalBokings, setTotalBokings] = useState([]);
   const [tempData, setTempData] = useState([]); //table data [array
 
@@ -93,19 +93,19 @@ const AllBookings = () => {
     },
     {
       title: "Status",
-      dataIndex: "bookingStatus",
-      key: "bookingStatus",
-      render: (bookingStatus, key) => (
+      dataIndex: "eventbookingStatus",
+      key: "eventbookingStatus",
+      render: (eventbookingStatus, key) => (
         <>
-          {bookingStatus == "Pending" ? (
+          {eventbookingStatus == "Pending" ? (
             // approve & decline buttons
             <div className="d-flex">
               <button
                 onClick={() => {
                   axios
-                    .patch(`/api/bookings/confirmBooking/${key.key}`)
+                    .patch(`/api/eventbookings/confirmEventbooking/${key.key}`)
                     .then((res) => {
-                      message.success("Booking Confirmed");
+                      message.success("Eventbooking Confirmed");
                       window.location.reload();
                     });
                 }}
@@ -126,9 +126,9 @@ const AllBookings = () => {
               <button
                 onClick={() => {
                   axios
-                    .patch(`/api/bookings/declineBooking/${key.key}`)
+                    .patch(`/api/eventbookings/declineEventbooking/${key.key}`)
                     .then((res) => {
-                      message.success("Booking Declined");
+                      message.success("Eventbooking Declined");
                       window.location.reload();
                     });
                 }}
@@ -148,51 +148,51 @@ const AllBookings = () => {
                 <CloseOutlined />
               </button>
             </div>
-          ) : bookingStatus == "Confirmed" ? (
-            <Tag color="green">{bookingStatus.toUpperCase()}</Tag>
+          ) : eventbookingStatus == "Confirmed" ? (
+            <Tag color="green">{eventbookingStatus.toUpperCase()}</Tag>
           ) : (
-            <Tag color="volcano">{bookingStatus.toUpperCase()}</Tag>
+            <Tag color="volcano">{eventbookingStatus.toUpperCase()}</Tag>
           )}
         </>
       ),
     },
   ];
   const [data, setData] = React.useState([]); //table data [array
-  //Get all bookings
-  const getAllBookings = () => {
-    axios.get(`/api/bookings/getallbookings`).then((res) => {
-      setTotalBokings(res.data.bookings);
+  //Get all eventbookings
+  const getAllEventbookings = () => {
+    axios.get(`/api/eventbookings/getalleventbookings`).then((res) => {
+      setTotalBokings(res.data.eventbookings);
       var temp = [];
       //Push data to data array using for loop
-      for (let i = 0; i < res.data.bookings.length; i++) {
+      for (let i = 0; i < res.data.eventbookings.length; i++) {
         temp.push({
-          key: res.data.bookings[i]._id,
-          name: res.data.bookings[i].occasion.name,
-          category: res.data.bookings[i].occasion.category,
-          username: res.data.bookings[i].user.username,
-          bookingStatus: res.data.bookings[i].bookingStatus,
+          key: res.data.eventbookings[i]._id,
+          name: res.data.eventbookings[i].occasion.name,
+          category: res.data.eventbookings[i].occasion.category,
+          username: res.data.eventbookings[i].user.username,
+          eventbookingStatus: res.data.eventbookings[i].eventbookingStatus,
           tags: [
             "FROM:",
-            moment(res.data.bookings[i].bookedTimeSlots.from).format(
+            moment(res.data.eventbookings[i].bookedTimeSlots.from).format(
               "DD-MM-YYYY hh:mm A"
             ),
             "TO:",
-            moment(res.data.bookings[i].bookedTimeSlots.to).format(
+            moment(res.data.eventbookings[i].bookedTimeSlots.to).format(
               "DD-MM-YYYY hh:mm A"
             ),
           ],
-          image: res.data.bookings[i].occasion.image,
-          amount: res.data.bookings[i].totalAmount + " LKR",
+          image: res.data.eventbookings[i].occasion.image,
+          amount: res.data.eventbookings[i].totalAmount + " LKR",
         });
       }
       setData(temp);
       setTempData(temp);
-      setBookingLength(res.data.bookings.length);
+      setEventbookingLength(res.data.eventbookings.length);
     });
   };
 
   useEffect(() => {
-    getAllBookings();
+    getAllEventbookings();
   }, []);
 
   //Occasion search function
@@ -203,12 +203,12 @@ const AllBookings = () => {
     filterData(tempData, searchKey.toLowerCase());
   };
 
-  const filterData = (bookings, searchKey) => {
-    const result = bookings.filter((booking) =>
-      booking.name.toLowerCase().includes(searchKey)
+  const filterData = (eventbookings, searchKey) => {
+    const result = eventbookings.filter((eventbooking) =>
+      eventbooking.name.toLowerCase().includes(searchKey)
     );
     setData(result);
-    setBookingLength(result.length);
+    setEventbookingLength(result.length);
   };
 
   console.log("data", data);
@@ -219,34 +219,34 @@ const AllBookings = () => {
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const fileExtension = ".xlsx";
 
-    totalBokings.map((booking) => {
-      booking["User"] = booking.user.username;
-      booking["Event Name"] = booking.occasion.name;
-      booking["Event Category"] = booking.occasion.category;
-      booking["From"] = booking.bookedTimeSlots.from;
-      booking["To"] = booking.bookedTimeSlots.to;
-      booking["Total Amount"] = booking.totalAmount;
-      booking["Total hours"] = booking.totalHours;
-      booking["Drive Status"] = booking.driverRequired ? "Yes" : "No";
-      booking["Created At"] = booking.createdAt;
+    totalBokings.map((eventbooking) => {
+      eventbooking["User"] = eventbooking.user.username;
+      eventbooking["Event Name"] = eventbooking.occasion.name;
+      eventbooking["Event Category"] = eventbooking.occasion.category;
+      eventbooking["From"] = eventbooking.bookedTimeSlots.from;
+      eventbooking["To"] = eventbooking.bookedTimeSlots.to;
+      eventbooking["Total Amount"] = eventbooking.totalAmount;
+      eventbooking["Total hours"] = eventbooking.totalHours;
+      eventbooking["Drive Status"] = eventbooking.driverRequired ? "Yes" : "No";
+      eventbooking["Created At"] = eventbooking.createdAt;
 
-      delete booking._id;
-      delete booking.__v;
-      delete booking.bookedTimeSlots;
-      delete booking.user;
-      delete booking.occasion;
-      delete booking.createdAt;
-      delete booking.updatedAt;
-      delete booking.driverRequired;
-      delete booking.totalAmount;
-      delete booking.totalHours;
-      delete booking.transactionId;
+      delete eventbooking._id;
+      delete eventbooking.__v;
+      delete eventbooking.bookedTimeSlots;
+      delete eventbooking.user;
+      delete eventbooking.occasion;
+      delete eventbooking.createdAt;
+      delete eventbooking.updatedAt;
+      delete eventbooking.driverRequired;
+      delete eventbooking.totalAmount;
+      delete eventbooking.totalHours;
+      delete eventbooking.transactionId;
     });
     const ws = XLSX.utils.json_to_sheet(totalBokings);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, "Booking Report" + Date.now() + fileExtension);
+    FileSaver.saveAs(data, "Eventbooking Report" + Date.now() + fileExtension);
   };
 
   return (
@@ -264,7 +264,7 @@ const AllBookings = () => {
             color: "darkslategray",
           }}
         >
-          All Bookings
+          All Eventbookings
         </span>
 
         <div
@@ -316,7 +316,7 @@ const AllBookings = () => {
             onChange: handlePaginationChange,
             defaultPageSize: 4,
             showSizeChanger: false,
-            total: bookingLength,
+            total: eventbookingLength,
             defaultCurrent: 1,
 
             position: ["bottomCenter"],
@@ -327,4 +327,4 @@ const AllBookings = () => {
   );
 };
 
-export default AllBookings;
+export default AllEventbookings;
