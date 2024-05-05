@@ -4,9 +4,9 @@ import './history.css';
 const History = ({ incomes, expenses }) => {
     const transactionHistory = () => {
         const history = [...incomes, ...expenses];
-        history.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        return history.slice(0, 6);
+        return history.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).slice(0, 6);
     };
+    
 
     const historyItems = transactionHistory();
 
