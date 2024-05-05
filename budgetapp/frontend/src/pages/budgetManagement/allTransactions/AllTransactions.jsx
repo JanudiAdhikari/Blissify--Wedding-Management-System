@@ -10,7 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
 import toast from "react-hot-toast";
-import { CardActions, IconButton } from "@mui/material";
+import { CardActions, IconButton, TextField, Select, MenuItem, Grid } from "@mui/material"; // Import Grid for layout
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -51,6 +51,8 @@ export default function AllTransactions() {
   const [rowsNew, setRowsNew] = useState([]);
   const [exp, setExp] = useState([]);
   const [trans, setTrans] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store search query
+  const [selectedType, setSelectedType] = useState("All"); // State to store selected transaction type
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +72,7 @@ export default function AllTransactions() {
   }, []);
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -98,27 +100,59 @@ export default function AllTransactions() {
       toast.error("Error Deleting Transaction");
     }
   };
-  
+
+  // Function to filter transactions based on search query and selected type
+  const filteredTransactions = rowsNew.filter(transaction =>
+    transaction.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (selectedType === "All" || transaction.type === selectedType)
+  );
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 540 }}>
+      <Grid container spacing={2} sx={{marginTop: 1, marginBottom: 2}}>
+        <Grid item xs={6}>
+          {/* Filter bar */}
+          <Select
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            variant="outlined"
+            fullWidth
+          >
+            <MenuItem value="All">All</MenuItem>
+            <MenuItem value="Income">Income</MenuItem>
+            <MenuItem value="Expense">Expense</MenuItem>
+            
+          </Select>
+        </Grid>
+        <Grid item xs={6}>
+          {/* Search bar */}
+          <TextField
+            label="Search"
+            variant="outlined"
+            fullWidth
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Grid>
+      </Grid>
+
+      <TableContainer sx={{ maxHeight: 540}}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                key={column.id}
-                align={column.align}
-                style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white', fontWeight: 'bold', fontSize: '1.1rem'}}
-              >
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white', fontWeight: 'bold', fontSize: '1.1rem'}}
+                >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rowsNew
+            {filteredTransactions // Render filtered transactions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableRow hover role="checkbox" tabIndex={-1} key={index}>
@@ -130,7 +164,6 @@ export default function AllTransactions() {
                           column.format && typeof value === "number"
                             ? column.format(value)
                             : column.id === 'options' ? (
-                              
                               <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
                                 {/* <Link to={`/updateBudget/${row._id}`} style={{ textDecoration: "none" }}>
                                   <IconButton size="small">
@@ -152,9 +185,9 @@ export default function AllTransactions() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 25, 100]}
         component="div"
-        count={rowsNew.length}
+        count={filteredTransactions.length} // Use the length of filtered transactions
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

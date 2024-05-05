@@ -25,6 +25,22 @@ const ExpenseForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputState.title.trim()) {
+      setError("Please Enter a Title for the Expense.");
+      return;
+    }
+    if (isNaN(inputState.amount) || inputState.amount <= 0) {
+      setError("Please Enter a Valid Amount.");
+      return;
+    }
+    if (!inputState.date) {
+      setError("Please Select a Date.");
+      return;
+    }
+    if (!inputState.category) {
+      setError("Please Select a Category.");
+      return;
+    }
     try {
       await axios.post("http://localhost:8000/api/addExpense", inputState);
       setInputState({
@@ -34,12 +50,12 @@ const ExpenseForm = () => {
         category: "",
         description: "",
       });
-      // Show success toast message
-      toast.success("Expense added successfully!");
+      toast.success("Expense Added Successfully!");
     } catch (error) {
       setError(error.response.data.message);
     }
   };
+  
 
   return (
     <div className="ExpenseFormStyled" onSubmit={handleSubmit}>

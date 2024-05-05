@@ -64,14 +64,24 @@ const UpdateBudget = () => {
       (v) => v
     ).length !== 2;
 
-  const packages = [
-    { value: "Customized", label: "Customized Package" },
-    { value: "Gold", label: "Gold Package" },
-    { value: "Silver", label: "Silver Package" },
-    { value: "Bronze", label: "Bronze Package" },
-    { value: "Summer", label: "Summer Love Package" },
-    { value: "Spring", label: "Spring Blossom Package" },
-  ];
+    const packages = [
+      {
+        value: "Classic Elegance Package",
+        label: "Classic Elegance Package",
+      },
+      {
+        value: "Luxury Romance Package",
+        label: "Luxury Romance Package",
+      },
+      {
+        value: "Beach Bliss Package",
+        label: "Beach Bliss Package",
+      },
+      {
+        value: "Cultural Celebration Package",
+        label: "Cultural Celebration Package",
+      }
+    ];
 
   const submitForm = async (e) => {
     e.preventDefault();

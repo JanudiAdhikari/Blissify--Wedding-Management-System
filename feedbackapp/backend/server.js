@@ -1,34 +1,36 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv");
+const express = require('express');
 const app = express();
-require("dotenv").config();
+const cors = require('cors');
 
-const PORT = process.env.PORT || 8070;
+const port = 3001;
+const host = 'localhost';
+const mongoose = require('mongoose');
+const router = require('./routes/feedbackRouter');
 
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors()); 
 
-const URL = process.env.MONGODB_URL;
+app.use(express.json());
 
-mongoose.connect(URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+const uri = 'mongodb+srv://sunera:feedback1211@cluster0.j2j5esj.mongodb.net/feedback_db?retryWrites=true&w=majority&appName=Cluster0';
+
+
+
+const connect = async () => {
+    try {
+        await mongoose.connect(uri);
+        console.log('connected to mongoDB');
+    } catch (error) {
+        console.log('mongoDB error: ',error);
+        
+    }
+};
+
+connect();
+
+//call back function
+const server = app.listen(port,host, () => {
+    console.log(`Node server is listing to ${server.address().port}`) //check actually working sever?
     
 });
 
-const connection = mongoose.connection;
-connection.once("open", () => {
-    console.log("Mongodb Connection success!");
-})
-
-const feedbackRouter = require("./routes/feedbacks.js");
-
-
-app.use("/feedback",feedbackRouter);
-
-app.listen(PORT, () => {
-    console.log(`Server is up and running on port number: ${PORT}`);
-});
+app.use('/api',router);

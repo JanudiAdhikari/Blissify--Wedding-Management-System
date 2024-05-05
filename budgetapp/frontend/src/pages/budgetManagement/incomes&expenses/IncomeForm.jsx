@@ -26,6 +26,22 @@ const IncomeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputState.title.trim()) {
+      setError("Please Enter a Title for the Income.");
+      return;
+    }
+    if (isNaN(inputState.amount) || inputState.amount <= 0) {
+      setError("Please enter a Valid Amount.");
+      return;
+    }
+    if (!inputState.date) {
+      setError("Please select a Date.");
+      return;
+    }
+    if (!inputState.category) {
+      setError("Please select a Category.");
+      return;
+    }
     try {
       await axios.post("http://localhost:8000/api/addIncome", inputState);
       setInputState({
@@ -35,7 +51,6 @@ const IncomeForm = () => {
         category: "",
         description: "",
       });
-      
       toast.success("Income Added Successfully!");
     } catch (error) {
       setError(error.response.data.message);
