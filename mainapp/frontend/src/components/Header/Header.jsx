@@ -16,7 +16,7 @@ const nav_links = [
     display: "About",
   },
   {
-    path: "/tours",
+    path: "https://event-blissify.netlify.app/",
     display: "Events",
   },
 ];
@@ -98,7 +98,9 @@ const Header = () => {
                 ) : (
                   <>
                     <Button className="btn secondary__btn">
-                      <Link to="">Login</Link>
+                      <Link to="https://guest-blissify.netlify.app/choose">
+                        Login
+                      </Link>
                     </Button>
                     <Button className="btn primary__btn">
                       <Link to="">Sign Up</Link>

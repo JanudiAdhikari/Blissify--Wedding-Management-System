@@ -22,6 +22,11 @@ const servicesData = [
     title: "Customizable Packages",
     desc: "Customize your wedding event according to your needs and budget",
   },
+  // {
+  //   imgUrl: customizationImg,
+  //   title: "Manage Tasks",
+  //   desc: "Manage your wedding tasks and events with ease and efficiency",
+  // },
 ];
 
 const ServiceList = () => {

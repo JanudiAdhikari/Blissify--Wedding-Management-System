@@ -27,7 +27,7 @@ const quick_links2 = [
     display: "Gallery",
   },
   {
-    // path: "/login",
+    path: "https://guest-blissify.netlify.app",
     display: "Login",
   },
   {
@@ -144,7 +144,13 @@ const Footer = () => {
           <Col lg="12" className="text-center pt-5">
             <p className="copyright">
               Copyrights {year} All rights Reserved
-              <br></br> Developed By Blissify Developers
+              <br></br> Developed By{" "}
+              <a
+                href="https://blissify-developers.netlify.app/"
+                style={{ textDecoration: "none" }}
+              >
+                Blissify Developers
+              </a>
             </p>
           </Col>
         </Row>
