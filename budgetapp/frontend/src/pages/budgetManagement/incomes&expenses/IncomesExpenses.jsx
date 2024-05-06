@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ExpenseForm from "./ExpenseForm";
 import "./incomesexpenses.css";
 import axios from "axios";
-import IncomeForm from './IncomeForm';
+import IncomeForm from "./IncomeForm";
 
 const IncomesExpenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -10,17 +10,6 @@ const IncomesExpenses = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const addExpense = async (expense) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/addExpense",
-        expense
-      );
-      getExpenses();
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
 
   const getExpenses = async () => {
     try {
@@ -34,16 +23,7 @@ const IncomesExpenses = () => {
     }
   };
 
-  const deleteExpense = async (id) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:8000/api/deleteExpense/${id}`
-      );
-      getExpenses();
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
+ 
 
   const calculateTotalExpenses = () => {
     let totalExpense = 0;
@@ -54,17 +34,6 @@ const IncomesExpenses = () => {
     return totalExpense;
   };
 
-  const addIncome = async (income) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/addIncome",
-        income
-      );
-      getIncomes();
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
 
   const getIncomes = async () => {
     try {
@@ -78,16 +47,7 @@ const IncomesExpenses = () => {
     }
   };
 
-  const deleteIncome = async (id) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:8000/api/deleteIncome/${id}`
-      );
-      getIncomes();
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
+ 
 
   const calculateTotalIncome = () => {
     let total = 0;
@@ -117,7 +77,6 @@ const IncomesExpenses = () => {
             <div className="form-container">
               <IncomeForm />
             </div>
-            
           </div>
         )}
       </div>
@@ -134,11 +93,9 @@ const IncomesExpenses = () => {
             <div className="form-container">
               <ExpenseForm />
             </div>
-            
           </div>
         )}
       </div>
-      
     </div>
   );
 };

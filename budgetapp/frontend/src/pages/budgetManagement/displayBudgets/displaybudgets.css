@@ -67,7 +67,7 @@
 
   .budget-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
     gap: 20px; /* spacing between cards */
     margin-top: 20px; /* adjust as needed */
   }

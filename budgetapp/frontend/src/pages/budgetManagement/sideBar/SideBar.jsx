@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
-import { budgetDashboard, budgetBudget, budgetExpense, budgetIncome, budgetPackage, budgetAnaly, budgetLogout } from "../../../assets/budgetImages/budgetIcons";
+import { budgetDashboard, budgetBudget, budgetExpense, budgetIncome, budgetPackage, budgetLogout } from "../../../assets/budgetImages/budgetIcons";
 
 const SideBar = () => {
   const menuItems = [
@@ -18,7 +18,7 @@ const SideBar = () => {
     {
       text: "Packages",
       icon: budgetPackage,
-      link: "/packageapp",
+      link: "/",
     },
     {
       text: "Incomes & Expenses",
@@ -29,11 +29,6 @@ const SideBar = () => {
       text: "All Transactions",
       icon: budgetIncome,
       link: "/displayTransactions",
-    },
-    {
-      text: "Analytics",
-      icon: budgetAnaly,
-      link: "/analytics",
     }
   ];
 
