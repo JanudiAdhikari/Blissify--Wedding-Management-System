@@ -11,16 +11,19 @@ const servicesData = [
     imgUrl: guideImg,
     title: "Guest Guide",
     desc: "High experience and realiable guest guide services",
+    url: "https://www.google.com",
   },
   {
     imgUrl: weatherImg,
     title: "Vendor Services",
     desc: "Explore and experience the best vendor services",
+    url: "https://www.google.com",
   },
   {
     imgUrl: customizationImg,
     title: "Customizable Packages",
     desc: "Customize your wedding event according to your needs and budget",
+    url: "https://www.google.com",
   },
   // {
   //   imgUrl: customizationImg,
