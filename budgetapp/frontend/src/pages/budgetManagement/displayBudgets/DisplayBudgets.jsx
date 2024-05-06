@@ -5,15 +5,12 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import {
-  Box,
   Card,
   CardActions,
   CardContent,
   IconButton,
   Typography,
 } from "@mui/material";
-import { plus } from "../../../assets/budgetImages/budgetIcons";
-import Button from "../../../components/Button/Button";
 import "./displaybudgets.css";
 
 const DisplayBudgets = () => {
@@ -53,7 +50,7 @@ const DisplayBudgets = () => {
     setPage(value);
   };
 
-  const budgetsPerPage = 8; // 4 per row * 2 rows = 8
+  const budgetsPerPage = 10; // 4 per row * 2 rows = 8
   const startIndex = (page - 1) * budgetsPerPage;
   const endIndex = Math.min(startIndex + budgetsPerPage, budget.length);
   const displayedBudgets = budget.slice(startIndex, endIndex);
@@ -66,6 +63,7 @@ const DisplayBudgets = () => {
         </Link>
       </div>
 
+      
       <div className="budget-cards">
         {displayedBudgets.map((budgetItem, index) => (
           <Link to={`/budget/${budgetItem._id}`} style={{ textDecoration: "none" }}>
@@ -97,6 +95,7 @@ const DisplayBudgets = () => {
           </Link>
         ))}
       </div>
+    
 
       <Pagination
         count={Math.ceil(budget.length / budgetsPerPage)}

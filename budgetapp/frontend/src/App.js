@@ -8,7 +8,6 @@ import DisplayBudgets from './pages/budgetManagement/displayBudgets/DisplayBudge
 import BudgetDashboard from './pages/budgetManagement/budgetDashboard/BudgetDashboard';
 import IncomesExpenses from './pages/budgetManagement/incomes&expenses/IncomesExpenses';
 import AllTransactions from './pages/budgetManagement/allTransactions/AllTransactions';
-import Analytics from './pages/budgetManagement/analytics/Analytics';
 import DisplayBudgetDetails from './pages/budgetManagement/displayBudgetDetails/DisplayBudgetDetails';
 
 function App() {
@@ -26,13 +25,10 @@ function App() {
               <Route path="/updateBudget/:id" element={<UpdateBudget />} />
               <Route path="/displayIncomesExpenses" element={<IncomesExpenses />} />
               <Route path="/displayTransactions" element={<AllTransactions />} />
-              <Route path='/analytics' element={<Analytics/>}/>
               <Route path='/budget/:id' element={<DisplayBudgetDetails/>}/>
               
             </Routes>
           </FMLayout>
-
-          {/* <Route path="/packageapp" element={<packageapp />} /> */}
           
         </BrowserRouter>
       </div>

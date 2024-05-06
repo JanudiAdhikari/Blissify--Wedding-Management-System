@@ -19,7 +19,7 @@
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     gap: 0.5rem;
 }
 
@@ -32,6 +32,8 @@
 .expense-content {
     display: flex;
     gap: 2rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .expenses {
@@ -61,10 +63,22 @@
     scrollbar-width: none;
 }
 
+.total-expense,
+.total-income {
+    width: 450px;
+}
+
+
 .flex-container {
     display: flex;
-  }
-  
+}
+
+.innerStyleIncome,
+.innerStyleExpense {
+    padding: 2rem 1.5rem;
+    flex: 1;
+}
+
 
 
 .incomeStyle {
@@ -88,7 +102,7 @@
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     gap: 0.5rem;
 }
 
@@ -101,6 +115,8 @@
 .income-content {
     display: flex;
     gap: 2rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .incomes {
@@ -129,4 +145,3 @@
 .incomeStyle {
     scrollbar-width: none;
 }
-
