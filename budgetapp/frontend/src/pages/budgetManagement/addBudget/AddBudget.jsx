@@ -139,7 +139,7 @@ const AddBudget = () => {
           <TextField
             required
             id="eventID"
-            label="Event Name/ID"
+            label="Event Name"
             onChange={inputHandler}
             name="eventID"
             error={errors.eventID ? true : false}
