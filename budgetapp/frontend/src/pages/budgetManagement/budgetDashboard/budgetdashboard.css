@@ -33,44 +33,44 @@
 
 .stats-con .chart-con .amount-con .income{
     background: #ffffff;
-    border: 2px solid green;
+    border: 3px solid green;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
-    padding: 1rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .stats-con .chart-con .amount-con .expense
 {
     background: #ffffff;
-    border: 2px solid red;
+    border: 3px solid red;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
-    padding: 1rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .stats-con .chart-con .amount-con .balance
 {
     background: #ffffff;
-    border: 2px solid #4d1c9c;
+    border: 3px solid #4d1c9c;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
-    padding: 0.9rem;
+    padding: 0.5rem;
     grid-column: 2 / 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 
 .stats-con .history-con {
