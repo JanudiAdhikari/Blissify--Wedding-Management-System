@@ -1,9 +1,12 @@
 # Blissify--Wedding-Management-System
+
 SLIIT 2nd year second semester ITP module project using MERN stack technology for a wedding management system.
 
 <p align="center">
 <a href="https://ibb.co/q7HjVZs"><img src="https://i.ibb.co/5GQ4w78/Screenshot-2024-05-08-101902.png" alt="Blissify" border="0"></a>
 </p>
+
+<h3>Demo Video: https://youtu.be/ZZwhkC4C63M </h3>
 
 <h3>Project Architecture</h3>
 
