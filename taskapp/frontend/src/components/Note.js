@@ -86,13 +86,13 @@ const Note = (props) => {
         {dialog.isLoading && <Dialog areYouSure={areYouSure} />}
         <div className="note-head">
           <button className="note-bt" onClick={() => saveNote(val.id)}>
-            <BiSolidSave color="#f7efe5" size={20} />
+            <BiSolidSave color="green" size={20} />
           </button>
           <button className="note-bt" onClick={focusBtn}>
-            <BiEdit color="#f7efe5" size={20} />
+            <BiEdit color="blue" size={20} />
           </button>
           <button onClick={() => deleteNote(val.id)} className="note-bt">
-            <AiFillDelete color="#f7efe5" size={20} />
+            <AiFillDelete color="red" size={20} />
           </button>
         </div>
         <h3 id="note-title">{`${val.title}`}</h3>
@@ -101,6 +101,7 @@ const Note = (props) => {
           value={text}
           spellCheck="false"
           onChange={typing}
+          // justifyContent="center"
           onFocus={(event) =>
             event.currentTarget.setSelectionRange(
               event.currentTarget.value.length,

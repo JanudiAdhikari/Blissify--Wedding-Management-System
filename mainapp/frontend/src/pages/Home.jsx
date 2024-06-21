@@ -27,16 +27,13 @@ const Home = () => {
             <Col lg="6">
               <div className="hero_Content">
                 <h1>
-                  Welecome <br /> to Blissify
+                  Welcome <br /> to Blissify
                 </h1>
                 <p>
-                  Where dreams of a perfect wedding day become an effortless
-                  reality. Picture this: a serene oasis where every detail, from
-                  the delicate lace on the tablecloths to the enchanting melody
-                  {/* of the first dance, is meticulously curated just for you. Our
-                  wedding management system isn't just about organizing
-                  logistics; it's about crafting unforgettable moments that
-                  weave seamlessly into the tapestry of your love story. */}
+                  We are the best wedding planning service in Sri Lanka which
+                  has all services in one single place. <br></br>
+                  Experience the beaty of the wedding with us. We are here to
+                  help you to make your dream day to a reality.
                 </p>
               </div>
             </Col>

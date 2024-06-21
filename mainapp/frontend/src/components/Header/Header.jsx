@@ -61,7 +61,7 @@ const Header = () => {
             {/* logo start */}
             <div
               className="logo"
-              style={{ fontSize: "3rem", fontFamily: "sans-serif" }}
+              style={{ fontSize: "2rem", fontFamily: "sans-serif" }}
             >
               Blissify
               {/* <img src={logo} alt="" /> */}
@@ -98,10 +98,10 @@ const Header = () => {
                 ) : (
                   <>
                     <Button className="btn secondary__btn">
-                      <Link to="./login">Login</Link>
+                      <Link to="">Login</Link>
                     </Button>
                     <Button className="btn primary__btn">
-                      <Link to="./register">Sign Up</Link>
+                      <Link to="">Sign Up</Link>
                     </Button>
                   </>
                 )}

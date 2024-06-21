@@ -60,7 +60,10 @@ const MainNote = ({ notes, setNotes }) => {
             Some of your recently added Notes (readOnly)...
             <br />
             <br />
-            <FaHandPointRight size={30} style={{ marginLeft: "50%" }} />
+            {/* <FaHandPointRight
+              size={30}
+              style={{ marginLeft: "50%", color: "#cfc9c8" }}
+            /> */}
           </div>
           {notes.map((eachNote) => (
             <textarea

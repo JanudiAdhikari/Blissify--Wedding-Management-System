@@ -3,14 +3,14 @@ import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import BookingOccasion from "./pages/BookingOccasion";
+import EventbookingOccasion from "./pages/EventbookingOccasion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserBookings from "./pages/UserBookings";
+import UserEventbookings from "./pages/UserEventbookings";
 import AddOccasion from "./pages/AddOccasion";
 import AdminHome from "./pages/AdminHome";
 import EditOccasion from "./pages/EditOccasion";
 import axios from "axios";
-import AllBookings from "./pages/AllBookings";
+import AllEventbookings from "./pages/AllEventbookings";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:5003";
@@ -30,7 +30,7 @@ function App() {
               path="/editoccasion/:occasionid"
               element={<EditOccasion />}
             />
-            <Route path="/allbookings" element={<AllBookings />} />
+            <Route path="/alleventbookings" element={<AllEventbookings />} />
           </Routes>
         ) : // User Routes
         user && user.role == "User" ? (
@@ -39,9 +39,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route
               path="/bookoccasion/:occasionid"
-              element={<BookingOccasion />}
+              element={<EventbookingOccasion />}
             />
-            <Route path="/userbookings" element={<UserBookings />} />
+            <Route path="/usereventbookings" element={<UserEventbookings />} />
           </Routes>
         ) : (
           <Routes>

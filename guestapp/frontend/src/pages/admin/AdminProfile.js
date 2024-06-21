@@ -62,12 +62,12 @@ const AdminProfile = () => {
         }}
       >
         <CardActionArea>
-          <CardMedia
+          {/* <CardMedia
             component="img"
             height="100%"
             image="https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
             alt="user profile"
-          />
+          /> */}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               <center>{currentUser.name}</center>

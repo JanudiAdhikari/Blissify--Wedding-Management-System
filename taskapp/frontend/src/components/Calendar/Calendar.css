@@ -51,6 +51,7 @@ h4.MuiTypography-root.MuiTypography-h4.MuiTypography-alignCenter.MuiDatePickerTo
 button.MuiButtonBase-root.MuiPickersDay-root.MuiPickersDay-dayWithMargin.MuiPickersDay-today.css-jgls56-MuiButtonBase-root-MuiPickersDay-root {
   color: var(--text);
   border: 1px solid rgb(122, 122, 201);
+  background-color: lightblue;
 }
 .MuiPickersLayout-root.css-4pax7l-MuiPickersLayout-root::-webkit-scrollbar {
   background-color: var(--bg);

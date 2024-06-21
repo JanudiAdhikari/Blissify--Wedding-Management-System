@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import AddedToInvoiceSection from '../components/AddedToInvoiceSection';
-import OutForDeliverySection from '../components/OutForDeliverySection';
+import { useState } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import AddedToInvoiceSection from "../components/AddedToInvoiceSection";
+import OutForDeliverySection from "../components/OutForDeliverySection";
 
 const ShowBookings = () => {
-
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -14,9 +13,19 @@ const ShowBookings = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ bbookingBottom: 1, bbookingColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+    <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          bbookingBottom: 1,
+          bbookingColor: "divider",
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          centered
+        >
           <Tab label="Added To Invoice" {...a11yProps(0)} />
           <Tab label="Reserved for Bookings" {...a11yProps(1)} />
           <Tab label="Completed Bookings" {...a11yProps(2)} />
@@ -30,16 +39,20 @@ const ShowBookings = () => {
         <OutForDeliverySection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        0 Completed Bookings
+        <div style={{ textAlign: "center", margin: "auto" }}>
+          0 Completed Bookings
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        0 Cancelled Bookings
+        <div style={{ textAlign: "center", margin: "auto" }}>
+          0 Cancelled Bookings
+        </div>
       </CustomTabPanel>
     </Box>
   );
-}
+};
 
-export default ShowBookings
+export default ShowBookings;
 
 const CustomTabPanel = ({ children, value, index, ...other }) => {
   return (
@@ -50,18 +63,14 @@ const CustomTabPanel = ({ children, value, index, ...other }) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
-}
+};
 
 const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
-}
+};

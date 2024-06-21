@@ -37,19 +37,20 @@ export const getCoupleDetails = (id) => async (dispatch) => {
   }
 };
 
-export const updateTeachNote = (coupleId, teachNote) => async (dispatch) => {
-  dispatch(getRequest());
+export const updateTeachPreference =
+  (coupleId, teachPreference) => async (dispatch) => {
+    dispatch(getRequest());
 
-  try {
-    await axios.put(
-      `${REACT_APP_BASE_URL}/CoupleNote`,
-      { coupleId, teachNote },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    dispatch(postDone());
-  } catch (error) {
-    dispatch(getError(error));
-  }
-};
+    try {
+      await axios.put(
+        `${REACT_APP_BASE_URL}/CouplePreference`,
+        { coupleId, teachPreference },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dispatch(postDone());
+    } catch (error) {
+      dispatch(getError(error));
+    }
+  };

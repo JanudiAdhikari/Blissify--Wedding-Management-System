@@ -83,16 +83,16 @@ export default function Mainpage({ toast, signIn, user }) {
     <>
       <div className="form-container sign-up">
         <form method="POST" action="/" onSubmit={(e) => handleRegister(e)}>
-          <h1>Create Account</h1>
+          <h1>Registration</h1>
           <div className="social-icons">
-            <button type="button" onClick={googleAuth} className="icon">
+            {/* <button type="button" onClick={googleAuth} className="icon">
               <FcGoogle size={22} />
-            </button>
-            <button type="button" onClick={fbAuth} className="icon">
+            </button> */}
+            {/* <button type="button" onClick={fbAuth} className="icon">
               <FaFacebook size={22} />
-            </button>
+            </button> */}
           </div>
-          <span>or use your email for registration</span>
+          <span>Use your email for registration</span>
           <input
             type="text"
             placeholder="Username"
@@ -118,23 +118,23 @@ export default function Mainpage({ toast, signIn, user }) {
             onChange={(e) => handleOnchange(e)}
           />
           <button className="bt" type="submit">
-            Sign Up
+            Sign In
           </button>
         </form>
       </div>
 
       <div className="form-container sign-in">
         <form method="POST" action="/" onSubmit={(e) => handleLogin(e)}>
-          <h1>Sign In</h1>
+          <h1>Login</h1>
           <div className="social-icons">
-            <button type="button" onClick={googleAuth} className="icon">
+            {/* <button type="button" onClick={googleAuth} className="icon">
               <FcGoogle size={22} />
             </button>
             <button type="button" onClick={fbAuth} className="icon">
               <FaFacebook size={22} />
-            </button>
+            </button> */}
           </div>
-          <span>or use your email and password</span>
+          <span>Use your email and password</span>
           <input
             type="email"
             name="email"
@@ -153,7 +153,7 @@ export default function Mainpage({ toast, signIn, user }) {
             Forget your password?
           </a>
           <button className="bt" type="submit">
-            Sign In
+            Login
           </button>
         </form>
       </div>

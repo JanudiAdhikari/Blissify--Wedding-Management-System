@@ -47,21 +47,21 @@ function Home() {
           );
         }
       } else {
-        for (var booking of occasion.bookedTimeSlots) {
+        for (var eventbooking of occasion.bookedTimeSlots) {
           if (
             moment(values[0].$d, "MMM DD YYYY HH:mm").isBetween(
-              booking.from,
-              booking.to
+              eventbooking.from,
+              eventbooking.to
             ) ||
             moment(values[1].$d, "MMM DD YYYY HH:mm").isBetween(
-              booking.from,
-              booking.to
+              eventbooking.from,
+              eventbooking.to
             ) ||
-            moment(booking.from).isBetween(
+            moment(eventbooking.from).isBetween(
               moment(values[0].$d, "MMM DD YYYY HH:mm"),
               moment(values[1].$d, "MMM DD YYYY HH:mm")
             ) ||
-            moment(booking.to).isBetween(
+            moment(eventbooking.to).isBetween(
               moment(values[0].$d, "MMM DD YYYY HH:mm"),
               moment(values[1].$d, "MMM DD YYYY HH:mm")
             )

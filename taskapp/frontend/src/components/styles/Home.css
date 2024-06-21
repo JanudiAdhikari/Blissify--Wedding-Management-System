@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,400;1,500;1,600&display=swap"); /* :root {
-  --nav : #86A789;
-  --prof: #B2C8BA;
-  --bg: #EBF3E8;
-  --grey: #D2E3C8;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,400;1,500;1,600&display=swap"); 
+
+:root {
+  --nav : #ffffff;
+  --prof: #ffffff;
+  --bg: #ffffff;
+  --grey: #ffffff;
+}
 
 * {
   margin: 0;
@@ -56,7 +58,7 @@ img {
 }
 
 nav button:not(:first-child):hover {
-  background-color: rgb(15, 14, 14);
+  background-color: rgb(222, 222, 222);
   border-radius: 100%;
 }
 .home-body-conatiner {
@@ -221,8 +223,8 @@ hr {
   font-weight: 500;
   font-size: 24px;
   margin-right: auto;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15),
-    0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
+  /* text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15),
+    0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15); */
 }
 #dash-header {
   margin-bottom: 10px;
@@ -369,7 +371,7 @@ hr {
   /* margin-top: 5px; */
   height: 180px;
   border-radius: 5px;
-  background-color: #2d9596;
+  background-color: #fdf1f1;
   color: var(--text);
   height: 200px;
   min-width: 200px;
@@ -386,7 +388,7 @@ hr {
   border: none;
   height: 250px;
   padding: 10px;
-  background-color: #2d9596;
+  background-color: #fdf1f1;
   border-radius: 0 0 10px 10px;
   margin-top: 17px;
 }
@@ -399,7 +401,7 @@ hr {
   min-width: 200px;
   max-width: 212px;
   color: var(--text);
-  background-color: #ec8f5e;
+  background-color: #fdf1f1;
   border-radius: 5px;
   font-family: "Poppins", sans-serif;
   padding: 10px;
@@ -419,14 +421,16 @@ hr {
   border-radius: 50%;
 }
 #one {
-  background-color: rgb(214, 79, 79);
+  background-color: rgb(255, 182, 182);
 }
 #two {
-  background-color: rgb(255, 255, 120);
+  background-color: rgb(167, 182, 255);
 }
 #three {
-  background-color: rgb(134, 228, 134);
+  background-color: rgb(185, 255, 185);
 }
+
+
 #scroller-con-col {
   font-weight: 600;
   font-style: none;
@@ -440,7 +444,7 @@ hr {
   flex-direction: column;
   justify-content: center;
   border-radius: 5px;
-  background-color: #2d9596;
+  background-color: #fdf1f1;
   color: var(--text);
   /* height: 190px; */
   min-width: 200px;

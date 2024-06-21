@@ -57,7 +57,10 @@ const MainTask = ({ tasks, setTasks }) => {
           Some of your upcoming Tasks (readonly)...
           <br />
           <br />
-          <FaHandPointRight size={30} style={{ marginLeft: "50%" }} />
+          {/* <FaHandPointRight
+            size={30}
+            style={{ marginLeft: "50%", color: "#cfc9c8" }}
+          /> */}
         </div>
         {tasks.map((eachTask) => (
           <div id="dash-task-con" key={eachTask.id}>

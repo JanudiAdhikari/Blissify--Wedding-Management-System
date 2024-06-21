@@ -109,7 +109,7 @@ const Task = ({ toast, tasks, setTasks }) => {
   return (
     <div className="home-body-conatiner" data-aos="zoom-in">
       <header className="search-bar">
-        <h1>Task's</h1>
+        {/* <h1>Task's</h1> */}
         <input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -204,6 +204,7 @@ const Task = ({ toast, tasks, setTasks }) => {
                       onClick={() => removeTask(eachTask.id)}
                     >
                       <AiFillDelete size={20} color="#FF6969" />
+                      {/* <AiFillDelete size={20} color="red" /> */}
                     </button>
                   </td>
                 </tr>

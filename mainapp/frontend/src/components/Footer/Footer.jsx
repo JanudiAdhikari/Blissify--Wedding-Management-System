@@ -27,11 +27,11 @@ const quick_links2 = [
     display: "Gallery",
   },
   {
-    path: "/login",
+    // path: "/login",
     display: "Login",
   },
   {
-    path: "/register",
+    // path: "/register",
     display: "Register",
   },
 ];
@@ -56,10 +56,9 @@ const Footer = () => {
                 Blissify
               </div>
 
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Commodi, enim.
-              </p>
+              <p>We Turning Dreams into Reality</p>
+
+              <p>Connect With Us Now </p>
               <div className="social_links d-flex align-items-center gap-4">
                 <span>
                   <Link to="#">
@@ -68,7 +67,7 @@ const Footer = () => {
                 </span>
                 <span>
                   <Link to="#">
-                    <i className="ri-github-fill"></i>
+                    <i className="ri-whatsapp-fill"></i>
                   </Link>
                 </span>
                 <span>
@@ -118,7 +117,7 @@ const Footer = () => {
                   Address:
                 </h6>
 
-                <p className="mb-0">Belihuloya, Balangoda</p>
+                <p className="mb-1">Kothalawela, Malabe</p>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb=0 d-flex align-items-center gap-2">
@@ -128,7 +127,7 @@ const Footer = () => {
                   Email:
                 </h6>
 
-                <p className="mb-0">info@blissify.lk</p>
+                <p className="mb-2">info@blissify.lk</p>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb=0 d-flex align-items-center gap-2">
@@ -138,7 +137,7 @@ const Footer = () => {
                   Phone:
                 </h6>
 
-                <p className="mb-0">+941122565</p>
+                <p className="mb-2">+941122565</p>
               </ListGroupItem>
             </ListGroup>
           </Col>

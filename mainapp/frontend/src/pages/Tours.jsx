@@ -30,7 +30,7 @@ const Tours = () => {
 
   return (
     <>
-      <CommonSection title={"All Events"} />
+      <CommonSection title={""} />
       <section>
         <Container>
           <Row>
@@ -39,7 +39,8 @@ const Tours = () => {
         </Container>
       </section>
       <section className="pt-0">
-        <Container>
+        <h1 className="text-center mt-2">All Events</h1>
+        {/* <Container>
           {loading && <h4 className="text-center pt-5">Loading......</h4>}
           {error && <h4 className="text-center pt-5">{error}</h4>}
 
@@ -65,7 +66,7 @@ const Tours = () => {
               </Col>
             </Row>
           )}
-        </Container>
+        </Container> */}
       </section>
       <Newsletter />
     </>

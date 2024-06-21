@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { authLogout } from '../redux/userSlice';
-import styled from 'styled-components';
-import { updateCouple } from '../redux/userHandle';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogout } from "../redux/userSlice";
+import styled from "styled-components";
+import { updateCouple } from "../redux/userHandle";
 
 const Logout = () => {
-  const { currentUser, currentRole } = useSelector(state => state.user);
+  const { currentUser, currentRole } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,11 +16,11 @@ const Logout = () => {
       console.log(currentUser);
       dispatch(updateCouple(currentUser, currentUser._id));
     }
-  }, [currentRole, currentUser, dispatch])
+  }, [currentRole, currentUser, dispatch]);
 
   const handleLogout = () => {
     dispatch(authLogout());
-    navigate('/');
+    navigate("/");
   };
 
   const handleCancel = () => {
@@ -48,7 +48,7 @@ const LogoutContainer = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  background-color: #b8d3ff;
+  background-color: #f8f8f8;
   color: black;
 `;
 
@@ -69,6 +69,7 @@ const LogoutButton = styled.button`
 
 const LogoutButtonLogout = styled(LogoutButton)`
   background-color: #ea0606;
+  border: none;
   &:hover {
     background-color: #770000;
   }
@@ -76,6 +77,7 @@ const LogoutButtonLogout = styled(LogoutButton)`
 
 const LogoutButtonCancel = styled(LogoutButton)`
   background-color: #0505ba;
+  border: none;
   &:hover {
     background-color: rgb(10, 2, 69);
   }

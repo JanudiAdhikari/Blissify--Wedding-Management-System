@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import DarkMode from "./DarkMode/Darkmode";
+// import DarkMode from "./DarkMode/Darkmode";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import Notification from "./Notification/Notification";
 import { IoMdNotifications } from "react-icons/io";
 import { TfiReload } from "react-icons/tfi";
@@ -71,14 +72,15 @@ const Profile = ({ tasks }) => {
     <React.Fragment>
       <div className="profile" data-aos="fade-left">
         <div className="profile-div">
-          <DarkMode />
+          {/* <DarkMode /> */}
+          <AssignmentIcon />
           <button
             className={`${upcomingTasks.length ? " bell" : ""}`}
             onClick={openNotifi}
           >
             <span id="noti-count">{upcomingTasks.length}</span>
             <span>
-              <IoMdNotifications size={25} color="#3081D0" />
+              <IoMdNotifications size={25} color="black" />
             </span>
           </button>
           <img

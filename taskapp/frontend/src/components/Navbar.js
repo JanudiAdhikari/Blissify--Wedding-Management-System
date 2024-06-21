@@ -5,7 +5,7 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 import axios from "axios";
 import { BiLogOut, BiSolidDashboard } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import icon from "../utils/icon.PNG";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -42,22 +42,24 @@ const Navbar = () => {
   return (
     <nav className="nav-left" data-aos="fade-right">
       <button className="todo-theme">
-        <img src={icon} alt="" />
+        {/* <img src={icon} alt="" /> */}
+        <TaskAltIcon />
       </button>
+
       <button onClick={gototDashboard} className="nav-icon skull">
-        <BiSolidDashboard size={22} color="white" />
+        <BiSolidDashboard size={22} color="#black" />
       </button>
       <button onClick={openTodo} className="nav-icon skull">
-        <LuListTodo size={20} color="white" />
+        <LuListTodo size={20} color="#black" />
       </button>
       <button onClick={openTask} className="nav-icon skull">
-        <IoCalendarNumber size={20} color="white" />
+        <IoCalendarNumber size={20} color="#black" />
       </button>
       <button onClick={openNotes} className="nav-icon skull">
-        <FaRegNoteSticky size={20} color="white" />
+        <FaRegNoteSticky size={20} color="black" />
       </button>
       <button className="nav-icon skull" onClick={logOut}>
-        <BiLogOut size={22} color="white" />
+        <BiLogOut size={22} color="black" />
       </button>
     </nav>
   );
